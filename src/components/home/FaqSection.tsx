@@ -108,8 +108,8 @@ const FaqSection = () => {
                         <img
                             src={
                               openItem === index
-                                  ? '/images/faq-icon-open.svg'
-                                  : '/images/faq-icon-default.svg'
+                                  ? '/images/faq_op.svg'
+                                  : '/images/faq_cl.svg'
                             }
                             alt="Toggle FAQ"
                             className="w-6 h-6"

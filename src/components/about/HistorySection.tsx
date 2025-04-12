@@ -48,12 +48,12 @@ const HistorySection = () => {
             {/* RIGHT IMAGES */}
             <div className="flex flex-col gap-6 sm:flex-row sm:gap-6 sm:ml-[-20px] sm:mr-[-20px]">
               <img
-                  src="/images/ser_hero.svg"
+                  src="/images/about_k1.svg"
                   alt="Community Event 1"
                   className="w-full sm:w-[340px] h-[300px] sm:h-[420px] object-cover rounded-[18px]"
               />
               <img
-                  src="/images/ser_hero.svg"
+                  src="/images/about_k2.svg"
                   alt="Community Event 2"
                   className="w-full sm:w-[340px] h-[300px] sm:h-[420px] object-cover rounded-[18px]"
               />

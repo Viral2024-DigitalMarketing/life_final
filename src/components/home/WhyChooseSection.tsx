@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 const BlobSVG = ({ color, className = "" }) => {
@@ -23,89 +23,60 @@ const WhyChooseSection = () => {
   const [ref2, inView2] = useInView({ threshold: 0.4 });
   const [ref3, inView3] = useInView({ triggerOnce: true, threshold: 0.4 });
 
-  const yellowControls1 = useAnimation();
-  const violetControls = useAnimation();
-  const yellowBlobFromSecondSection = useAnimation();
-
-  const [yellowMoved, setYellowMoved] = useState(false);
-
   useEffect(() => {
     if (inView1) {
-      yellowControls1.start({ x: '100%', y: '100%', opacity: 1, rotate: 360 });
-      violetControls.start({ x: '90%', y: '100%', opacity: 1, rotate: 360 });
+      // Any other animations related to the first section can remain here
     }
-
-    if (inView2 && !yellowMoved) {
-      yellowBlobFromSecondSection.start({
-        y: '150vh',
-        rotate: 360,
-        opacity: 1,
-        transition: { duration: 2, ease: 'easeInOut' },
-      }).then(() => {
-        setYellowMoved(true);
-      });
-    }
-  }, [inView1, inView2, yellowMoved, yellowControls1, violetControls, yellowBlobFromSecondSection]);
+  }, [inView1]);
 
   return (
       <div className="bg-white font-['Abhaya_Libre']">
         {/* Header */}
-        <div className="py-10 px-4">
-          <h2 className="text-4xl font-bold text-center text-black mb-10">Why Choose Life Hospital</h2>
+        <div className="py-8 px-4">
+          <h2 className="text-5xl font-bold text-center text-black mb-10">Why Choose Life Hospital</h2>
         </div>
 
         {/* Section 1 */}
         <motion.div ref={ref1} className="min-h-screen flex items-center justify-center py-20">
-          <div className="container mx-auto px-4">
-            <div className="relative w-full max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-8">
+          <div className="container mx-auto ml-[0px] mt-[-10px] px-4">
+            <div className="relative w-full max-w-6xl mt-[-250px] mx-auto flex flex-col-reverse lg:flex-row items-center gap-8">
               <div className="relative w-full lg:w-1/2 h-[600px] flex items-center justify-center">
-                {/* Violet Card */}
-                <motion.div
-                    className="absolute w-[95%] h-[95%] z-0 top-[100px] left-[100px]"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={inView1 ? violetControls : {}}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                  <BlobSVG color="#7272AF" />
-                </motion.div>
-
-                {/* Yellow Card */}
-                <motion.div
-                    className="absolute w-[98%] h-[98%] z-10 top-[60px] left-[60px]"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={inView1 ? yellowControls1 : {}}
-                    transition={{ duration: 0.8 }}
-                >
-                  <BlobSVG color="#F9D020" />
-                </motion.div>
-
                 {/* Cyan Card */}
                 <motion.div
-                    className="relative w-full h-full z-20"
+                    className="absolute w-full h-full z-[5] top-[-120px] right-[-70px]" // Moved up and to the right, behind the right-side image
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={inView1 ? { opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.8, delay: 0.4 }}
                 >
                   <BlobSVG color="#6FCBCF" />
                   <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                    <h3 className="text-3xl md:text-4xl font-bold text-black mb-4">Recognized for Excellence</h3>
-                    <p className="text-lg text-black/80 max-w-md">
-                      We are proud to be a trusted name in healthcare, known for compassion and cutting-edge care.
+                    <h3 className="text-3xl md:text-4xl font-bold text-black mb-4 font-merriweather">
+                      Recognized for excellence in Ayushman Bharat & Rajiv Aarogyasri.
+                    </h3>
+                    <p className="text-sm ml-[-5px] text-black/80 max-w-md">
+                      This certificate is awarded to Life Hospital, Kamareddy for exemplary performance under Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (AB PM-JAY)-Rajiv Aarogyasri in the State of Telangana on 26 January 2024
                     </p>
                   </div>
                 </motion.div>
               </div>
 
               <motion.div
-                  className="w-full lg:w-1/2"
+                  className="w-full lg:w-1/2 relative z-[10]" // Placed this image above the Cyan Card with a higher z-index
                   initial={{ opacity: 0, x: 50 }}
                   animate={inView1 ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.5 }}
               >
+                {/* Certified Badge */}
                 <img
-                    src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=800&auto=format"
+                    src="/images/certi_why.svg" // Replace with the actual path of your certified image
+                    alt="Certified Badge"
+                    className="absolute top-[-80px] right-[-60px] w-[400px] h-[400px] object-contain z-30" // Adjust size and position as needed
+                />
+
+                <img
+                    src="/images/why_image.svg"
                     alt="Hospital Scene"
-                    className="w-full h-[600px] object-cover rounded-2xl shadow-xl"
+                    className="w-full h-[447px] object-cover rounded-2xl shadow-xl"
                 />
               </motion.div>
             </div>
@@ -113,54 +84,59 @@ const WhyChooseSection = () => {
         </motion.div>
 
         {/* Section 2 */}
-        <motion.div ref={ref2} className="min-h-screen flex items-center justify-center py-20 relative">
-          {/* Yellow Blob Animation Down */}
-          {!yellowMoved && (
-              <motion.div
-                  className="absolute w-[300px] h-[300px] z-50 top-0 left-1/2 -translate-x-1/2"
-                  initial={{ opacity: 0, y: 0, rotate: 0 }}
-                  animate={yellowBlobFromSecondSection}
-              >
-                <BlobSVG color="#F9D020" />
-              </motion.div>
-          )}
-
-          <div className="container mx-auto px-4">
+        <div ref={ref2} className="min-h-screen flex items-center justify-center py-20 relative">
+          <div className="container mt-[-400px] mx-auto px-4">
             <div className="flex flex-col lg:flex-row items-center gap-16">
-              <motion.div
-                  className="w-full lg:w-1/2"
-                  initial={{ opacity: 0, x: -100 }}
-                  animate={inView2 ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.8 }}
-              >
+              {/* Image Section */}
+              <div className="w-full lg:w-1/2 relative">
                 <img
-                    src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format"
+                    src="/images/why_image.svg"
                     alt="Medical Team"
-                    className="w-full h-[600px] object-cover rounded-2xl shadow-xl"
+                    className="w-[551px] h-[447px] ml-[90px] object-cover rounded-[20px] shadow-xl" // Increased width, height, and border-radius
                 />
-              </motion.div>
+                {/* Certified Badge */}
+                <img
+                    src="/images/cert2.svg" // Replace with the actual path of your certified image
+                    alt="Certified Badge"
+                    className="absolute top-[-80px] right-[-5px] w-[450px] h-[450px] object-contain z-10"
+                />
+              </div>
 
-              {/* Violet Card Only */}
-              <motion.div
-                  className="w-full lg:w-1/2 relative"
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={inView2 ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 1, delay: 0.3 }}
-              >
-                <BlobSVG color="#7272AF" className="w-full h-[300px]" />
-                <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
-                  <h3 className="text-2xl font-semibold text-white">Trusted Team of Experts</h3>
+              {/* Violet Card Section */}
+              <div className="w-full lg:w-1/2 relative">
+                <BlobSVG
+                    color="#7272AF"
+                    className="w-full h-[300px] ml-[-90px] mt-[-140px] transform rotate-[-220deg]"
+                />
+                <div className="absolute inset-0 flex flex-col items-start justify-center px-10 text-left">
+                  <h3
+                      className="font-[500] ml-[15px] mt-[-180px] text-[36px] leading-[100%] tracking-[2%] text-[#002622]"
+                      style={{ fontFamily: "Be Vietnam Pro" }}
+                  >
+                    Recognized for excellence in Ayushman Bharat & Rajiv Aarogyasri.
+                  </h3>
+                  <p
+                      className="mt-6 font-[400] ml-[10px] text-[16px] leading-[123%] tracking-[2%] text-[#002622] capitalize"
+                      style={{fontFamily: "Be Vietnam Pro"}}
+                  >
+                    This certificate is awarded to Life Hospital, Kamareddy for exemplary performance under Ayushman
+                    Bharat Pradhan Mantri Jan Arogya Yojana (AB PM-JAY) - Rajiv Aarogyasri in the State of
+                    Telangana <br/> on 26 January 2024.
+                  </p>
                 </div>
-              </motion.div>
+              </div>
+
             </div>
           </div>
-        </motion.div>
+        </div>
+
 
         {/* Section 3 - No Yellow Blob */}
-        <motion.div ref={ref3} className="min-h-screen flex items-center justify-center py-20 relative">
+        <motion.div ref={ref3} className="min-h-screen flex items-center justify-center py-18 relative">
           <div className="container mx-auto px-4">
             <motion.div
-                className="relative w-full max-w-4xl mx-auto h-[200px] bg-[#F9D020] rounded-xl overflow-hidden shadow-xl"
+                className="relative mt-[-500px] mx-auto rounded-xl overflow-hidden shadow-xl"
+                style={{ width: "1214px", height: "100px", backgroundColor: "#F9D020" }}
                 initial={{ opacity: 0, scale: 0.8, rotate: -180 }}
                 animate={inView3 ? { opacity: 1, scale: 1, rotate: 0 } : {}}
                 transition={{ duration: 1.2 }}
@@ -170,7 +146,14 @@ const WhyChooseSection = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={inView3 ? { opacity: 1, y: 0 } : {}}
                     transition={{ delay: 0.6 }}
-                    className="text-4xl font-bold text-white"
+                    style={{
+                      fontFamily: "Merriweather, serif",
+                      fontWeight: 400,
+                      fontSize: "52px",
+                      lineHeight: "100%",
+                      letterSpacing: "2%",
+                      color: "#06009E"
+                    }}
                 >
                   Request Appointment
                 </motion.h2>
@@ -178,6 +161,7 @@ const WhyChooseSection = () => {
             </motion.div>
           </div>
         </motion.div>
+
       </div>
   );
 };

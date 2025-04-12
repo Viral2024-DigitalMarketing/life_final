@@ -165,9 +165,9 @@ const Contact = () => {
 
                         <div className="relative">
                             {/* Show image and button on desktop */}
-                            <div className="hidden md:block w-full h-[400px] rounded-xl overflow-hidden shadow-lg bg-white">
+                            <div className="hidden md:block w-full h-[500px] rounded-xl overflow-hidden shadow-lg bg-white">
                                 <img
-                                    src="/images/map-placeholder.jpg" // Replace with an actual image placeholder
+                                    src="/images/map_img.svg" // Replace with an actual image placeholder
                                     alt="Map Placeholder"
                                     className="w-full h-full object-cover"
                                 />

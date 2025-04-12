@@ -36,7 +36,7 @@ const SpecializedServicesPage = () => {
             description:
                 "Advanced treatments for Ear, Nose, and Throat conditions. Our ENT specialists provide personalized treatment plans for better hearing and respiratory health.",
             tags: ["Ear", "Nose", "Throat", "Head and Neck"],
-            tagIcon: "/images/heart_bl.svg",
+            tagIcon: "/images/black_heart.svg",
             borderColor: "border-black",
             tagBorder: "border-[#347C75]",
             tagText: "text-[#000000]",

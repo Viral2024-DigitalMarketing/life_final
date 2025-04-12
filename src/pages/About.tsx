@@ -16,9 +16,10 @@ const About = () => {
             <main className="flex-grow">
                 <PageHero
                     customContent={<></>} // No text, just image
-                    backgroundImage="/images/about_hero.jpg"
+                    backgroundImage="/images/ab_ban.svg"
+
                     height="h-[100vh]" // Full screen height
-                    backgroundPositionY="15%" // Adjust image framing
+                    backgroundPositionY="1%" // Adjust image framing
                 />
 
                 <FounderDescriptionSection />
