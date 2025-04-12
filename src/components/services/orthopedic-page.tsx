@@ -132,6 +132,7 @@ const OrthopedicPage = () => {
                             </div>
                         </div>
                     </div>
+
                 </div>
             </main>
 
