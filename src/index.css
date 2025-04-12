@@ -1,0 +1,176 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Abhaya+Libre:wght@600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 210 100% 40%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --hospital-blue: 210 100% 40%;
+    --hospital-light-blue: 204 100% 65%;
+    --hospital-dark-blue: 220 100% 25%;
+    
+    --emergency: 0 90% 55%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    /* Remove smooth scroll behavior */
+    scroll-behavior: auto;
+  }
+
+  body {
+    @apply bg-background text-foreground font-vietnam;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-abhaya;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply relative text-base hover:text-hospital-blue transition-colors duration-300;
+  }
+
+  .nav-link::after {
+    @apply content-[''] absolute left-0 bottom-[-5px] h-[2px] w-0 bg-hospital-blue transition-all duration-300 ease-in-out;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  .emergency-btn {
+    @apply flex items-center gap-2 bg-emergency hover:bg-emergency/90 text-white rounded-full px-6 py-2 font-medium transition-all duration-300;
+  }
+
+  .appointment-btn {
+    @apply flex items-center gap-2 bg-hospital-blue hover:bg-hospital-blue/90 text-white rounded-full px-6 py-2 font-medium transition-all duration-300;
+  }
+
+  .phone-number {
+    @apply flex items-center gap-2 text-hospital-blue font-medium;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-abhaya text-gray-800 mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-xl text-hospital-blue font-medium mb-2;
+  }
+
+  .card-shadow {
+    @apply shadow-[0_4px_20px_rgba(0,0,0,0.08)];
+  }
+
+  .hero-gradient {
+    @apply bg-gradient-to-r from-hospital-blue/90 to-hospital-dark-blue/90;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.dropdown-content {
+  @apply hidden absolute mt-2 w-max bg-white border border-gray-200 shadow-lg rounded-md py-3 z-50 animate-fade-in;
+}
+
+.dropdown:hover .dropdown-content {
+  @apply block;
+}
+/* Animation for the number 9 */
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-number {
+  animation: zoomInOut 2s ease-in-out forwards;
+}
+
+.number-circle {
+  position: relative;
+  overflow: hidden;
+}
+
+.number-part {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: revealNumber 2s 1s forwards;
+}
+
+@keyframes revealNumber {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 0;
+  }
+}
