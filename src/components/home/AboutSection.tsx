@@ -156,7 +156,7 @@ const AboutSection = () => {
                             className="w-full h-[200px] sm:h-[220px] sm:w-[551px] sm:h-[385px] object-cover mb-3 sm:mb-4 rounded-lg"
                             alt="Best Healthcare"
                         />
-                        <p className="text-xs sm:text-sm text-gray-600">#1 in Kmareddy</p>
+                        <p className="text-xs sm:text-sm text-gray-600">#1 in Kamareddy</p>
                         <h3 className="text-base sm:text-lg md:text-2xl font-bold text-black mt-1">
                             Best Healthcare
                         </h3>
@@ -201,7 +201,7 @@ const AboutSection = () => {
                             className="w-full h-[200px] sm:h-[215px] sm:w-[551px] sm:h-[380px] object-cover mb-3 sm:mb-4 rounded-lg"
                             alt="Trusted Specialists"
                         />
-                        <p className="text-xs sm:text-sm text-gray-600">#1 in Kmareddy</p>
+                        <p className="text-xs sm:text-sm text-gray-600">#1 in Kamareddy</p>
                         <h3 className="text-base sm:text-lg md:text-2xl font-bold text-black mt-1">
                             Trusted Specialists
                         </h3>
