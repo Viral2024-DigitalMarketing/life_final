@@ -60,9 +60,9 @@ const Navbar: React.FC<NavbarProps> = () => {
   const navLinkActiveClass = 'active';
 
   const hoverCardContentStyle = {
-    marginLeft: '50px',
-    marginTop: '18px',
-    width: '1400px', // Main card width
+    marginLeft: '100px',
+    marginTop: '12px',
+    width: '1200px', // Main card width (same as Services)
     height: '404.90606689453125px',
     justifyContent: 'space-between',
     padding: '36px 100px',
@@ -208,34 +208,44 @@ const Navbar: React.FC<NavbarProps> = () => {
                   <div className="flex flex-col justify-start space-y-4 col-span-1">
                     <div className="mt-4">
                       <img
-                          src="/images/hero_section.svg"
+                          src="/images/nav1.svg"
                           alt="Service Image 1"
-                          className="rounded-lg w-[320px] h-[268px] object-cover shadow-none"
+                          className="rounded-lg ml-[20px] w-[320px] h-[268px] object-cover shadow-none"
                           style={{ borderRadius: '12px' }}
                       />
                     </div>
                     <div className="mt-4">
                       <img
-                          src="/images/service-card-2.jpg"
+                          src="/images/logos.svg"
                           alt="Service Image 2"
-                          className="rounded-lg object-cover w-[320px] h-[268px] shadow-none"
+                          className="rounded-lg object-cover ml-[30px] mt-5 w-[130px] h-[28px] shadow-none"
                           style={{ borderRadius: '12px' }}
                       />
                     </div>
                   </div>
                 </div>
-
                 {/* Social Links */}
-                <div className="absolute bottom-6 right-6 flex items-center gap-6">
-                  <Link to="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-hospital-blue transition-colors duration-300">
+                <div className="absolute bottom-6 left-550 flex ml-[930px] gap-6">
+                  <Link
+                      to="https://www.instagram.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-hospital-blue transition-colors duration-300"
+                  >
                     <Instagram size={24} />
                   </Link>
-                  <Link to="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-hospital-blue transition-colors duration-300">
+                  <Link
+                      to="https://www.linkedin.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-hospital-blue transition-colors duration-300"
+                  >
                     <Linkedin size={24} />
                   </Link>
                 </div>
               </HoverCardContent>
             </HoverCard>
+
             <Link to="/about" className={`${navLinkClass} ${location.pathname === '/about' ? navLinkActiveClass : ''}`}>
               About Us
             </Link>
@@ -250,38 +260,151 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </div>
                 </Link>
               </HoverCardTrigger>
-              <HoverCardContent className="w-[960px] h-[400px] shadow-md grid grid-cols-2 gap-6 p-6 mt-4 ml-16">
-                {/* Left Column: Contact Information */}
-                <div className="space-y-6">
-                  <h3 className="font-bold text-hospital-blue text-lg">Contact Information</h3>
-                  <p className="text-gray-700">Reach out to us for any inquiries or assistance. We’re here to help!</p>
-                  <div className="space-y-4">
-                    <div>
-                      <p className="font-semibold text-gray-800">Phone:</p>
-                      <a href="tel:+917002585724" className="text-hospital-blue hover:underline">+91 7002585724</a>
+              <HoverCardContent className="shadow-md" style={hoverCardContentStyle}> {/* Using the same style as Services */}
+                <div className="grid grid-cols-3 gap-x-4 gap-y-6 items-start">
+                  {/* Left Column for All Contact Info */}
+                  <div className="flex flex-col justify-start space-y-3 ml-[-60px] col-span-1"> {/* Reduced space-y to 3 for tighter grouping */}
+                    <div className="space-y-1"> {/* Minimal spacing for General Enquiry */}
+                      <h3 style={{
+                        fontFamily: 'Ranade',
+                        fontWeight: 500, // Updated to 500
+                        fontSize: '20px',
+                        lineHeight: '100%',
+                        letterSpacing: '1%',
+                        color: '#000000',
+                      }}>General Enquiry</h3>
+                      <div>
+                        <a href="tel:+918592859585" style={{
+                          fontFamily: 'Be Vietnam Pro',
+                          fontWeight: 400,
+                          fontSize: '16px',
+                          lineHeight: '100%',
+                          letterSpacing: '0%',
+                          color: '#2C2C2CF2',
+                        }}>+91 8592859585</a>
+                      </div>
+                      <div>
+                        <a href="tel:+918592859585" style={{
+                          fontFamily: 'Be Vietnam Pro',
+                          fontWeight: 400,
+                          fontSize: '16px',
+                          lineHeight: '100%',
+                          letterSpacing: '0%',
+                          color: '#2C2C2CF2',
+                        }}>+91 8592859585</a>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-semibold text-gray-800">Emergency Number:</p>
-                      <a href="tel:112" className="text-red-600 hover:underline">112</a>
+
+                    {/* Emergency Services right next to General Enquiry */}
+                    <div className="space-y-1"> {/* Minimal spacing for Emergency Services */}
+                      <h3 style={{
+                        fontFamily: 'Ranade',
+                        fontWeight: 500, // Updated to 500
+                        fontSize: '20px',
+                        lineHeight: '100%',
+                        letterSpacing: '1%',
+                        color: '#D61A1A', // Red for Emergency
+                      }}>Emergency Services</h3>
+                      <div>
+                        <a href="tel:+917002585724" style={{
+                          fontFamily: 'Be Vietnam Pro',
+                          fontWeight: 400,
+                          fontSize: '16px',
+                          lineHeight: '100%',
+                          letterSpacing: '0%',
+                          color: '#2C2C2CF2',
+                        }}>+91 7002585724</a>
+                      </div>
+                      <div>
+                        <a href="tel:+917002585724" style={{
+                          fontFamily: 'Be Vietnam Pro',
+                          fontWeight: 400,
+                          fontSize: '16px',
+                          lineHeight: '100%',
+                          letterSpacing: '0%',
+                          color: '#2C2C2CF2',
+                        }}>+91 7002585724</a>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-semibold text-gray-800">WhatsApp:</p>
-                      <a href="tel:+917002585725" className="text-hospital-blue hover:underline">+91 7002585725</a>
+
+                    {/* Appointment Booking moved down */}
+                    <div className="mt-8 space-y-1"> {/* Increased margin-top to move it down */}
+                      <h3 style={{
+                        fontFamily: 'Ranade',
+                        fontWeight: 500, // Updated to 500
+                        fontSize: '20px',
+                        lineHeight: '100%',
+                        letterSpacing: '1%',
+                        color: '#000000',
+                      }}>Appointment Booking</h3>
+                      <div>
+                        <a href="tel:+918597002535" style={{
+                          fontFamily: 'Be Vietnam Pro',
+                          fontWeight: 400,
+                          fontSize: '16px',
+                          lineHeight: '100%',
+                          letterSpacing: '0%',
+                          color: '#2C2C2CF2',
+                        }}>+91 8597002535</a>
+                      </div>
+                      <div>
+                        <a href="tel:+918597002535" style={{
+                          fontFamily: 'Be Vietnam Pro',
+                          fontWeight: 400,
+                          fontSize: '16px',
+                          lineHeight: '100%',
+                          letterSpacing: '0%',
+                          color: '#2C2C2CF2',
+                        }}>+91 8597002535</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Empty Middle Column (to match Services card structure) */}
+                  <div className="col-span-1"></div>
+
+                  {/* Right Column: Images (Unchanged) */}
+                  <div className="flex flex-col justify-start space-y-4 col-span-1">
+                    <div className="mt-4">
+                      <img
+                          src="/images/nav_con.svg"
+                          alt="Contact Image 1"
+                          className="rounded-lg ml-[20px] w-[320px] h-[268px] object-cover shadow-none"
+                          style={{ borderRadius: '12px' }}
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <img
+                          src="/images/logos.svg"
+                          alt="Contact Image 2"
+                          className="rounded-lg object-cover ml-[30px] mt-5 w-[130px] h-[28px] shadow-none"
+                          style={{ borderRadius: '12px' }}
+                      />
                     </div>
                   </div>
                 </div>
 
-                {/* Right Column: Image */}
-                <div className="flex flex-col justify-center items-center">
-                  <img
-                      src="/images/contact_us_image.jpg"
-                      alt="Contact Us"
-                      className="rounded-md shadow-md w-[318px] h-[266px] object-cover"
-                  />
+                {/* Social Links (Same position as Services card) */}
+                <div className="absolute bottom-6 left-550 flex ml-[930px] gap-6">
+                  <Link
+                      to="https://www.instagram.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-hospital-blue transition-colors duration-300"
+                  >
+                    <Instagram size={24} />
+                  </Link>
+                  <Link
+                      to="https://www.linkedin.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-hospital-blue transition-colors duration-300"
+                  >
+                    <Linkedin size={24} />
+                  </Link>
                 </div>
               </HoverCardContent>
-            </HoverCard>
-            <Link to="/blog" className={`${navLinkClass} ${location.pathname.includes('/blog') ? navLinkActiveClass : ''}`}>
+            </HoverCard> <Link to="/blog" className={`${navLinkClass} ${location.pathname.includes('/blog') ? navLinkActiveClass : ''}`}>
               Blog
             </Link>
           </nav>

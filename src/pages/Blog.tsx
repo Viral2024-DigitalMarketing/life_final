@@ -1,8 +1,11 @@
 "use client";
-
 import React from 'react';
+import { Link } from 'react-router-dom'; // Add this import for routing
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+
+import ArticlePage from './ArticlePage';
+
 
 const Blog = () => {
     return (
@@ -21,12 +24,12 @@ const Blog = () => {
                                 Ignoring early symptoms results in severe joint deterioration and expensive treatments.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <button className="bg-[#015B52] text-white font-['Product Sans Medium'] font-medium text-base rounded-[24.04px] px-8 py-3 border border-[#015B52]">
+                                <Link to="/articlepage" className="bg-[#015B52] text-white font-['Product Sans Medium'] font-medium text-base rounded-[24.04px] px-8 py-3 border border-[#015B52]">
                                     Read full article
-                                </button>
-                                <button className="border border-[#015B52] text-[#015B52] font-['Product Sans Medium'] font-medium text-base rounded-[24.04px] px-8 py-3">
+                                </Link>
+                                <Link to="/more-articles" className="border border-[#015B52] text-[#015B52] font-['Product Sans Medium'] font-medium text-base rounded-[24.04px] px-8 py-3">
                                     Explore more articles
-                                </button>
+                                </Link>
                             </div>
                         </div>
                         <div className="w-full md:w-1/2">
@@ -56,9 +59,9 @@ const Blog = () => {
                             <p className="font-['Be Vietnam Pro'] font-normal text-base md:text-xl leading-relaxed mb-6">
                                 Our mission is to provide compassionate, high-quality healthcare services to all, regardless of location or socioeconomic status.
                             </p>
-                            <button className="bg-[#06009E] text-white font-['Be Vietnam Pro'] font-medium text-base rounded-full px-6 py-2">
+                            <Link to="/future-joint-replacement" className="bg-[#06009E] text-white font-['Be Vietnam Pro'] font-medium text-base rounded-full px-6 py-2">
                                 Read full article
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </section>
@@ -76,31 +79,37 @@ const Blog = () => {
                                     title: 'Empowering Rural Communities',
                                     img: '/images/blog2.svg',
                                     desc: 'Our mission is to provide compassionate, high-quality healthcare services to all, regardless of location or socioeconomic status.',
+                                    link: '/empowering-rural-communities'
                                 },
                                 {
                                     title: 'Focusing on Elderly Care',
                                     img: '/images/blog3.svg',
                                     desc: 'Understanding the unique healthcare needs of our senior population and providing tailored support and medical assistance.',
+                                    link: '/elderly-care'
                                 },
                                 {
                                     title: 'The Importance of Mental Wellness',
                                     img: '/images/blog5.svg',
                                     desc: 'Prioritizing mental health and offering resources and support for emotional and psychological well-being.',
+                                    link: '/mental-wellness'
                                 },
                                 {
                                     title: 'Investing in Child Health',
                                     img: '/images/blog6.svg',
                                     desc: 'Ensuring a healthy future for the next generation through comprehensive pediatric care and health education.',
+                                    link: '/investing-in-child-health'
                                 },
                                 {
                                     title: 'The Power of Preventive Care',
                                     img: '/images/blog7.svg',
                                     desc: 'Focusing on proactive health measures and screenings to detect and prevent illnesses early on.',
+                                    link: '/preventive-care'
                                 },
                                 {
                                     title: 'Embracing Technology in Healthcare',
                                     img: '/images/blog8.svg',
                                     desc: 'Leveraging innovative technologies to improve diagnostics, treatments, and overall patient experience.',
+                                    link: '/embracing-technology'
                                 },
                             ].map((card, idx) => (
                                 <div
@@ -121,6 +130,9 @@ const Blog = () => {
                                         <p className="font-['Be Vietnam Pro'] font-normal text-base leading-relaxed text-gray-700 mb-4">
                                             {card.desc}
                                         </p>
+                                        <Link to={card.link} className="text-[#06009E] font-['Be Vietnam Pro'] text-base font-medium">
+                                            Read more
+                                        </Link>
                                     </div>
                                 </div>
                             ))}

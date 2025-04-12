@@ -1,20 +1,30 @@
-import React from 'react';
-import { useEffect } from "react";
+"use client";
+
+import React from "react";
+import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Heart } from 'lucide-react';
+import { Heart } from "lucide-react";
+import AppointmentModal from "@/components/shared/AppointmentModal";
 
 const BlobShape = ({ fillColor }: { fillColor: string }) => (
-    <svg width="199" height="188" viewBox="0 0 199 188" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+        width="199"
+        height="188"
+        viewBox="0 0 199 188"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
         <path
             d="M187.629 11.8105C198.808 20.9184 199.965 35.7142 197.988 50.0936C194.736 73.7309 184.252 96.1867 173.062 116.863C160.317 140.503 144.225 165.995 121.008 180.121C112.055 185.567 102.248 189.303 91.7017 186.642C79.9928 183.687 71.2226 174.465 62.87 166.143C53.3779 156.683 44.7567 146.389 37.1103 135.384C21.566 113.03 10.1069 88.0958 3.26332 61.7337C-0.417631 47.4284 -2.48179 30.5005 8.99343 19.4724C19.3556 9.52579 34.9769 7.60006 48.4035 5.5534C73.3309 1.74552 98.5152 -0.101189 123.724 0.0302952C142.823 0.136374 165.502 -0.927925 182.93 8.65561C184.588 9.56389 186.161 10.6198 187.629 11.8105Z"
             fill={fillColor}
         />
     </svg>
-)
+);
 
 const EmpoweringSection = () => {
     const { ref, inView } = useInView({ triggerOnce: true });
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Blob controls
     const reliefBlobControls = useAnimation();
@@ -38,43 +48,42 @@ const EmpoweringSection = () => {
     useEffect(() => {
         if (inView) {
             const animateSequence = async () => {
-                // Wait a bit before starting animations
                 await new Promise((resolve) => setTimeout(resolve, 500));
 
                 // 1. Yellow Card Animation (Relief)
                 await Promise.all([
                     reliefBlobControls.start({
-                        fill: ["#000000", "#FFD033", "#FFD03380"],
-                        transition: { duration: 1.5, times: [0, 0.6, 1] }
+                        fill: ["#000000", "#FFD700", "#FFD70080"], // Yellow
+                        transition: { duration: 1.5, times: [0, 0.6, 1] },
                     }),
                     reliefTextControls.start({
-                        color: ["#000000", "#FFD033"],
-                        transition: { duration: 1, delay: 0.5 }
-                    })
+                        color: ["#000000", "#FFD700"],
+                        transition: { duration: 1, delay: 0.5 },
+                    }),
                 ]);
 
-                // 2. Violet Card Animation (Rebuild)
+                // 2. Purple Card Animation (Rebuild)
                 await Promise.all([
                     rebuildBlobControls.start({
-                        fill: ["#000000", "#7B77B4", "#7B77B480"],
-                        transition: { duration: 1.5, times: [0, 0.6, 1] }
+                        fill: ["#000000", "#800080", "#80008080"], // Purple
+                        transition: { duration: 1.5, times: [0, 0.6, 1] },
                     }),
                     rebuildTextControls.start({
-                        color: ["#000000", "#7B77B4"],
-                        transition: { duration: 1, delay: 0.5 }
-                    })
+                        color: ["#000000", "#800080"],
+                        transition: { duration: 1, delay: 0.5 },
+                    }),
                 ]);
 
-                // 3. Teal Card Animation (Recover)
+                // 3. Blue Card Animation (Recover)
                 await Promise.all([
                     recoverBlobControls.start({
-                        fill: ["#000000", "#6DCECF", "#6DCECF80"],
-                        transition: { duration: 1.5, times: [0, 0.6, 1] }
+                        fill: ["#000000", "#0000FF", "#0000FF80"], // Blue
+                        transition: { duration: 1.5, times: [0, 0.6, 1] },
                     }),
                     recoverTextControls.start({
-                        color: ["#000000", "#6DCECF"],
-                        transition: { duration: 1, delay: 0.5 }
-                    })
+                        color: ["#000000", "#0000FF"],
+                        transition: { duration: 1, delay: 0.5 },
+                    }),
                 ]);
 
                 // 4. Hide all original headings
@@ -90,7 +99,7 @@ const EmpoweringSection = () => {
                     recoverTextControls.start({
                         opacity: 0,
                         transition: { duration: 0.3 },
-                    })
+                    }),
                 ]);
 
                 // 5. Show the top headings one by one in sequence
@@ -113,13 +122,13 @@ const EmpoweringSection = () => {
                 await blobsContainerControls.start({
                     opacity: 0,
                     scale: 0.8,
-                    transition: { duration: 0.5 }
+                    transition: { duration: 0.5 },
                 });
 
                 await logoControls.start({
                     opacity: 1,
                     scale: [0.5, 1.2, 1],
-                    transition: { duration: 1, times: [0, 0.7, 1] }
+                    transition: { duration: 1, times: [0, 0.7, 1] },
                 });
             };
 
@@ -137,11 +146,14 @@ const EmpoweringSection = () => {
         topRebuildTextControls,
         topRecoverTextControls,
         logoControls,
-        blobsContainerControls
+        blobsContainerControls,
     ]);
 
     return (
-        <section ref={ref} className="relative bg-[#F4F9F2] w-full py-[80px] px-6 md:px-12 lg:px-24 overflow-hidden">
+        <section
+            ref={ref}
+            className="relative bg-[#F4F9F2] w-full py-[80px] px-6 md:px-12 lg:px-24 overflow-hidden"
+        >
             <div className="max-w-[1440px] mx-auto grid md:grid-cols-2 gap-16 items-center">
                 {/* Left */}
                 <div>
@@ -150,10 +162,14 @@ const EmpoweringSection = () => {
                         <span className="text-[#06009E] font-semibold">Health</span> for All
                     </h2>
                     <p className="text-[16px] text-gray-600 mb-8 max-w-md font-['Be_Vietnam_Pro']">
-                        Dedicated to providing accessible, high-quality healthcare for everyone, emphasizing patient-centered care
-                        and a commitment to continuous improvement.
+                        Dedicated to providing accessible, high-quality healthcare for
+                        everyone, emphasizing patient-centered care and a commitment to
+                        continuous improvement.
                     </p>
-                    <button className="w-full max-w-[460px] h-[57px] px-[20px] py-[12px] rounded-[32px] border border-[#06009E] text-white text-[24px] font-medium bg-[#06009E] hover:opacity-90 transition">
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="w-full max-w-[460px] h-[57px] px-[20px] py-[12px] rounded-[32px] border border-[#06009E] text-white text-[24px] font-medium bg-[#06009E] hover:opacity-90 transition"
+                    >
                         Request your appointment today.
                     </button>
                 </div>
@@ -163,21 +179,21 @@ const EmpoweringSection = () => {
                     {/* Top aligned headings that will appear in sequence */}
                     <div className="absolute top-[-60px] left-0 w-full flex justify-center items-center">
                         <motion.span
-                            className="text-3xl font-semibold text-[#FFD033] mx-4"
+                            className="text-3xl font-semibold text-[#FFD700] mx-4"
                             initial={{ opacity: 0 }}
                             animate={topReliefTextControls}
                         >
                             Relief
                         </motion.span>
                         <motion.span
-                            className="text-3xl font-semibold text-[#7B77B4] mx-4"
+                            className="text-3xl font-semibold text-[#800080] mx-4"
                             initial={{ opacity: 0 }}
                             animate={topRebuildTextControls}
                         >
                             Rebuild
                         </motion.span>
                         <motion.span
-                            className="text-3xl font-semibold text-[#6DCECF] mx-4"
+                            className="text-3xl font-semibold text-[#0000FF] mx-4"
                             initial={{ opacity: 0 }}
                             animate={topRecoverTextControls}
                         >
@@ -195,10 +211,7 @@ const EmpoweringSection = () => {
                     </motion.div>
 
                     {/* Blobs Container */}
-                    <motion.div
-                        className="relative w-full h-full"
-                        animate={blobsContainerControls}
-                    >
+                    <motion.div className="relative w-full h-full" animate={blobsContainerControls}>
                         {/* Yellow - Relief */}
                         <div className="absolute bottom-1/4 left-1/2 translate-x-[-161%] w-[199px] h-[188px] flex items-center justify-center">
                             <div className="relative w-full h-full rotate-[20deg]">
@@ -215,7 +228,7 @@ const EmpoweringSection = () => {
                             </div>
                         </div>
 
-                        {/* Violet - Rebuild */}
+                        {/* Purple - Rebuild */}
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[199px] h-[188px] flex items-center justify-center">
                             <div className="mt-[100px] relative w-full h-full">
                                 <motion.div initial={{ fill: "#000000" }} animate={rebuildBlobControls}>
@@ -231,7 +244,7 @@ const EmpoweringSection = () => {
                             </div>
                         </div>
 
-                        {/* Teal - Recover */}
+                        {/* Blue - Recover */}
                         <div className="absolute bottom-1/4 right-0 translate-x-1/4 w-[199px] h-[188px] flex items-center justify-center">
                             <div className="relative w-full h-full rotate-[-20deg]">
                                 <motion.div initial={{ fill: "#000000" }} animate={recoverBlobControls}>
@@ -249,6 +262,7 @@ const EmpoweringSection = () => {
                     </motion.div>
                 </div>
             </div>
+            <AppointmentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </section>
     );
 };

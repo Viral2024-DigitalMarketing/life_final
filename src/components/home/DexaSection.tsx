@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import AppointmentModal from '@/components/shared/AppointmentModal'
+import Dexa3DModel from "@/components/Dexa3DModel.tsx";
 
 const DexaSection = () => {
     const sectionRef = useRef<HTMLDivElement>(null)
@@ -71,12 +72,8 @@ const DexaSection = () => {
                     {/* Left Section - Video Frame & Text */}
                     <div ref={addToRefs} className="relative opacity-0">
                         <div className="bg-white/10 backdrop-blur-md p-4 rounded-xl overflow-hidden w-full md:w-3/4">
-                            <iframe
-                                className="w-full h-48 rounded-xl"
-                                src="https://www.youtube.com/embed/example_video_id"
-                                title="DEXA Scan Video"
-                                allowFullScreen
-                            ></iframe>
+                            <Dexa3DModel />
+
                         </div>
                         <h2 className="mt-6 text-2xl font-bold">Test Your Bone Health</h2>
                         <p className="font-product-sans text-base leading-relaxed tracking-wide text-white/80 mt-4">

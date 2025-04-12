@@ -73,15 +73,27 @@ const SkillRecoverySection = () => {
             md:h-[500px] h-auto p-6 sm:p-4 sm:gap-6"
               >
                 <div className="text-gray-900 w-full md:w-1/2 sm:text-center sm:mb-6">
-                  <span className="text-7xl font-bold opacity-20 sm:text-5xl md:text-8xl">{card.number}</span>
-                  <h2 className="text-4xl font-bold mt-4 sm:text-2xl md:text-5xl md:mt-6">{card.title}</h2>
-                  <p className="mt-4 text-lg text-gray-700 sm:text-sm md:text-xl md:mt-6">{card.description}</p>
+                  <span
+                      className="text-[65.59px] font-bold opacity-20 sm:text-[27.33px] md:text-[65.59px] leading-[100%] tracking-[1%] font-[Be Vietnam Pro] text-black"
+                  >
+                    {card.number}
+                  </span>
+                  <h2
+                      className="text-[32px] font-bold mt-4 sm:text-[22px] md:text-[40px] md:mt-6 text-black font-[Be Vietnam Pro]"
+                  >
+                    {card.title}
+                  </h2>
+                  <p
+                      className="mt-4 text-[13.66px] text-[#1E1E1E] sm:text-[13.66px] md:text-[16px] md:mt-6 font-[Be Vietnam Pro]"
+                  >
+                    {card.description}
+                  </p>
 
                 </div>
                 <img
                     src={card.image}
                     alt={card.title}
-                    className="w-[600px] h-[500px] object-contain sm:w-[250px] sm:h-[250px] md:w-[650px] md:h-[550px] lg:w-[500px] lg:h-[450px]"
+                    className="w-[600px] h-[500px] object-contain sm:w-[250px] sm:h-[250px] md:w-[650px] md:h-[550px] lg:w-[400px] lg:h-[430px]"
                 />
 
               </div>
