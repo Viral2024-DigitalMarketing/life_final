@@ -468,16 +468,17 @@ const Navbar: React.FC<NavbarProps> = () => {
                 <Link to="/" className="text-gray-800 text-lg font-medium" onClick={toggleMenu}>Home</Link>
 
                 {/* Services as a clickable button */}
-                <Button
-                    variant="ghost"
-                    className="w-full text-left text-gray-800 text-lg font-medium hover:bg-gray-100 rounded-md p-2"
-                    onClick={() => {
-                      window.location.href = '/services';
-                      toggleMenu();
-                    }}
+                <Link
+                    to="/services"
+                    className={`${navLinkClass} ${
+                        location.pathname === '/services' || location.pathname.includes('/services/')
+                            ? navLinkActiveClass
+                            : ''
+                    }`}
+                    onClick={toggleMenu}
                 >
                   Services
-                </Button>
+                </Link>
 
                 <div className="ml-4 space-y-2">
                   <Link to="/services/joint-replacement" className="block text-gray-700 hover:text-hospital-blue" onClick={toggleMenu}>Joint Replacement</Link>
