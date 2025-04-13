@@ -53,9 +53,7 @@ const Navbar: React.FC<NavbarProps> = () => {
     setShowAppointmentModal(true);
   };
 
-  const navLinkClass = `${
-      isScrolled || !isHeroVisible ? 'text-gray-800' : 'text-white'
-  } nav-link`;
+  const navLinkClass = `${isScrolled || !isHeroVisible ? 'text-gray-800' : 'text-white'} nav-link`;
 
   const navLinkActiveClass = 'active';
 
@@ -146,7 +144,7 @@ const Navbar: React.FC<NavbarProps> = () => {
               <HoverCardContent className="shadow-md" style={hoverCardContentStyle}>
                 <div className="grid grid-cols-3 gap-x-4 gap-y-6 items-start">
                   {/* Left Column */}
-                  <div className="flex flex-col justify-start space-y-6 ml-[-60px] col-span-1"> {/* Increased space-y for clearer separation */}
+                  <div className="flex flex-col justify-start space-y-6 ml-[-60px] col-span-1">
                     {/* Joint Replacement */}
                     <Link
                         to="/services/joint-replacement"
@@ -176,7 +174,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </div>
 
                   {/* Right Column */}
-                  <div className="flex flex-col justify-start space-y-6 ml-[-100px] col-span-1"> {/* Increased space-y for clearer separation */}
+                  <div className="flex flex-col justify-start space-y-6 ml-[-100px] col-span-1">
                     {/* Orthopedics & Muscle Care */}
                     <Link
                         to="/services/orthopedic"
@@ -260,14 +258,14 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </div>
                 </Link>
               </HoverCardTrigger>
-              <HoverCardContent className="shadow-md" style={hoverCardContentStyle}> {/* Using the same style as Services */}
+              <HoverCardContent className="shadow-md" style={hoverCardContentStyle}>
                 <div className="grid grid-cols-3 gap-x-4 gap-y-6 items-start">
                   {/* Left Column for All Contact Info */}
-                  <div className="flex flex-col justify-start space-y-3 ml-[-60px] col-span-1"> {/* Reduced space-y to 3 for tighter grouping */}
-                    <div className="space-y-1"> {/* Minimal spacing for General Enquiry */}
+                  <div className="flex flex-col justify-start space-y-3 ml-[-60px] col-span-1">
+                    <div className="space-y-1">
                       <h3 style={{
                         fontFamily: 'Ranade',
-                        fontWeight: 500, // Updated to 500
+                        fontWeight: 500,
                         fontSize: '20px',
                         lineHeight: '100%',
                         letterSpacing: '1%',
@@ -295,15 +293,15 @@ const Navbar: React.FC<NavbarProps> = () => {
                       </div>
                     </div>
 
-                    {/* Emergency Services right next to General Enquiry */}
-                    <div className="space-y-1"> {/* Minimal spacing for Emergency Services */}
+                    {/* Emergency Services */}
+                    <div className="space-y-1">
                       <h3 style={{
                         fontFamily: 'Ranade',
-                        fontWeight: 500, // Updated to 500
+                        fontWeight: 500,
                         fontSize: '20px',
                         lineHeight: '100%',
                         letterSpacing: '1%',
-                        color: '#D61A1A', // Red for Emergency
+                        color: '#D61A1A',
                       }}>Emergency Services</h3>
                       <div>
                         <a href="tel:+917002585724" style={{
@@ -327,11 +325,11 @@ const Navbar: React.FC<NavbarProps> = () => {
                       </div>
                     </div>
 
-                    {/* Appointment Booking moved down */}
-                    <div className="mt-8 space-y-1"> {/* Increased margin-top to move it down */}
+                    {/* Appointment Booking */}
+                    <div className="mt-8 space-y-1">
                       <h3 style={{
                         fontFamily: 'Ranade',
-                        fontWeight: 500, // Updated to 500
+                        fontWeight: 500,
                         fontSize: '20px',
                         lineHeight: '100%',
                         letterSpacing: '1%',
@@ -360,10 +358,10 @@ const Navbar: React.FC<NavbarProps> = () => {
                     </div>
                   </div>
 
-                  {/* Empty Middle Column (to match Services card structure) */}
+                  {/* Empty Middle Column */}
                   <div className="col-span-1"></div>
 
-                  {/* Right Column: Images (Unchanged) */}
+                  {/* Right Column: Images */}
                   <div className="flex flex-col justify-start space-y-4 col-span-1">
                     <div className="mt-4">
                       <img
@@ -384,7 +382,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </div>
                 </div>
 
-                {/* Social Links (Same position as Services card) */}
+                {/* Social Links */}
                 <div className="absolute bottom-6 left-550 flex ml-[930px] gap-6">
                   <Link
                       to="https://www.instagram.com/"
@@ -404,7 +402,8 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </Link>
                 </div>
               </HoverCardContent>
-            </HoverCard> <Link to="/blog" className={`${navLinkClass} ${location.pathname.includes('/blog') ? navLinkActiveClass : ''}`}>
+            </HoverCard>
+            <Link to="/blog" className={`${navLinkClass} ${location.pathname.includes('/blog') ? navLinkActiveClass : ''}`}>
               Blog
             </Link>
           </nav>
@@ -454,7 +453,7 @@ const Navbar: React.FC<NavbarProps> = () => {
           )}
 
           {/* Mobile Navigation Menu */}
-          <div className={`fixed top-0 right-0 h-full w-full sm:w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 overflow-y-auto ${
+          <div className={`fixed top-0 right-0 h-full w-full max-w-xs bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 overflow-y-auto ${
               isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}>
             <div className="p-5">
