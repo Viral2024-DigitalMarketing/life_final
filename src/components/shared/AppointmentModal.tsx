@@ -1,7 +1,6 @@
 "use client";
 
-import type React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,7 +18,10 @@ interface AppointmentModalProps {
     onClose: () => void;
 }
 
-const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) => {
+const AppointmentModal: React.FC<AppointmentModalProps> = ({
+                                                               isOpen,
+                                                               onClose,
+                                                           }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
@@ -27,26 +29,21 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        // TODO: Handle actual form submission
     };
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent
-                className="bg-white rounded-xl shadow-lg p-6 sm:p-8 mx-auto flex flex-col items-center"
-                style={{
-                    width: "88vw", // Mobile shrink
-                    maxWidth: "790px", // Desktop stays the same
-                    transform: "translate(-50%, -50%)",
-                    top: "50%",
-                    left: "50%",
-                }}
+                className="bg-white rounded-2xl shadow-2xl px-4 py-6 sm:px-8 sm:py-10 w-[92vw] max-w-[740px] mx-auto flex flex-col items-center"
+                style={{ transform: "translate(-50%, 0)", top: "5%", left: "50%" }}
             >
                 {/* Header */}
-                <div className="text-center mb-4 sm:mb-6 sm:mt-0 mt-2">
-                    <h1 className="font-merriweather font-bold text-[20px] sm:text-[32px] leading-[28px] sm:leading-[40px] text-[#111827]">
+                <div className="text-center mb-5 sm:mb-8 mt-2 sm:mt-0 w-full max-w-[400px]">
+                    <h1 className="font-merriweather font-bold text-[20px] sm:text-[32px] leading-[26px] sm:leading-[40px] text-[#111827]">
                         Book your appointment now
                     </h1>
-                    <p className="font-product-sans text-[13px] sm:text-[16px] leading-[18px] sm:leading-[22px] text-[#111827] mt-1 sm:mt-2">
+                    <p className="font-product-sans mt-1 sm:mt-2 text-[13px] sm:text-[16px] leading-[18px] sm:leading-[22px] text-[#111827]">
                         So our team can reach out to you on time
                     </p>
                 </div>
@@ -54,12 +51,15 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
                 {/* Form */}
                 <form
                     onSubmit={handleSubmit}
-                    className="flex flex-col gap-3 sm:gap-4 w-full"
-                    style={{ maxWidth: "460px" }}
+                    className="flex flex-col gap-4 sm:gap-6 w-full"
+                    style={{ maxWidth: "400px" }}
                 >
                     {/* Full Name */}
                     <div className="space-y-1 sm:space-y-2">
-                        <Label htmlFor="name" className="text-[13px] sm:text-[16px] text-[#6F7482] font-ibm-plex-sans">
+                        <Label
+                            htmlFor="name"
+                            className="text-[13px] sm:text-[16px] text-[#6F7482] font-ibm-plex-sans"
+                        >
                             Full Name
                         </Label>
                         <Input
@@ -67,13 +67,16 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder="Enter your full name"
-                            className="h-[42px] sm:h-[48px] text-[14px] px-3"
+                            className="h-[44px] sm:h-[48px] text-[14px] px-3"
                         />
                     </div>
 
-                    {/* Phone */}
+                    {/* Mobile Number */}
                     <div className="space-y-1 sm:space-y-2">
-                        <Label htmlFor="phone" className="text-[13px] sm:text-[16px] text-[#6F7482] font-ibm-plex-sans">
+                        <Label
+                            htmlFor="phone"
+                            className="text-[13px] sm:text-[16px] text-[#6F7482] font-ibm-plex-sans"
+                        >
                             Mobile Number
                         </Label>
                         <Input
@@ -81,13 +84,16 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder="Enter your mobile number"
-                            className="h-[42px] sm:h-[48px] text-[14px] px-3"
+                            className="h-[44px] sm:h-[48px] text-[14px] px-3"
                         />
                     </div>
 
-                    {/* Email */}
+                    {/* Email Address */}
                     <div className="space-y-1 sm:space-y-2">
-                        <Label htmlFor="email" className="text-[13px] sm:text-[16px] text-[#6F7482] font-ibm-plex-sans">
+                        <Label
+                            htmlFor="email"
+                            className="text-[13px] sm:text-[16px] text-[#6F7482] font-ibm-plex-sans"
+                        >
                             Email Address
                         </Label>
                         <Input
@@ -96,19 +102,22 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Enter your email"
-                            className="h-[42px] sm:h-[48px] text-[14px] px-3"
+                            className="h-[44px] sm:h-[48px] text-[14px] px-3"
                         />
                     </div>
 
-                    {/* Specialization */}
+                    {/* Specialization Dropdown */}
                     <div className="space-y-1 sm:space-y-2">
-                        <Label htmlFor="specialization" className="text-[13px] sm:text-[16px] text-[#6F7482] font-ibm-plex-sans">
+                        <Label
+                            htmlFor="specialization"
+                            className="text-[13px] sm:text-[16px] text-[#6F7482] font-ibm-plex-sans"
+                        >
                             Choose your treatment specialization
                         </Label>
                         <Select value={specialization} onValueChange={setSpecialization}>
                             <SelectTrigger
                                 id="specialization"
-                                className="h-[42px] sm:h-[48px] text-[14px] px-3 rounded-md border"
+                                className="h-[44px] sm:h-[48px] text-[14px] px-3 rounded-md border"
                             >
                                 <SelectValue placeholder="Select your specialization" />
                             </SelectTrigger>
@@ -122,7 +131,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
                         </Select>
                     </div>
 
-                    {/* Submit */}
+                    {/* Submit Button */}
                     <Button
                         type="submit"
                         className="w-full h-[44px] sm:h-[48px] text-[15px] sm:text-[18px] bg-[#1915C3] text-white font-semibold rounded-md"

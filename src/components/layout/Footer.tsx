@@ -82,27 +82,49 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="block w-full h-32 rounded-md overflow-hidden"
               >
-                <iframe
-                    className="w-full h-full"
-                    src="https://www.google.com/maps?q=Life+Hospital+Kamareddy&z=15&ie=UTF8&iwloc=&output=embed"
-                    title="Life Hospital Location"
-                    allowFullScreen
-                ></iframe>
+                <a
+                    href="https://www.google.com/maps/dir/?api=1&destination=Life+Hospital+Kamareddy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center px-6 py-3 font-semibold text-indigo-600 transition-colors duration-200 bg-indigo-100 rounded-md hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  <svg
+                      className="w-5 h-5 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M17.657 16.657L13.414 20.9a1.995 1.995 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                 Get Directions
+                </a>
               </a>
 
               <h3 className="text-lg font-bold mt-4">Follow Us</h3>
               <div className="flex flex-wrap gap-3">
                 <a href="#"
                    className="p-2 bg-gray-100 rounded-full text-[#565656] hover:bg-hospital-blue hover:text-white transition-colors">
-                  <Facebook className="w-5 h-5" />
+                  <Facebook className="w-5 h-5"/>
                 </a>
                 <a href="#"
                    className="p-2 bg-gray-100 rounded-full text-[#565656] hover:bg-hospital-blue hover:text-white transition-colors">
-                  <Twitter className="w-5 h-5" />
+                  <Twitter className="w-5 h-5"/>
                 </a>
                 <a href="#"
                    className="p-2 bg-gray-100 rounded-full text-[#565656] hover:bg-hospital-blue hover:text-white transition-colors">
-                  <Instagram className="w-5 h-5" />
+                  <Instagram className="w-5 h-5"/>
                 </a>
                 <a href="#"
                    className="p-2 bg-gray-100 rounded-full text-[#565656] hover:bg-hospital-blue hover:text-white transition-colors">

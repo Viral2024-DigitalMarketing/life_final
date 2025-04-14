@@ -39,8 +39,8 @@ const JointReplacementPage = () => {
                 <div
                     className="bg-[#F9F9F9] rounded-[16px] p-[24px] flex flex-col justify-between relative shadow-lg mx-auto"
                     style={{
-                        width: "548px", // Desktop width
-                        height: "561px", // Desktop height
+                        width: "548px",
+                        height: "561px",
                     }}
                 >
                     {/* Tag */}
@@ -49,7 +49,7 @@ const JointReplacementPage = () => {
                     </div>
 
                     {/* Image */}
-                    <div className="flex justify-center items-center mb-4 mt-8" style={{ height: "auto" }}>
+                    <div className="flex justify-center items-center mb-4 mt-8">
                         <img
                             src={isHovered ? imageActive : imageStatic}
                             alt={title}
@@ -90,12 +90,27 @@ const JointReplacementPage = () => {
             <main className="flex-grow">
                 {/* Hero Section */}
                 <section
-                    className="relative w-full h-[100vh] bg-cover bg-center flex flex-col justify-center items-center text-center overflow-hidden"
+                    className="relative w-full h-[100vh] md:h-[100vh] bg-no-repeat bg-[length:170%] md:bg-cover bg-[center_top] md:bg-[center_bottom_-50px] flex flex-col justify-center items-center text-center overflow-hidden"
                     style={{
-                        backgroundImage: "url('/images/100.svg')",
-                        backgroundPosition: "center bottom -50px",
+                        backgroundImage: "url('/images/100_hero.svg')",
                     }}
-                />
+                >
+
+                {/* Top Text */}
+                    <div className="absolute top-[90px] md:top-[110px] left-1/2 transform -translate-x-1/2 text-white text-xl md:text-3xl font-semibold tracking-wide">
+                        Completed
+                    </div>
+
+                    {/* Bottom Text */}
+                    <div className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
+                        <div className="text-[24px] md:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
+                            TOTAL HIP REPLACEMENT
+                        </div>
+                        <div className="text-[18px] md:text-2xl font-semibold mt-1 uppercase tracking-[0.25em] font-vietnam-pro">
+                            SURGERIES
+                        </div>
+                    </div>
+                </section>
 
                 {/* Cards Section */}
                 <section className="text-center py-12 bg-[#F9F9F9]">

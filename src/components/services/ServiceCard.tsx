@@ -17,7 +17,7 @@ const servicesData: Service[] = [
         image: '/images/ser1.svg',
         title: 'Orthopedic care',
         tagline: 'Bone, joint, muscle health and repair.',
-        path: '/orthopedic',
+        path: '/joint-replacement',
         titleStyle: {
 
             fontFamily: 'Be Vietnam Pro',

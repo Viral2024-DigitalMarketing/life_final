@@ -7,10 +7,21 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Button } from "@/components/ui/button";
-import EmergencyCard from '@/components/shared/EmergencyCard';
+import EmergencyCard from '@/components/shared/EmergencyCardModal';
 import AppointmentModal from '@/components/shared/AppointmentModal';
 
-interface NavbarProps {}
+// Define proper interface for Navbar props
+interface NavbarProps {
+  // Add any specific props if needed, otherwise keep it empty but documented
+}
+
+// Extend HoverCardProps to include placement
+declare module '@radix-ui/react-hover-card' {
+  interface HoverCardProps {
+    placement?: 'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end';
+    offset?: number;
+  }
+}
 
 const Navbar: React.FC<NavbarProps> = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -60,7 +71,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   const hoverCardContentStyle = {
     marginLeft: '100px',
     marginTop: '12px',
-    width: '1200px', // Main card width (same as Services)
+    width: '1200px',
     height: '404.90606689453125px',
     justifyContent: 'space-between',
     padding: '36px 100px',
@@ -70,7 +81,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   };
 
   const serviceCardStyle = {
-    width: '380px', // Width for service cards
+    width: '380px',
     padding: '20px',
     backgroundColor: '#F9FAFB',
     borderRadius: '8px',
@@ -83,7 +94,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   const serviceHeadingStyle = {
     fontFamily: 'Ranade',
     fontWeight: 600,
-    fontSize: '22px', // Increased font size
+    fontSize: '22px',
     lineHeight: '120%',
     letterSpacing: '1%',
     color: '#000000',
@@ -96,7 +107,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   const subHeadingStyle = {
     fontFamily: 'Be Vietnam Pro',
     fontWeight: 400,
-    fontSize: '16px', // Slightly increased font size
+    fontSize: '16px',
     lineHeight: '120%',
     letterSpacing: '0%',
     color: '#4A5568',
@@ -133,7 +144,6 @@ const Navbar: React.FC<NavbarProps> = () => {
           <nav className={`hidden lg:flex mt-6 ml-[-550px] items-center gap-8 ${
               isScrolled || !isHeroVisible ? 'text-gray-800' : 'text-white'
           }`}>
-
             {/* Services Dropdown Hover Card */}
             <HoverCard openDelay={200} closeDelay={100} placement="bottom-end" offset={40}>
               <HoverCardTrigger asChild>
@@ -453,7 +463,7 @@ const Navbar: React.FC<NavbarProps> = () => {
           )}
 
           {/* Mobile Navigation Menu */}
-          <div className={`fixed top-0 right-0 h-full w-full max-w-xs bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 overflow-y-auto ${
+          <div className={`fixed top-0 right-0 h-full w-3/4 max-w-xs bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 overflow-y-auto ${
               isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}>
             <div className="p-5">
@@ -468,17 +478,16 @@ const Navbar: React.FC<NavbarProps> = () => {
                 <Link to="/" className="text-gray-800 text-lg font-medium" onClick={toggleMenu}>Home</Link>
 
                 {/* Services as a clickable button */}
-                <Link
-                    to="/services"
-                    className={`${navLinkClass} ${
-                        location.pathname === '/services' || location.pathname.includes('/services/')
-                            ? navLinkActiveClass
-                            : ''
-                    }`}
-                    onClick={toggleMenu}
+                <Button
+                    variant="ghost"
+                    className="w-full text-left text-gray-800 text-lg font-medium hover:bg-gray-100 rounded-md p-2"
+                    onClick={() => {
+                      window.location.href = '/services';
+                      toggleMenu();
+                    }}
                 >
                   Services
-                </Link>
+                </Button>
 
                 <div className="ml-4 space-y-2">
                   <Link to="/services/joint-replacement" className="block text-gray-700 hover:text-hospital-blue" onClick={toggleMenu}>Joint Replacement</Link>

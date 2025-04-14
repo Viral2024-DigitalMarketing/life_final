@@ -72,28 +72,21 @@ const FaqSection = () => {
   ];
 
   return (
-      <section
-          ref={sectionRef}
-          className="bg-white py-24 px-6 md:px-12 lg:px-24"
-      >
+      <section ref={sectionRef} className="bg-white py-8 px-6 md:px-12 lg:px-24">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* FAQ Heading */}
             <div ref={addToRefs} className="md:col-span-1 opacity-0">
-              <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
+              <h2 className="text-3xl sm:text-2xl md:text-3xl font-bold text-black mb-2 md:mb-4">
                 Frequently Asked Questions
               </h2>
-              <p className="text-gray-700">
-                Find answers to common questions about our services, policies, and
-                patient care.
+              <p className="text-gray-700 text-sm sm:text-base md:text-base">
+                Find answers to common questions about our services, policies, and patient care.
               </p>
             </div>
 
             {/* FAQ Items */}
-            <div
-                ref={addToRefs}
-                className="md:col-span-2 space-y-4 opacity-0 animation-delay-400"
-            >
+            <div ref={addToRefs} className="md:col-span-2 space-y-4 opacity-0 animation-delay-400">
               {faqs.map((faq, index) => (
                   <div
                       key={faq.id}
@@ -101,18 +94,19 @@ const FaqSection = () => {
                   >
                     <button
                         onClick={() => toggleItem(index)}
-                        className="w-full flex items-center justify-between p-6 text-left focus:outline-none transition-colors hover:bg-gray-50"
+                        className="w-full flex items-center justify-between p-3 sm:p-4 md:p-6 text-left focus:outline-none transition-colors hover:bg-gray-50"
                     >
-                      <h3 className="text-lg font-medium">{faq.question}</h3>
+                      <h3
+                          className="text-sm sm:text-base md:text-lg font-medium"
+                          style={{ fontFamily: 'Be Vietnam Pro', fontWeight: 500, color: '#000000' }}
+                      >
+                        {faq.question}
+                      </h3>
                       <div className="transition-all duration-300">
                         <img
-                            src={
-                              openItem === index
-                                  ? '/images/faq_op.svg'
-                                  : '/images/faq_cl.svg'
-                            }
+                            src={openItem === index ? '/images/faq_op.svg' : '/images/faq_cl.svg'}
                             alt="Toggle FAQ"
-                            className="w-6 h-6"
+                            className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
                         />
                       </div>
                     </button>
@@ -121,7 +115,12 @@ const FaqSection = () => {
                             openItem === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                         }`}
                     >
-                      <div className="p-6 pt-0 text-gray-600">{faq.answer}</div>
+                      <div
+                          className="p-3 sm:p-4 md:p-6 pt-0 text-gray-600 text-xs sm:text-sm md:text-base"
+                          style={{ fontFamily: 'Be Vietnam Pro', color: '#000000' }}
+                      >
+                        {faq.answer}
+                      </div>
                     </div>
                   </div>
               ))}
