@@ -1,43 +1,42 @@
 "use client";
 import React from 'react';
-import { Link } from 'react-router-dom'; // Add this import for routing
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-
-import ArticlePage from './ArticlePage';
-
 
 const Blog = () => {
     return (
         <div className="min-h-screen flex mt-[95px] flex-col bg-gray-50">
             <Navbar />
             <main className="flex-grow">
-                {/* Hero Section with increased height */}
-                <section className="bg-white py-24 md:py-32 lg:py-40">
-                    <div className="container mx-auto flex flex-col-reverse md:flex-row mt-[-100px] items-center justify-between px-4 gap-8">
-                        <div className="w-full md:w-1/2">
-                            <h1 className="font-['Abhaya Libre SemiBold'] font-semibold text-3xl md:text-5xl lg:text-6xl leading-tight mb-4">
-                                <br />
-                                Bone Health Mistakes You’ll Regret
+                {/* Hero Section with background image */}
+                <section
+                    className="relative bg-cover bg-no-repeat bg-right min-h-[700px] flex items-center justify-center"
+                    style={{ backgroundImage: "url('/images/legblog.svg')" }}
+                >
+                    {/* Dark overlay */}
+                    <div className="absolute inset-0 bg-black bg-opacity-60 z-0" />
+
+                    {/* Centered Text Content */}
+                    <div className="container ml-[700px] mt-[250px] mx-auto relative z-10 px-4 text-center">
+                        <div className="max-w-xl mx-auto">
+                            <h1 className="font-['Abhaya Libre SemiBold'] font-semibold text-3xl md:text-5xl lg:text-6xl leading-tight mb-4 text-white">
+                                Bone Health Mistakes You'll Regret
                             </h1>
-                            <p className="font-['Be Vietnam Pro'] font-normal text-base leading-tight mb-6">
+                            <p className="font-['Be Vietnam Pro'] font-normal text-base leading-tight mb-6 text-gray-100">
                                 Ignoring early symptoms results in severe joint deterioration and expensive treatments.
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <Link to="/articlepage" className="bg-[#015B52] text-white font-['Product Sans Medium'] font-medium text-base rounded-[24.04px] px-8 py-3 border border-[#015B52]">
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <span
+                                    className="bg-[#015B52] text-white font-['Product Sans Medium'] font-medium text-base rounded-[24.04px] px-8 py-3 border border-[#015B52] hover:bg-[#01473c] cursor-pointer transition-colors"
+                                >
                                     Read full article
-                                </Link>
-                                <Link to="/more-articles" className="border border-[#015B52] text-[#015B52] font-['Product Sans Medium'] font-medium text-base rounded-[24.04px] px-8 py-3">
+                                </span>
+                                <span
+                                    className="border border-white text-white font-['Product Sans Medium'] font-medium text-base rounded-[24.04px] px-8 py-3 hover:bg-white hover:text-[#015B52] cursor-pointer transition-colors"
+                                >
                                     Explore more articles
-                                </Link>
+                                </span>
                             </div>
-                        </div>
-                        <div className="w-full md:w-1/2">
-                            <img
-                                src="/images/legblog.svg"
-                                alt="Bone Health"
-                                className="rounded-lg shadow-md w-full h-auto"
-                            />
                         </div>
                     </div>
                 </section>
@@ -59,9 +58,9 @@ const Blog = () => {
                             <p className="font-['Be Vietnam Pro'] font-normal text-base md:text-xl leading-relaxed mb-6">
                                 Our mission is to provide compassionate, high-quality healthcare services to all, regardless of location or socioeconomic status.
                             </p>
-                            <Link to="/future-joint-replacement" className="bg-[#06009E] text-white font-['Be Vietnam Pro'] font-medium text-base rounded-full px-6 py-2">
+                            <span className="bg-[#06009E] text-white font-['Be Vietnam Pro'] font-medium text-base rounded-full px-6 py-2 hover:bg-[#04006e] cursor-pointer transition-colors">
                                 Read full article
-                            </Link>
+                            </span>
                         </div>
                     </div>
                 </section>
@@ -73,43 +72,36 @@ const Blog = () => {
                             Healthier blogs
                         </h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
-                            {/* Blog Cards */}
                             {[
                                 {
                                     title: 'Empowering Rural Communities',
                                     img: '/images/blog2.svg',
                                     desc: 'Our mission is to provide compassionate, high-quality healthcare services to all, regardless of location or socioeconomic status.',
-                                    link: '/empowering-rural-communities'
                                 },
                                 {
                                     title: 'Focusing on Elderly Care',
                                     img: '/images/blog3.svg',
                                     desc: 'Understanding the unique healthcare needs of our senior population and providing tailored support and medical assistance.',
-                                    link: '/elderly-care'
                                 },
                                 {
                                     title: 'The Importance of Mental Wellness',
                                     img: '/images/blog5.svg',
                                     desc: 'Prioritizing mental health and offering resources and support for emotional and psychological well-being.',
-                                    link: '/mental-wellness'
                                 },
                                 {
                                     title: 'Investing in Child Health',
                                     img: '/images/blog6.svg',
                                     desc: 'Ensuring a healthy future for the next generation through comprehensive pediatric care and health education.',
-                                    link: '/investing-in-child-health'
                                 },
                                 {
                                     title: 'The Power of Preventive Care',
                                     img: '/images/blog7.svg',
                                     desc: 'Focusing on proactive health measures and screenings to detect and prevent illnesses early on.',
-                                    link: '/preventive-care'
                                 },
                                 {
                                     title: 'Embracing Technology in Healthcare',
                                     img: '/images/blog8.svg',
                                     desc: 'Leveraging innovative technologies to improve diagnostics, treatments, and overall patient experience.',
-                                    link: '/embracing-technology'
                                 },
                             ].map((card, idx) => (
                                 <div
@@ -130,9 +122,9 @@ const Blog = () => {
                                         <p className="font-['Be Vietnam Pro'] font-normal text-base leading-relaxed text-gray-700 mb-4">
                                             {card.desc}
                                         </p>
-                                        <Link to={card.link} className="text-[#06009E] font-['Be Vietnam Pro'] text-base font-medium">
+                                        <span className="text-[#06009E] font-['Be Vietnam Pro'] text-base font-medium cursor-pointer hover:underline">
                                             Read more
-                                        </Link>
+                                        </span>
                                     </div>
                                 </div>
                             ))}

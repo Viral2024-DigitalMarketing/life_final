@@ -81,17 +81,17 @@ const AboutSection = () => {
         });
 
         if (isMobile) {
-            // Mobile animation: Keep number centered without shrinking
+            // Mobile animation: Move higher up with the same scale
             tl.to(containerRef.current, {
-                scale: 1, // No scaling
+                scale: 0.5, // Keep the original scale
                 x: "0", // Stay centered
-                y: "-10vh", // Keep the upward movement
+                y: "-20vh", // Move higher up (-20vh instead of -10vh)
                 transformOrigin: "center center",
                 duration: 1.8,
                 ease: "power3.inOut",
             });
         } else {
-            // Desktop animation: Unchanged
+            // Desktop animation: Unchanged from original
             tl.to(containerRef.current, {
                 scale: 0.2,
                 x: "-42vw",
@@ -194,9 +194,9 @@ const AboutSection = () => {
                                     <img
                                         src={card.icon}
                                         alt="Avatar"
-                                        className="w-[24px] h-[24px] rounded-full"
+                                        className="w-[24px] h-[24px] rounded-full flex-shrink-0" // Added flex-shrink-0 to prevent image shrinking
                                     />
-                                    <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis">
+                                    <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis ml-2"> {/* Added margin-left for spacing */}
                                         {card.text}
                                     </p>
                                 </div>
@@ -216,12 +216,12 @@ const AboutSection = () => {
                     className="relative flex items-center justify-center"
                 >
                     <span
-                        className="text-[400px] md:text-[900px] mt-30 lg:text-[2200px]  items-center justify-center font-extrabold leading-none"
+                        className="text-[450px] md:text-[900px] mt-30 lg:text-[2200px]  items-center justify-center font-extrabold leading-none"
                         style={{
                             color: "#424294",
                             fontFamily: "Plus Jakarta Sans",
                             position: "relative",
-                            marginTop: isMobile ? "-180px" : "0px", // Move it up by 30px on mobile
+                            marginTop: isMobile ? "-220px" : "0px", // Adjusted: moved higher up on mobile
                         }}
                     >
                         9
@@ -233,7 +233,7 @@ const AboutSection = () => {
                         style={{
                             width: isMobile ? "150px" : "650px",
                             height: isMobile ? "150px" : "650px",
-                            top: isMobile ? "-100px" : "530px", // moved 30px up on mobile
+                            top: isMobile ? "-130px" : "530px", // Adjusted: moved higher up on mobile
                             left: "50%",
                             transform: "translateX(-50%)",
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
@@ -251,7 +251,7 @@ const AboutSection = () => {
             {/* Text content positioned to appear next to the number when it's in left position */}
             <div
                 ref={textContainerRef}
-                className={`absolute ${isMobile ? 'top-[38vh] left-[calc(50%-80px)] transform ml-[180px] -translate-x-1/2 text-center' : 'top-1/4 left-0 ml-[360px] mt-[-20px]'}`}
+                className={`absolute ${isMobile ? 'top-[32vh] left-[calc(50%-80px)] transform ml-[180px] -translate-x-1/2 text-center' : 'top-1/4 left-0 ml-[360px] mt-[-20px]'}`}
                 style={{
                     fontFamily: "Be Vietnam Pro",
                     fontWeight: 700,
@@ -259,7 +259,7 @@ const AboutSection = () => {
                     lineHeight: "110%",
                     letterSpacing: "3%",
                     color: "#424294",
-                    marginTop: isMobile ? "80px" : "0", // Changed from 70px to 55px (15px less)
+                    marginTop: isMobile ? "80px" : "0",
                 }}
             >
                 Years of <br/> Orthopedic Excellence
@@ -304,9 +304,9 @@ const AboutSection = () => {
                 </div>
             )}
 
-            {/* Cards Section - Reduced gap for mobile */}
+            {/* Cards Section - Moved higher up for mobile */}
             <div
-                className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${isMobile ? 'mt-[45vh]' : 'mt-96 sm:mt-96 md:mt-80'} relative z-10 max-w-[1200px] mx-auto`}
+                className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${isMobile ? 'mt-[40vh]' : 'mt-96 sm:mt-96 md:mt-80'} relative z-10 max-w-[1200px] mx-auto`}
             >
                 {[1, 2].map((_, idx) => (
                     <div
@@ -315,7 +315,7 @@ const AboutSection = () => {
                     >
                         <img
                             src={`/images/about_sec${idx === 0 ? "" : "2"}.svg`}
-                            className="w-full h-[200px] sm:h-[220px] sm:w-[551px] sm:h-[385px] object-cover mb-3 sm:mb-4 rounded-lg"
+                            className="w-full h-[200px] sm:h-[220px] sm:w-[551px] sm:h-[385px] object-con mb-3 sm:mb-4 rounded-lg"
                             alt={idx === 0 ? "Best Healthcare" : "Trusted Specialists"}
                         />
                         <p className="text-xs sm:text-sm text-gray-600">#1 in Kamareddy</p>
@@ -357,19 +357,19 @@ const AboutSection = () => {
                 ))}
             </div>
 
-            {/* Improved CSS for infinite scroll */}
-            <style global>{`
+            {/* Fixed style element - removed global attribute */}
+            <style jsx>{`
                 /* Improved infinite scroll for mobile */
                 @keyframes mobileInfiniteScroll {
                     0% { transform: translateX(0); }
                     100% { transform: translateX(-100%); }
                 }
-                
+
                 .mobile-scrolling-cards {
                     animation: mobileInfiniteScroll 60s linear infinite;
                     width: max-content;
                 }
-                
+
                 @keyframes animate-rowScroll0 {
                     0% { transform: translateX(100vw); }
                     100% { transform: translateX(-200vw); }

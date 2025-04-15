@@ -11,6 +11,7 @@ interface Service {
     taglineStyle?: React.CSSProperties;
     cardBackground?: string;
 }
+
 const servicesData: Service[] = [
     {
         id: 1,
@@ -19,7 +20,6 @@ const servicesData: Service[] = [
         tagline: 'Bone, joint, muscle health and repair.',
         path: '/joint-replacement',
         titleStyle: {
-
             fontFamily: 'Be Vietnam Pro',
             fontWeight: 700,
             fontSize: '30px',
@@ -29,7 +29,7 @@ const servicesData: Service[] = [
             color: '#333374',
         },
         taglineStyle: {
-            marginTop:"12px",
+            marginTop: "12px",
             fontFamily: 'Be Vietnam Pro',
             fontWeight: 400,
             fontSize: '16px',
@@ -80,7 +80,7 @@ const servicesData: Service[] = [
             color: '#333374',
         },
         taglineStyle: {
-            marginTop:"12px",
+            marginTop: "12px",
             fontFamily: 'Be Vietnam Pro',
             fontWeight: 400,
             fontSize: '16px',
@@ -97,7 +97,6 @@ const servicesData: Service[] = [
         tagline: 'Reconstructive and cosmetic surgical enhancements.',
         path: '/specialized-services#plastic',
         titleStyle: {
-
             fontFamily: 'Be Vietnam Pro',
             fontWeight: 700,
             fontSize: '32px',
@@ -107,7 +106,7 @@ const servicesData: Service[] = [
             color: '#333374',
         },
         taglineStyle: {
-            marginTop:"12px",
+            marginTop: "12px",
             fontFamily: 'Be Vietnam Pro',
             fontWeight: 400,
             fontSize: '16px',
@@ -133,7 +132,7 @@ const servicesData: Service[] = [
             color: '#333374',
         },
         taglineStyle: {
-            marginTop:"12px",
+            marginTop: "12px",
             fontFamily: 'Be Vietnam Pro',
             fontWeight: 400,
             fontSize: '16px',
@@ -170,7 +169,6 @@ const servicesData: Service[] = [
     },
 ];
 
-
 interface ServicesGridProps {
     className?: string;
     addToContentRefs: (el: HTMLDivElement) => void;
@@ -203,8 +201,9 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
                         >
                             <div
                                 ref={addToContentRefs}
-                                className={`rounded-[32px] p-6 flex flex-col md:flex-row items-center justify-between transition-shadow duration-300 hover:shadow-md
-                  md:w-[592px] md:h-[317.33px] md:rounded-[40px]`}
+                                className={`rounded-[32px] p-5 flex flex-col items-center justify-between transition-shadow duration-300 hover:shadow-md
+                                    md:w-[592px] md:h-[317.33px] md:rounded-[40px] md:p-6 md:flex-row md:items-center
+                                    sm:w-full sm:min-h-[280px] sm:rounded-[24px] sm:flex-col sm:items-center`}
                                 style={{
                                     marginLeft: index % 2 === 0 ? '0' : 'auto',
                                     background: service.cardBackground || '#EDEDF6',
@@ -213,25 +212,46 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
                                 <img
                                     src={service.image}
                                     alt={service.title}
-                                    className="w-[160px] h-[160px] object-contain mb-4 md:mb-0 md:w-[200px] md:h-[200px]"
+                                    className="w-[100px] h-[100px] object-contain mb-4 sm:w-[120px] sm:h-[120px] sm:mb-4 md:w-[200px] md:h-[200px] md:mb-0"
                                 />
-                                <div className="flex flex-col justify-start text-center md:text-left md:max-w-[262px] md:ml-2 md:mt-[-80px] flex-grow">
-                                    <h3 style={service.titleStyle}>
+                                <div className="flex flex-col justify-start text-center w-full px-2 md:text-left md:max-w-[262px] md:ml-2 md:mt-[-80px] md:flex-grow md:px-0 sm:text-center sm:max-w-full sm:mt-0">
+                                    <h3
+                                        className="text-[22px] md:text-[30px]"
+                                        style={{
+                                            fontFamily: service.titleStyle?.fontFamily,
+                                            fontWeight: service.titleStyle?.fontWeight,
+                                            lineHeight: service.titleStyle?.lineHeight,
+                                            letterSpacing: service.titleStyle?.letterSpacing,
+                                            textTransform: service.titleStyle?.textTransform as any,
+                                            color: service.titleStyle?.color,
+                                        }}
+                                    >
                                         {service.title}
                                     </h3>
                                     {service.tagline && (
-                                        <p className="mt-2 text-sm md:text-base" style={service.taglineStyle}>
+                                        <p
+                                            className="mt-2 text-sm leading-tight md:text-base md:leading-none"
+                                            style={{
+                                                fontFamily: service.taglineStyle?.fontFamily,
+                                                fontWeight: service.taglineStyle?.fontWeight,
+                                                letterSpacing: service.taglineStyle?.letterSpacing,
+                                                textTransform: service.taglineStyle?.textTransform as any,
+                                                color: service.taglineStyle?.color,
+                                                marginTop: service.taglineStyle?.marginTop,
+                                            }}
+                                        >
                                             {service.tagline}
                                         </p>
                                     )}
-                                    <div className="flex justify-center md:justify-start mt-4 ml-60 md:mt-auto md:absolute md:bottom-[40px] md:right-[50px]">
-                                        <div className="w-[36px] h-[36px] bg-[#28285A] rounded-full flex items-center justify-center">
+                                    <div className="flex justify-center mt-5 md:justify-start md:mt-auto md:absolute md:bottom-[40px] md:right-[50px] sm:ml-0 sm:mt-6 sm:static">
+                                        <div className="w-[32px] h-[32px] bg-[#28285A] rounded-full flex items-center justify-center md:w-[36px] md:h-[36px] sm:w-[32px] sm:h-[32px]">
                                             <svg
-                                                width="14"
-                                                height="10"
+                                                width="12"
+                                                height="8"
                                                 viewBox="0 0 14 10"
                                                 fill="none"
                                                 xmlns="http://www.w3.org/2000/svg"
+                                                className="md:w-[14px] md:h-[10px] sm:w-[12px] sm:h-[8px]"
                                             >
                                                 <path
                                                     d="M1 5H13M13 5L9 1M13 5L9 9"

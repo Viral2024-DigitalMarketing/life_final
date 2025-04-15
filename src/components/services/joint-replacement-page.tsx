@@ -22,11 +22,13 @@ const JointReplacementPage = () => {
                                       description,
                                       imageStatic,
                                       imageActive,
+                                      replacementCount
                                   }: {
         title: string;
         description: string;
         imageStatic: string;
         imageActive: string;
+        replacementCount: number;
     }) => {
         const [isHovered, setIsHovered] = useState(false);
 
@@ -45,7 +47,7 @@ const JointReplacementPage = () => {
                 >
                     {/* Tag */}
                     <div className="absolute top-3 right-3 bg-[#06009E] text-white text-sm px-3 py-1 rounded-[16px] border border-[#06009E] font-product-sans tracking-wide z-10">
-                        Replaced in last year
+                        {replacementCount} Replaced in last year
                     </div>
 
                     {/* Image */}
@@ -90,30 +92,30 @@ const JointReplacementPage = () => {
             <main className="flex-grow">
                 {/* Hero Section */}
                 <section
-                    className="relative w-full h-[100vh] md:h-[100vh] bg-no-repeat bg-[length:170%] md:bg-cover bg-[center_top] md:bg-[center_bottom_-50px] flex flex-col justify-center items-center text-center overflow-hidden"
+                    className="relative w-full h-[90vh] md:h-[100vh] bg-no-repeat bg-[length:220%] md:bg-cover bg-[center_top_40px] md:bg-[center_bottom_-20px] flex flex-col justify-center items-center text-center md:mb-[-10px]"
                     style={{
                         backgroundImage: "url('/images/100_hero.svg')",
                     }}
                 >
-
-                {/* Top Text */}
-                    <div className="absolute top-[90px] md:top-[110px] left-1/2 transform -translate-x-1/2 text-white text-xl md:text-3xl font-semibold tracking-wide">
+                    {/* Top Text */}
+                    <div className="absolute top-[75px] md:top-[100px] left-1/2 transform -translate-x-1/2 text-white text-xl md:text-3xl font-semibold tracking-wide">
                         Completed
                     </div>
 
                     {/* Bottom Text */}
-                    <div className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
-                        <div className="text-[24px] md:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
+                    <div className="absolute bottom-[180px] md:bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
+                        <div className="text-[18px] md:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
                             TOTAL HIP REPLACEMENT
                         </div>
-                        <div className="text-[18px] md:text-2xl font-semibold mt-1 uppercase tracking-[0.25em] font-vietnam-pro">
+                        <div className="text-[15px] md:text-2xl font-semibold mt-1 uppercase tracking-[0.25em] font-vietnam-pro">
                             SURGERIES
                         </div>
                     </div>
                 </section>
 
                 {/* Cards Section */}
-                <section className="text-center py-12 bg-[#F9F9F9]">
+                <section className="text-center mt-[-140px] md:mt-0 pt-2 md:pt-12 pb-12 bg-[#F9F9F9]">
+
                     <h2 className="text-[36px] md:text-[52px] text-black font-abhaya-libre font-semibold tracking-[1%] leading-[100%] text-center px-4">
                         Specialized Joint Replacement Care
                     </h2>
@@ -124,31 +126,35 @@ const JointReplacementPage = () => {
                             description="Expert knee replacements at Life Hospital: Advanced techniques, excellent outcomes."
                             imageStatic="/images/knee.svg"
                             imageActive="/images/knee_pain.svg"
+                            replacementCount={254}
                         />
                         <JointReplacementCard
                             title="Hip Replacement Surgery"
                             description="Expert hip replacements at Life Hospital: Advanced techniques, excellent outcomes."
                             imageStatic="/images/hip.svg"
                             imageActive="/images/hip_pain.svg"
+                            replacementCount={189}
                         />
                         <JointReplacementCard
                             title="Shoulder Replacement Surgery"
                             description="Expert shoulder replacements at Life Hospital: Advanced techniques, excellent outcomes."
                             imageStatic="/images/shol.svg"
                             imageActive="/images/shoul_pain.svg"
+                            replacementCount={142}
                         />
                         <JointReplacementCard
                             title="Elbow Replacement Surgery"
                             description="Expert elbow replacements at Life Hospital: Advanced techniques, excellent outcomes."
                             imageStatic="/images/elb.svg"
                             imageActive="/images/elbow_pain.svg"
+                            replacementCount={98}
                         />
                     </div>
                 </section>
 
                 {/* CTA */}
                 <section className="mt-12">
-                    <ServicesCTA addToContentRefs={addToContentRefs} />
+                <ServicesCTA addToContentRefs={addToContentRefs} />
                 </section>
             </main>
 

@@ -199,7 +199,12 @@ const WhyChooseSection = () => {
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={
                                     section1Animated.current
-                                        ? { opacity: [1, 1, 0], scale: [1, 1, 0.8], x: [0, 0, 100], rotateZ: [0, 0, 180] }
+                                        ? {
+                                            opacity: [1, 1, 0],
+                                            scale: [1, 1, 0.8],
+                                            x: [0, 0, 100],
+                                            rotateZ: [0, 0, 180],
+                                        }
                                         : { opacity: 1, scale: 1 }
                                 }
                                 transition={{
@@ -215,7 +220,12 @@ const WhyChooseSection = () => {
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={
                                     section1Animated.current
-                                        ? { opacity: [1, 1, 0], scale: [1, 1, 0.8], x: [0, 0, 100], rotateZ: [0, 0, 180] }
+                                        ? {
+                                            opacity: [1, 1, 0],
+                                            scale: [1, 1, 0.8],
+                                            x: [0, 0, 100],
+                                            rotateZ: [0, 0, 180],
+                                        }
                                         : { opacity: 1, scale: 1 }
                                 }
                                 transition={{
@@ -235,12 +245,14 @@ const WhyChooseSection = () => {
                                 <BlobSVG color="#6FCBCF" />
                                 <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 lg:p-10 text-center">
                                     <h3 className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold text-white mb-2 md:mb-4 lg:mb-6 font-merriweather">
-                                        Recognized for excellence in Ayushman Bharat & Rajiv Aarogyasri.
+                                        Recognized for excellence in Ayushman Bharat & Rajiv
+                                        Aarogyasri.
                                     </h3>
                                     <p className="text-[10px] sm:text-xs md:text-sm lg:text-base text-white max-w-[90%] sm:max-w-xs md:max-w-md">
-                                        This certificate is awarded to Life Hospital, Kamareddy for exemplary performance under Ayushman
-                                        Bharat Pradhan Mantri Jan Arogya Yojana (AB PM-JAY)-Rajiv Aarogyasri in the State of Telangana on 26
-                                        January 2024
+                                        This certificate is awarded to Life Hospital, Kamareddy for
+                                        exemplary performance under Ayushman Bharat Pradhan Mantri Jan
+                                        Arogya Yojana (AB PM-JAY)-Rajiv Aarogyasri in the State of
+                                        Telangana on 26 January 2024
                                     </p>
                                 </div>
                             </motion.div>
@@ -309,21 +321,23 @@ const WhyChooseSection = () => {
                                         className="absolute inset-0 flex flex-col items-center lg:items-start justify-center p-4 sm:p-6 md:p-8 lg:p-12 text-center lg:text-left"
                                         initial={{ opacity: 0 }}
                                         animate={inView2 ? { opacity: 1 } : { opacity: 0 }}
-                                        transition={{ duration: 0.3, delay: 2.7 }} // Appears instantly when yellow blob falls
+                                        transition={{ duration: 0.3, delay: 2.7 }}
                                     >
                                         <h3
                                             className="font-[500] text-base sm:text-lg md:text-xl lg:text-2xl leading-[120%] tracking-[0.02em] text-white mb-2 md:mb-4 lg:mb-6"
                                             style={{ fontFamily: "Merriweather, serif" }}
                                         >
-                                            Recognized for excellence in Ayushman Bharat & Rajiv Aarogyasri.
+                                            Recognized for excellence in Ayushman Bharat & Rajiv
+                                            Aarogyasri.
                                         </h3>
                                         <p
                                             className="font-[400] text-[10px] sm:text-xs md:text-sm lg:text-lg leading-[140%] tracking-[0.02em] text-white max-w-[90%] sm:max-w-xs md:max-w-xl"
                                             style={{ fontFamily: "Merriweather, serif" }}
                                         >
-                                            This Certificate Is Awarded To Life Hospital, Kamareddy For Exemplary Performance Under Ayushman
-                                            Bharat Pradhan Mantri Jan Arogya Yojana (AB PM-JAY)-Rajiv Aarogyasri In The State Of Telangana On
-                                            26 January 2024
+                                            This Certificate Is Awarded To Life Hospital, Kamareddy For
+                                            Exemplary Performance Under Ayushman Bharat Pradhan Mantri
+                                            Jan Arogya Yojana (AB PM-JAY)-Rajiv Aarogyasri In The State
+                                            Of Telangana On 26 January 2024
                                         </p>
                                     </motion.div>
                                 </motion.div>
@@ -352,9 +366,7 @@ const WhyChooseSection = () => {
                                     <motion.div
                                         className="absolute inset-0 flex flex-col items-center lg:items-start justify-center p-4 sm:p-6 md:p-8 lg:p-12 text-center lg:text-left"
                                         initial={{ opacity: 0 }}
-                                        animate={
-                                            inView2 ? { opacity: [0, 1, 0] } : { opacity: 0 }
-                                        }
+                                        animate={inView2 ? { opacity: [0, 1, 0] } : { opacity: 0 }}
                                         transition={{
                                             duration: 2.2,
                                             times: [0, 0.3, 1],
@@ -365,15 +377,17 @@ const WhyChooseSection = () => {
                                             className="font-[500] text-base sm:text-lg md:text-xl lg:text-2xl leading-[120%] tracking-[0.02em] text-white mb-2 md:mb-4 lg:mb-6"
                                             style={{ fontFamily: "Merriweather, serif" }}
                                         >
-                                            Recognized for excellence in Ayushman Bharat & Rajiv Aarogyasri.
+                                            Recognized for excellence in Ayushman Bharat & Rajiv
+                                            Aarogyasri.
                                         </h3>
                                         <p
                                             className="font-[400] text-[10px] sm:text-xs md:text-sm lg:text-lg leading-[140%] tracking-[0.02em] text-white max-w-[90%] sm:max-w-xs md:max-w-xl"
                                             style={{ fontFamily: "Merriweather, serif" }}
                                         >
-                                            This Certificate Is Awarded To Life Hospital, Kamareddy For Exemplary Performance Under Ayushman
-                                            Bharat Pradhan Mantri Jan Arogya Yojana (AB PM-JAY)-Rajiv Aarogyasri In The State Of Telangana On
-                                            26 January 2024
+                                            This Certificate Is Awarded To Life Hospital, Kamareddy For
+                                            Exemplary Performance Under Ayushman Bharat Pradhan Mantri
+                                            Jan Arogya Yojana (AB PM-JAY)-Rajiv Aarogyasri In The State
+                                            Of Telangana On 26 January 2024
                                         </p>
                                     </motion.div>
                                 </motion.div>
@@ -386,18 +400,18 @@ const WhyChooseSection = () => {
             {/* Section 3 */}
             <div
                 ref={ref3}
-                className="min-h-[150px] md:min-h-[200px] lg:min-h-[250px] mt-[-80px] md:mt-[-120px] lg:mt-[-150px] flex items-center justify-center py-8 md:py-12 lg:py-16 relative"
+                className="min-h-[150px] md:min-h-[200px] lg:min-h-[250px] mt-[-80px] md:mt-[-120px] lg:mt-[-150px] flex items-center justify-center py-8 md:py-12 lg:py-16 relative hidden md:block"
             >
                 <div className="container mx-auto px-4">
+                    {/* Desktop Version Card */}
                     <motion.div
                         className="relative mx-auto rounded-xl overflow-hidden shadow-xl cursor-pointer flex items-center justify-center"
                         style={{
-                            width: "80%", // Keeps the width to 80% for both desktop and mobile
-                            maxWidth: "904px", // Keeps the max width at 904px
-                            height: "80px", // Keeps the height at 100px for both desktop and mobile
-                            backgroundColor: "#F9D020", // Sets the background color
+                            width: "80%",
+                            maxWidth: "904px",
+                            height: "120px",
+                            backgroundColor: "#F9D020",
                         }}
-
                         initial={{ opacity: 0, y: -100 }}
                         animate={inView3 ? { opacity: 1, y: 0 } : {}}
                         transition={{
@@ -437,7 +451,50 @@ const WhyChooseSection = () => {
                 </div>
             </div>
 
-            <AppointmentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            {/* Mobile Version Card */}
+            <div className="block md:hidden">
+                <div
+                    className="relative mx-auto rounded-xl overflow-hidden shadow-xl cursor-pointer flex items-center justify-center"
+                    style={{
+                        width: "80%",
+                        maxWidth: "350px",
+                        height: "40px",
+                        backgroundColor: "#F9D020",
+                    }}
+                    onClick={() => setIsModalOpen(true)}
+                >
+                    <div className="flex items-center justify-center w-full">
+                        <motion.h2
+                            style={{
+                                fontFamily: "Merriweather, serif",
+                                fontWeight: 400,
+                                fontSize: "clamp(14px, 6vw, 40px)",
+                                lineHeight: "100%",
+                                letterSpacing: "1%",
+                                color: "#06009E",
+                            }}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={inView3 ? { opacity: 1, scale: 1 } : {}}
+                            transition={{ duration: 0.5, delay: 0.6 }}
+                        >
+                            Request Appointment
+                        </motion.h2>
+                        <motion.div
+                            className="ml-3 md:ml-6"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={inView3 ? { opacity: 1, x: 0 } : {}}
+                            transition={{ duration: 0.5, delay: 0.8 }}
+                        >
+                            <ArrowRight size={24} color="#06009E" strokeWidth={2.5} />
+                        </motion.div>
+                    </div>
+                </div>
+            </div>
+
+            <AppointmentModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
         </div>
     );
 };
