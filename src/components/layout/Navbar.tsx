@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, Phone, Siren, X, Headset, Instagram, Linkedin } from 'lucide-react';
 import {
   HoverCard,
@@ -28,6 +28,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Determine if hero background should be visible
   const shouldShowHero = () => {
@@ -62,6 +63,12 @@ const Navbar: React.FC<NavbarProps> = () => {
   // Open appointment modal
   const openAppointmentModal = () => {
     setShowAppointmentModal(true);
+  };
+
+  // Navigate to services and close menu
+  const navigateToServices = () => {
+    navigate('/services');
+    toggleMenu();
   };
 
   const navLinkClass = `${isScrolled || !isHeroVisible ? 'text-gray-800' : 'text-white'} nav-link`;
@@ -445,7 +452,7 @@ const Navbar: React.FC<NavbarProps> = () => {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Fixed positioning to prevent scroll issues */}
           <div className="lg:hidden flex items-center z-10">
             <Button
                 variant="ghost"
@@ -462,8 +469,8 @@ const Navbar: React.FC<NavbarProps> = () => {
               <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={toggleMenu}></div>
           )}
 
-          {/* Mobile Navigation Menu */}
-          <div className={`fixed top-0 right-0 h-full w-3/4 max-w-xs bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 overflow-y-auto ${
+          {/* Mobile Navigation Menu with max-width to prevent horizontal scroll */}
+          <div className={`fixed top-0 right-0 h-full w-full max-w-xs bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 overflow-y-auto overflow-x-hidden ${
               isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}>
             <div className="p-5">
@@ -477,14 +484,11 @@ const Navbar: React.FC<NavbarProps> = () => {
               <nav className="flex flex-col gap-6">
                 <Link to="/" className="text-gray-800 text-lg font-medium" onClick={toggleMenu}>Home</Link>
 
-                {/* Services as a clickable button */}
+                {/* Services as a clickable button with proper navigation */}
                 <Button
                     variant="ghost"
                     className="w-full text-left text-gray-800 text-lg font-medium hover:bg-gray-100 rounded-md p-2"
-                    onClick={() => {
-                      window.location.href = '/services';
-                      toggleMenu();
-                    }}
+                    onClick={navigateToServices}
                 >
                   Services
                 </Button>
@@ -497,7 +501,81 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </div>
 
                 <Link to="/about" className="text-gray-800 text-lg font-medium" onClick={toggleMenu}>About Us</Link>
-                <Link to="/contact" className="text-gray-800 text-lg font-medium" onClick={toggleMenu}>Contact Us</Link>
+
+                {/* Contact Us with hover card-like content in mobile */}
+                <div className="space-y-4">
+                  <Link to="/contact" className="text-gray-800 text-lg font-medium" onClick={toggleMenu}>Contact Us</Link>
+
+                  {/* Contact info styled like hover card */}
+                  <div className="ml-4 bg-gray-50 rounded-lg p-4">
+                    {/* General Enquiry */}
+                    <div className="mb-4">
+                      <h3 style={{
+                        fontFamily: 'Ranade',
+                        fontWeight: 500,
+                        fontSize: '20px',
+                        lineHeight: '100%',
+                        letterSpacing: '1%',
+                        color: '#000000',
+                      }}>General Enquiry</h3>
+                      <div className="mt-1">
+                        <a href="tel:+918592859585" style={{
+                          fontFamily: 'Be Vietnam Pro',
+                          fontWeight: 400,
+                          fontSize: '16px',
+                          lineHeight: '100%',
+                          letterSpacing: '0%',
+                          color: '#2C2C2CF2',
+                        }}>+91 8592859585</a>
+                      </div>
+                    </div>
+
+                    {/* Emergency Services */}
+                    <div className="mb-4">
+                      <h3 style={{
+                        fontFamily: 'Ranade',
+                        fontWeight: 500,
+                        fontSize: '20px',
+                        lineHeight: '100%',
+                        letterSpacing: '1%',
+                        color: '#D61A1A',
+                      }}>Emergency Services</h3>
+                      <div className="mt-1">
+                        <a href="tel:+917002585724" style={{
+                          fontFamily: 'Be Vietnam Pro',
+                          fontWeight: 400,
+                          fontSize: '16px',
+                          lineHeight: '100%',
+                          letterSpacing: '0%',
+                          color: '#2C2C2CF2',
+                        }}>+91 7002585724</a>
+                      </div>
+                    </div>
+
+                    {/* Appointment Booking */}
+                    <div>
+                      <h3 style={{
+                        fontFamily: 'Ranade',
+                        fontWeight: 500,
+                        fontSize: '20px',
+                        lineHeight: '100%',
+                        letterSpacing: '1%',
+                        color: '#000000',
+                      }}>Appointment Booking</h3>
+                      <div className="mt-1">
+                        <a href="tel:+918597002535" style={{
+                          fontFamily: 'Be Vietnam Pro',
+                          fontWeight: 400,
+                          fontSize: '16px',
+                          lineHeight: '100%',
+                          letterSpacing: '0%',
+                          color: '#2C2C2CF2',
+                        }}>+91 8597002535</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <Link to="/blog" className="text-gray-800 text-lg font-medium" onClick={toggleMenu}>Blog</Link>
               </nav>
 

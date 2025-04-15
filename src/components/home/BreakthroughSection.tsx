@@ -85,26 +85,29 @@ const BreakthroughSection = () => {
                     </p>
                 </div>
 
-                {/* Desktop Images */}
-                <div className="hidden md:flex flex-row mb-12 justify-between gap-4">
+                {/* Desktop Images (No Gap) */}
+                <div className="hidden md:flex mb-12">
                     {breakthroughImages.map((image, index) => (
                         <img
                             key={index}
                             src={image}
                             alt={`Breakthrough Case ${index + 1}`}
                             className="w-[260px] h-[390px] object-cover"
+                            loading="lazy"
                         />
                     ))}
                 </div>
 
-                {/* Mobile Scrollable Images */}
-                <div className="flex md:hidden overflow-x-auto gap-4 mb-12">
+                {/* Mobile Scrollable Images (No Gap) */}
+                <div className="flex md:hidden overflow-x-auto mb-12">
                     {breakthroughImages.map((image, index) => (
                         <img
                             key={index}
                             src={image}
                             alt={`Breakthrough Case ${index + 1}`}
-                            className="min-w-[240px] h-[340px] object-cover rounded-xl"
+                            className="min-w-[240px] h-[340px] object-cover  flex-shrink-0"
+                            loading="lazy"
+                            style={{ marginRight: 0 }}
                         />
                     ))}
                 </div>

@@ -3,8 +3,8 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import AppointmentModal from "@/components/shared/AppointmentModal";
 
-const BlobShape = ({ fillColor }: { fillColor: string }) => (
-    <svg width="199" height="188" viewBox="0 0 199 188" fill="none" xmlns="http://www.w3.org/2000/svg">
+const BlobShape = ({ fillColor }) => (
+    <svg width="199" height="188" viewBox="0 0 199 188" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
         <path
             d="M187.629 11.8105C198.808 20.9184 199.965 35.7142 197.988 50.0936C194.736 73.7309 184.252 96.1867 173.062 116.863C160.317 140.503 144.225 165.995 121.008 180.121C112.055 185.567 102.248 189.303 91.7017 186.642C79.9928 183.687 71.2226 174.465 62.87 166.143C53.3779 156.683 44.7567 146.389 37.1103 135.384C21.566 113.03 10.1069 88.0958 3.26332 61.7337C-0.417631 47.4284 -2.48179 30.5005 8.99343 19.4724C19.3556 9.52579 34.9769 7.60006 48.4035 5.5534C73.3309 1.74552 98.5152 -0.101189 123.724 0.0302952C142.823 0.136374 165.502 -0.927925 182.93 8.65561C184.588 9.56389 186.161 10.6198 187.629 11.8105Z"
             fill={fillColor}
@@ -38,62 +38,43 @@ const EmpoweringSection = () => {
     useEffect(() => {
         if (inView) {
             const animateSequence = async () => {
-                // Wait a bit before starting animations
                 await new Promise((resolve) => setTimeout(resolve, 500));
 
                 // 1. Yellow Card Animation (Relief)
                 await Promise.all([
                     reliefBlobControls.start({
-                        fill: ["#000000", "#F9D020", "#F9D02080"],
-                        transition: { duration: 1.5, times: [0, 0.6, 1] }
+                        fill: ["#000000", "#F9D020"],
+                        transition: { duration: 1 }
                     }),
                     reliefTextControls.start({
                         color: ["#000000", "#F9D020"],
-                        transition: { duration: 1, delay: 0.5 }
+                        transition: { duration: 1 }
                     })
                 ]);
-
-                // Keep Relief Blob in Light Color
-                reliefBlobControls.start({
-                    fill: "#F9D02080",
-                    transition: { duration: 0.5 },
-                });
 
                 // 2. Violet Card Animation (Rebuild)
                 await Promise.all([
                     rebuildBlobControls.start({
-                        fill: ["#000000", "#7272AF", "#7272AF80"],
-                        transition: { duration: 1.5, times: [0, 0.6, 1] }
+                        fill: ["#000000", "#7272AF"],
+                        transition: { duration: 1 }
                     }),
                     rebuildTextControls.start({
                         color: ["#000000", "#7272AF"],
-                        transition: { duration: 1, delay: 0.5 }
+                        transition: { duration: 1 }
                     })
                 ]);
-
-                // Keep Rebuild Blob in Light Color
-                rebuildBlobControls.start({
-                    fill: "#7272AF80",
-                    transition: { duration: 0.5 },
-                });
 
                 // 3. Teal Card Animation (Recover)
                 await Promise.all([
                     recoverBlobControls.start({
-                        fill: ["#000000", "#6FCBCF", "#6FCBCF80"],
-                        transition: { duration: 1.5, times: [0, 0.6, 1] }
+                        fill: ["#000000", "#6FCBCF"],
+                        transition: { duration: 1 }
                     }),
                     recoverTextControls.start({
                         color: ["#000000", "#6FCBCF"],
-                        transition: { duration: 1, delay: 0.5 }
+                        transition: { duration: 1 }
                     })
                 ]);
-
-                // Keep Recover Blob in Light Color
-                recoverBlobControls.start({
-                    fill: "#6FCBCF80",
-                    transition: { duration: 0.5 },
-                });
 
                 // 4. Hide all original headings
                 await Promise.all([
@@ -127,7 +108,7 @@ const EmpoweringSection = () => {
                     transition: { duration: 0.5 },
                 });
 
-                // 6. Fade out blobs and show logo (replaced with an image)
+                // 6. Fade out blobs and show logo
                 await blobsContainerControls.start({
                     opacity: 0,
                     scale: 0.8,
@@ -181,25 +162,25 @@ const EmpoweringSection = () => {
                 </div>
 
                 {/* Right */}
-                <div className="relative w-full max-w-[626px] h-[476.21px] mx-auto flex justify-center items-center mt-16">
+                <div className="relative w-full max-w-[626px] h-[476.21px] mx-auto flex justify-center items-center mt-16 md:mt-0">
                     {/* Top aligned headings that will appear in sequence */}
-                    <div className="absolute top-[-40px] left-0 w-full flex justify-center items-center">
+                    <div className="absolute top-[-40px] left-0 w-full flex justify-center items-center flex-wrap md:flex-nowrap">
                         <motion.span
-                            className="text-3xl font-semibold text-[#F9D020] mx-4"
+                            className="text-xl md:text-3xl font-semibold text-[#F9D020] mx-2 md:mx-4 mb-2 md:mb-0"
                             initial={{ opacity: 0 }}
                             animate={topReliefTextControls}
                         >
                             Relief
                         </motion.span>
                         <motion.span
-                            className="text-3xl font-semibold text-[#7272AF] mx-4"
+                            className="text-xl md:text-3xl font-semibold text-[#7272AF] mx-2 md:mx-4 mb-2 md:mb-0"
                             initial={{ opacity: 0 }}
                             animate={topRebuildTextControls}
                         >
                             Rebuild
                         </motion.span>
                         <motion.span
-                            className="text-3xl font-semibold text-[#6FCBCF] mx-4"
+                            className="text-xl md:text-3xl font-semibold text-[#6FCBCF] mx-2 md:mx-4 mb-2 md:mb-0"
                             initial={{ opacity: 0 }}
                             animate={topRecoverTextControls}
                         >
@@ -207,13 +188,13 @@ const EmpoweringSection = () => {
                         </motion.span>
                     </div>
 
-                    {/* Logo (replaced with an image) */}
+                    {/* Logo */}
                     <motion.div
                         className="absolute inset-0 flex items-center justify-center"
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={logoControls}
                     >
-                        <img src="/images/emp_logo.svg" alt="Logo" className="w-[160px] h-[160px]" />
+                        <img src="/images/emp_logo.svg" alt="Logo" className="w-[120px] md:w-[160px] h-[120px] md:h-[160px]" />
                     </motion.div>
 
                     {/* Blobs Container */}
@@ -222,13 +203,13 @@ const EmpoweringSection = () => {
                         animate={blobsContainerControls}
                     >
                         {/* Yellow - Relief */}
-                        <div className="absolute bottom-1/4 left-1/2 translate-x-[-161%] w-[199px] h-[188px] flex items-center justify-center">
+                        <div className="absolute bottom-1/4 left-1/2 translate-x-[-140%] md:translate-x-[-161%] w-[120px] md:w-[199px] h-[113px] md:h-[188px] flex items-center justify-center">
                             <div className="relative w-full h-full rotate-[20deg]">
                                 <motion.div initial={{ fill: "#000000" }} animate={reliefBlobControls}>
                                     <BlobShape fillColor="#F9D020" />
                                 </motion.div>
                                 <motion.span
-                                    className="absolute top-[-30px] left-1/2 -translate-x-1/2 text-3xl font-semibold"
+                                    className="absolute top-[-25px] md:top-[-30px] left-1/2 -translate-x-1/2 text-xl md:text-3xl font-semibold"
                                     initial={{ color: "#000000" }}
                                     animate={reliefTextControls}
                                 >
@@ -238,13 +219,13 @@ const EmpoweringSection = () => {
                         </div>
 
                         {/* Violet - Rebuild */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[199px] h-[188px] flex items-center justify-center">
-                            <div className="mt-[100px] relative w-full h-full">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[120px] md:w-[199px] h-[113px] md:h-[188px] flex items-center justify-center">
+                            <div className="mt-[60px] md:mt-[100px] relative w-full h-full">
                                 <motion.div initial={{ fill: "#000000" }} animate={rebuildBlobControls}>
                                     <BlobShape fillColor="#7272AF" />
                                 </motion.div>
                                 <motion.span
-                                    className="absolute top-[-35px] left-1/2 -translate-x-1/2 text-3xl font-semibold"
+                                    className="absolute top-[-30px] md:top-[-35px] left-1/2 -translate-x-1/2 text-xl md:text-3xl font-semibold"
                                     initial={{ color: "#000000" }}
                                     animate={rebuildTextControls}
                                 >
@@ -254,13 +235,13 @@ const EmpoweringSection = () => {
                         </div>
 
                         {/* Teal - Recover */}
-                        <div className="absolute bottom-1/4 right-0 translate-x-1/4 w-[199px] h-[188px] flex items-center justify-center">
+                        <div className="absolute bottom-1/4 right-0 translate-x-[40%] md:translate-x-1/4 w-[120px] md:w-[199px] h-[113px] md:h-[188px] flex items-center justify-center">
                             <div className="relative w-full h-full rotate-[-20deg]">
                                 <motion.div initial={{ fill: "#000000" }} animate={recoverBlobControls}>
                                     <BlobShape fillColor="#6FCBCF" />
                                 </motion.div>
                                 <motion.span
-                                    className="absolute top-[-30px] left-1/2 -translate-x-1/2 text-3xl font-semibold"
+                                    className="absolute top-[-25px] md:top-[-30px] left-1/2 -translate-x-1/2 text-xl md:text-3xl font-semibold"
                                     initial={{ color: "#000000" }}
                                     animate={recoverTextControls}
                                 >
