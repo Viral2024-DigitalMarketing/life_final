@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Abhaya+Libre:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ranade:wght@400;500;600;700&display=swap');
+
 
 @tailwind base;
 @tailwind components;
@@ -154,4 +156,28 @@
       transform: translateY(0);
     }
   }
+}
+@keyframes rowScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-rowScroll0 {
+  animation: rowScroll 30s linear infinite;
+}
+
+.animate-rowScroll1 {
+  animation: rowScroll 35s linear infinite;
+}
+
+.animate-rowScroll2 {
+  animation: rowScroll 40s linear infinite;
+}
+
+.animate-rowScroll3 {
+  animation: rowScroll 45s linear infinite;
 }

@@ -162,26 +162,28 @@ const EmpoweringSection = () => {
                 </div>
 
                 {/* Right */}
-                <div className="relative w-full max-w-[626px] h-[476.21px] mx-auto flex justify-center items-center mt-16 md:mt-0">
+                <div
+                    className="relative w-full max-w-[626px] h-[476.21px] mx-auto flex justify-center items-center mt-28 md:mt-0">
                     {/* Top aligned headings that will appear in sequence */}
-                    <div className="absolute top-[-40px] left-0 w-full flex justify-center items-center flex-wrap md:flex-nowrap">
+                    <div
+                        className="absolute top-[50px] left-0 w-full flex justify-center items-center flex-wrap md:flex-nowrap">
                         <motion.span
                             className="text-xl md:text-3xl font-semibold text-[#F9D020] mx-2 md:mx-4 mb-2 md:mb-0"
-                            initial={{ opacity: 0 }}
+                            initial={{opacity: 0}}
                             animate={topReliefTextControls}
                         >
                             Relief
                         </motion.span>
                         <motion.span
                             className="text-xl md:text-3xl font-semibold text-[#7272AF] mx-2 md:mx-4 mb-2 md:mb-0"
-                            initial={{ opacity: 0 }}
+                            initial={{opacity: 0}}
                             animate={topRebuildTextControls}
                         >
                             Rebuild
                         </motion.span>
                         <motion.span
                             className="text-xl md:text-3xl font-semibold text-[#6FCBCF] mx-2 md:mx-4 mb-2 md:mb-0"
-                            initial={{ opacity: 0 }}
+                            initial={{opacity: 0}}
                             animate={topRecoverTextControls}
                         >
                             Recover
@@ -190,11 +192,12 @@ const EmpoweringSection = () => {
 
                     {/* Logo */}
                     <motion.div
-                        className="absolute inset-0 flex items-center justify-center"
-                        initial={{ opacity: 0, scale: 0.5 }}
+                        className="absolute inset-0 flex items-center mt-[200px] justify-center"
+                        initial={{opacity: 0, scale: 0.5}}
                         animate={logoControls}
                     >
-                        <img src="/images/emp_logo.svg" alt="Logo" className="w-[120px] md:w-[160px] h-[120px] md:h-[160px]" />
+                        <img src="/images/emp_logo.svg" alt="Logo"
+                             className="w-[120px] md:w-[300px] h-[120px] md:h-[300px]"/>
                     </motion.div>
 
                     {/* Blobs Container */}
@@ -203,14 +206,15 @@ const EmpoweringSection = () => {
                         animate={blobsContainerControls}
                     >
                         {/* Yellow - Relief */}
-                        <div className="absolute bottom-1/4 left-1/2 translate-x-[-140%] md:translate-x-[-161%] w-[120px] md:w-[199px] h-[113px] md:h-[188px] flex items-center justify-center">
+                        <div
+                            className="absolute bottom-1/4 left-1/2 translate-x-[-140%] md:translate-x-[-161%] w-[120px] md:w-[199px] h-[113px] md:h-[188px] flex items-center justify-center">
                             <div className="relative w-full h-full rotate-[20deg]">
-                                <motion.div initial={{ fill: "#000000" }} animate={reliefBlobControls}>
-                                    <BlobShape fillColor="#F9D020" />
+                                <motion.div initial={{fill: "#000000"}} animate={reliefBlobControls}>
+                                    <BlobShape fillColor="#F9D020"/>
                                 </motion.div>
                                 <motion.span
                                     className="absolute top-[-25px] md:top-[-30px] left-1/2 -translate-x-1/2 text-xl md:text-3xl font-semibold"
-                                    initial={{ color: "#000000" }}
+                                    initial={{color: "#000000"}}
                                     animate={reliefTextControls}
                                 >
                                     Relief
@@ -219,14 +223,15 @@ const EmpoweringSection = () => {
                         </div>
 
                         {/* Violet - Rebuild */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[120px] md:w-[199px] h-[113px] md:h-[188px] flex items-center justify-center">
+                        <div
+                            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[120px] md:w-[199px] h-[113px] md:h-[188px] flex items-center justify-center">
                             <div className="mt-[60px] md:mt-[100px] relative w-full h-full">
-                                <motion.div initial={{ fill: "#000000" }} animate={rebuildBlobControls}>
-                                    <BlobShape fillColor="#7272AF" />
+                                <motion.div initial={{fill: "#000000"}} animate={rebuildBlobControls}>
+                                    <BlobShape fillColor="#7272AF"/>
                                 </motion.div>
                                 <motion.span
                                     className="absolute top-[-30px] md:top-[-35px] left-1/2 -translate-x-1/2 text-xl md:text-3xl font-semibold"
-                                    initial={{ color: "#000000" }}
+                                    initial={{color: "#000000"}}
                                     animate={rebuildTextControls}
                                 >
                                     Rebuild
@@ -235,14 +240,15 @@ const EmpoweringSection = () => {
                         </div>
 
                         {/* Teal - Recover */}
-                        <div className="absolute bottom-1/4 right-0 translate-x-[40%] md:translate-x-1/4 w-[120px] md:w-[199px] h-[113px] md:h-[188px] flex items-center justify-center">
+                        <div
+                            className="absolute bottom-1/4 right-0 translate-x-[40%] md:translate-x-1/4 w-[120px] md:w-[199px] h-[113px] md:h-[188px] flex items-center justify-center">
                             <div className="relative w-full h-full rotate-[-20deg]">
-                                <motion.div initial={{ fill: "#000000" }} animate={recoverBlobControls}>
-                                    <BlobShape fillColor="#6FCBCF" />
+                                <motion.div initial={{fill: "#000000"}} animate={recoverBlobControls}>
+                                    <BlobShape fillColor="#6FCBCF"/>
                                 </motion.div>
                                 <motion.span
                                     className="absolute top-[-25px] md:top-[-30px] left-1/2 -translate-x-1/2 text-xl md:text-3xl font-semibold"
-                                    initial={{ color: "#000000" }}
+                                    initial={{color: "#000000"}}
                                     animate={recoverTextControls}
                                 >
                                     Recover

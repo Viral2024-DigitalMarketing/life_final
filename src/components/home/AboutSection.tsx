@@ -15,30 +15,48 @@ const AboutSection = () => {
     const textContainerRef = useRef(null);
     const floatingCardsRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     // Data for floating cards - multiple cards per row
     const cardsData = [
         [
-            { icon: "/images/ab_ban.svg", text: "World🌍-Class care🏥, zero financial burden!" },
-            { icon: "/images/ab_ban.svg", text: "Exceptional treatment, affordable prices💰" },
-            { icon: "/images/ab_ban.svg", text: "Quality healthcare that won't break the bank💯" }
+            { icon: "/images/gen_hel.svg", text: "World🌍-Class care🏥, zero financial burden!" },
+            { icon: "/images/gen_heal.svg", text: "Exceptional treatment, affordable prices💰" },
+            { icon: "/images/nav1.svg", text: "Quality healthcare that won't break the bank💯" }
         ],
         [
-            { icon: "/images/ab_ban.svg", text: "Healthcare made easy, just for you!✨" },
-            { icon: "/images/ab_ban.svg", text: "Simple solutions for complex health needs🩺" },
-            { icon: "/images/ab_ban.svg", text: "Patient-friendly approach to medical care🙌" }
+            { icon: "/images/gen_hel.svg", text: "Healthcare made easy, just for you!✨" },
+            { icon: "/images/gen_heal.svg", text: "Simple solutions for complex health needs🩺" },
+            { icon: "/images/nav1.svg", text: "Patient-friendly approach to medical care🙌" }
         ],
         [
-            { icon: "/images/ab_ban.svg", text: "Your health, our priority!💖" },
-            { icon: "/images/ab_ban.svg", text: "We put patients first, always❤️" },
-            { icon: "/images/ab_ban.svg", text: "Dedicated to your wellbeing, 24/7⏰" }
+            { icon: "/images/gen_hel.svg", text: "Your health, our priority!💖" },
+            { icon: "/images/gen_heal.svg", text: "We put patients first, always❤️" },
+            { icon: "/images/nav1.svg", text: "Dedicated to your wellbeing, 24/7⏰" }
         ],
         [
-            { icon: "/images/ab_ban.svg", text: "Seamless care, anytime, anywhere!🌟" },
-            { icon: "/images/ab_ban.svg", text: "Accessible healthcare without boundaries🔄" },
-            { icon: "/images/ab_ban.svg", text: "Medical excellence at your convenience📱" }
+            { icon: "/images/gen_hel.svg", text: "Seamless care, anytime, anywhere!🌟" },
+            { icon: "/images/gen_heal.svg", text: "Accessible healthcare without boundaries🔄" },
+            { icon: "/images/nav1.svg", text: "Medical excellence at your convenience📱" }
         ]
     ];
+
+    useEffect(() => {
+        // Check if the screen is mobile
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        // Initial check
+        checkMobile();
+
+        // Add resize listener
+        window.addEventListener('resize', checkMobile);
+
+        return () => {
+            window.removeEventListener('resize', checkMobile);
+        };
+    }, []);
 
     useEffect(() => {
         if (!containerRef.current || !sectionRef.current || !textContainerRef.current || !floatingCardsRef.current) return;
@@ -62,15 +80,27 @@ const AboutSection = () => {
             },
         });
 
-        // Advanced animation: Simultaneous shrink while moving to extreme left
-        tl.to(containerRef.current, {
-            scale: 0.2,
-            x: "-42vw",
-            y: "-35vh",
-            transformOrigin: "left center",
-            duration: 1.8,
-            ease: "power3.inOut",
-        });
+        if (isMobile) {
+            // Mobile animation: Shrink and center the number but keep it larger and move higher
+            tl.to(containerRef.current, {
+                scale: 0.7,
+                x: "0",
+                y: "-10vh", // Further 30px up (moved from -7vh to -10vh)
+                transformOrigin: "center center",
+                duration: 1.8,
+                ease: "power3.inOut",
+            });
+        } else {
+            // Desktop animation: Keep as is - Simultaneous shrink while moving to extreme left
+            tl.to(containerRef.current, {
+                scale: 0.2,
+                x: "-42vw",
+                y: "-35vh",
+                transformOrigin: "left center",
+                duration: 1.8,
+                ease: "power3.inOut",
+            });
+        }
 
         // Show the text content and floating cards after animation is complete
         tl.to(
@@ -139,13 +169,43 @@ const AboutSection = () => {
         return () => {
             ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
         };
-    }, []);
+    }, [isMobile]);
 
     return (
         <section
             ref={sectionRef}
             className="bg-white mt-20 min-h-[100vh] pt-32 pb-16 px-4 sm:px-8 md:px-12 lg:px-24 overflow-hidden relative"
         >
+            {/* Mobile Floating Cards - Improved infinite scroll */}
+            {isMobile && (
+                <div
+                    ref={floatingCardsRef}
+                    className="absolute left-0 top-5 w-full overflow-hidden pointer-events-none"
+                >
+                    {/* Single row with proper infinite scroll */}
+                    <div className="w-full overflow-hidden h-[50px] flex items-center">
+                        <div className="mobile-scrolling-cards flex gap-4">
+                            {/* We need to duplicate the cards multiple times to ensure continuous flow */}
+                            {[...cardsData[0], ...cardsData[0], ...cardsData[0]].map((card, cardIndex) => (
+                                <div
+                                    key={`mobile-row1-${cardIndex}`}
+                                    className="bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[250px] h-[40px] opacity-100"
+                                >
+                                    <img
+                                        src={card.icon}
+                                        alt="Avatar"
+                                        className="w-[24px] h-[24px] rounded-full"
+                                    />
+                                    <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis">
+                                        {card.text}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Initial container position */}
             <div
                 ref={containerRef}
@@ -156,11 +216,12 @@ const AboutSection = () => {
                     className="relative flex items-center justify-center"
                 >
                     <span
-                        className="text-[900px] md:text-[900px] mt-30 lg:text-[2200px] font-extrabold leading-none"
+                        className="text-[450px] md:text-[900px] mt-30 lg:text-[2200px] font-extrabold leading-none"
                         style={{
                             color: "#424294",
                             fontFamily: "Plus Jakarta Sans",
                             position: "relative",
+                            marginTop: isMobile ? "-260px" : "0px", // Move it up by 30px on mobile
                         }}
                     >
                         9
@@ -170,9 +231,9 @@ const AboutSection = () => {
                         ref={imageRef}
                         className="absolute rounded-full overflow-hidden"
                         style={{
-                            width: "650px",
-                            height: "650px",
-                            top: "550px",
+                            width: isMobile ? "150px" : "650px",
+                            height: isMobile ? "150px" : "650px",
+                            top: isMobile ? "-160px" : "530px", // moved 30px up on mobile
                             left: "50%",
                             transform: "translateX(-50%)",
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
@@ -190,57 +251,62 @@ const AboutSection = () => {
             {/* Text content positioned to appear next to the number when it's in left position */}
             <div
                 ref={textContainerRef}
-                className="absolute top-1/4 left-0"
+                className={`absolute ${isMobile ? 'top-[38vh] left-[calc(50%-80px)] transform ml-[180px] -translate-x-1/2 text-center' : 'top-1/4 left-0 ml-[360px] mt-[-20px]'}`}
                 style={{
-                    marginLeft: "360px",
-                    marginTop: "-20px",
                     fontFamily: "Be Vietnam Pro",
                     fontWeight: 700,
-                    fontSize: "36px",
-                    lineHeight: "100%",
+                    fontSize: isMobile ? "20px" : "36px",
+                    lineHeight: "110%",
                     letterSpacing: "3%",
                     color: "#424294",
+                    marginTop: isMobile ? "55px" : "0", // Changed from 70px to 55px (15px less)
                 }}
             >
-                Years of <br /> Orthopedic Excellence
+                Years of <br/> Orthopedic Excellence
             </div>
 
-            {/* Floating Cards Container - Improved with rows */}
-            <div
-                ref={floatingCardsRef}
-                className="absolute right-0 top-1/5 w-1/2 flex flex-col gap-8"
-                style={{ marginTop: "120px" }}
-            >
-                {cardsData.map((rowCards, rowIndex) => (
-                    <div key={rowIndex} className="card-row relative h-12 w-full overflow-hidden">
-                        {rowCards.map((card, cardIndex) => (
+            {/* Floating Cards - Desktop view remains untouched */}
+            {!isMobile && (
+                <div
+                    ref={floatingCardsRef}
+                    className="absolute -right-[80px] top-[50px] w-[50vw] flex flex-col gap-6 pointer-events-none fade-mask"
+                >
+                    {[0, 1, 2, 3].map((rowIndex) => (
+                        <div
+                            key={rowIndex}
+                            className="relative w-full overflow-hidden h-[50px] flex items-center"
+                        >
                             <div
-                                key={`${rowIndex}-${cardIndex}`}
-                                className="floating-card absolute bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] p-[8px_16px] gap-[4px] flex items-center"
+                                className={`flex gap-4 animate-rowScroll${rowIndex}`}
                                 style={{
-                                    width: "318px",
-                                    height: "40px",
-                                    left: 0,
-                                    transition: "transform 0.3s ease",
+                                    animationDelay: `${rowIndex * 2}s`,
                                 }}
                             >
-                                <img
-                                    src={card.icon}
-                                    alt="Avatar"
-                                    className="w-[24px] h-[24px] rounded-full"
-                                />
-                                <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis">
-                                    {card.text}
-                                </p>
+                                {/* Duplicated for seamless loop */}
+                                {[...cardsData[rowIndex], ...cardsData[rowIndex]].map((card, cardIndex) => (
+                                    <div
+                                        key={`${rowIndex}-${cardIndex}`}
+                                        className="bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[318px] h-[40px] opacity-100 transition-opacity duration-300"
+                                    >
+                                        <img
+                                            src={card.icon}
+                                            alt="Avatar"
+                                            className="w-[24px] h-[24px] rounded-full"
+                                        />
+                                        <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis">
+                                            {card.text}
+                                        </p>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                ))}
-            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
 
-            {/* Cards Section */}
+            {/* Cards Section - Reduced gap for mobile */}
             <div
-                className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 mt-96 sm:mt-96 md:mt-96 relative z-10 max-w-[1200px] mx-auto"
+                className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${isMobile ? 'mt-[45vh]' : 'mt-96 sm:mt-96 md:mt-80'} relative z-10 max-w-[1200px] mx-auto`}
             >
                 {[1, 2].map((_, idx) => (
                     <div
@@ -290,6 +356,37 @@ const AboutSection = () => {
                     </div>
                 ))}
             </div>
+
+            {/* Improved CSS for infinite scroll */}
+            <style global>{`
+                /* Improved infinite scroll for mobile */
+                @keyframes mobileInfiniteScroll {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-100%); }
+                }
+                
+                .mobile-scrolling-cards {
+                    animation: mobileInfiniteScroll 60s linear infinite;
+                    width: max-content;
+                }
+                
+                @keyframes animate-rowScroll0 {
+                    0% { transform: translateX(100vw); }
+                    100% { transform: translateX(-200vw); }
+                }
+                @keyframes animate-rowScroll1 {
+                    0% { transform: translateX(100vw); }
+                    100% { transform: translateX(-200vw); }
+                }
+                @keyframes animate-rowScroll2 {
+                    0% { transform: translateX(100vw); }
+                    100% { transform: translateX(-200vw); }
+                }
+                @keyframes animate-rowScroll3 {
+                    0% { transform: translateX(100vw); }
+                    100% { transform: translateX(-200vw); }
+                }
+            `}</style>
 
             {/* Appointment Modal */}
             <AppointmentModal

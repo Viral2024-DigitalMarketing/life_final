@@ -21,8 +21,11 @@ export default {
       fontFamily: {
         vietnam: ["'Be Vietnam Pro'", "sans-serif"],
         abhaya: ["'Abhaya Libre'", "serif"],
+          ranade: ['Ranade', 'sans-serif'],
       },
-      colors: {
+
+
+    colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -271,119 +271,66 @@ const Navbar: React.FC<NavbarProps> = () => {
                 <Link to="/contact" className={`${navLinkClass} ${location.pathname === '/contact' ? navLinkActiveClass : ''} relative`}>
                   Contact Us
                   <div className="absolute top-1/2 right-[-20px] transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <Headset size={18} color={isScrolled || !isHeroVisible ? '#306EB6' : '#fff'} />
+
                   </div>
                 </Link>
+
               </HoverCardTrigger>
               <HoverCardContent className="shadow-md" style={hoverCardContentStyle}>
                 <div className="grid grid-cols-3 gap-x-4 gap-y-6 items-start">
-                  {/* Left Column for All Contact Info */}
-                  <div className="flex flex-col justify-start space-y-3 ml-[-60px] col-span-1">
-                    <div className="space-y-1">
-                      <h3 style={{
-                        fontFamily: 'Ranade',
-                        fontWeight: 500,
-                        fontSize: '20px',
-                        lineHeight: '100%',
-                        letterSpacing: '1%',
-                        color: '#000000',
-                      }}>General Enquiry</h3>
-                      <div>
-                        <a href="tel:+918592859585" style={{
-                          fontFamily: 'Be Vietnam Pro',
-                          fontWeight: 400,
-                          fontSize: '16px',
-                          lineHeight: '100%',
-                          letterSpacing: '0%',
-                          color: '#2C2C2CF2',
-                        }}>+91 8592859585</a>
-                      </div>
-                      <div>
-                        <a href="tel:+918592859585" style={{
-                          fontFamily: 'Be Vietnam Pro',
-                          fontWeight: 400,
-                          fontSize: '16px',
-                          lineHeight: '100%',
-                          letterSpacing: '0%',
-                          color: '#2C2C2CF2',
-                        }}>+91 8592859585</a>
+                  {/* Left Column */}
+                  <div className="flex flex-col justify-start space-y-6 ml-[-60px] col-span-1">
+                    {/* General Enquiry */}
+                    <div
+                        className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100 cursor-default"
+                        style={serviceCardStyle}
+                    >
+                      <h3 style={serviceHeadingStyle}>General Enquiry</h3>
+                      <div className="mt-2 space-y-1">
+                        <p style={subHeadingStyle}>+91 8592859585</p>
+                        <p style={subHeadingStyle}>+91 8592859585</p>
                       </div>
                     </div>
 
-                    {/* Emergency Services */}
-                    <div className="space-y-1">
-                      <h3 style={{
-                        fontFamily: 'Ranade',
-                        fontWeight: 500,
-                        fontSize: '20px',
-                        lineHeight: '100%',
-                        letterSpacing: '1%',
-                        color: '#D61A1A',
-                      }}>Emergency Services</h3>
-                      <div>
-                        <a href="tel:+917002585724" style={{
-                          fontFamily: 'Be Vietnam Pro',
-                          fontWeight: 400,
-                          fontSize: '16px',
-                          lineHeight: '100%',
-                          letterSpacing: '0%',
-                          color: '#2C2C2CF2',
-                        }}>+91 7002585724</a>
-                      </div>
-                      <div>
-                        <a href="tel:+917002585724" style={{
-                          fontFamily: 'Be Vietnam Pro',
-                          fontWeight: 400,
-                          fontSize: '16px',
-                          lineHeight: '100%',
-                          letterSpacing: '0%',
-                          color: '#2C2C2CF2',
-                        }}>+91 7002585724</a>
-                      </div>
-                    </div>
 
                     {/* Appointment Booking */}
-                    <div className="mt-8 space-y-1">
-                      <h3 style={{
-                        fontFamily: 'Ranade',
-                        fontWeight: 500,
-                        fontSize: '20px',
-                        lineHeight: '100%',
-                        letterSpacing: '1%',
-                        color: '#000000',
-                      }}>Appointment Booking</h3>
-                      <div>
-                        <a href="tel:+918597002535" style={{
-                          fontFamily: 'Be Vietnam Pro',
-                          fontWeight: 400,
-                          fontSize: '16px',
-                          lineHeight: '100%',
-                          letterSpacing: '0%',
-                          color: '#2C2C2CF2',
-                        }}>+91 8597002535</a>
-                      </div>
-                      <div>
-                        <a href="tel:+918597002535" style={{
-                          fontFamily: 'Be Vietnam Pro',
-                          fontWeight: 400,
-                          fontSize: '16px',
-                          lineHeight: '100%',
-                          letterSpacing: '0%',
-                          color: '#2C2C2CF2',
-                        }}>+91 8597002535</a>
+                    {/* Appointment Booking */}
+                    <div
+                        className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100 cursor-default"
+                        style={serviceCardStyle}
+                    >
+                      <h3 style={serviceHeadingStyle}>Appointment Booking</h3>
+                      <div className="mt-2 space-y-1">
+                        <p style={subHeadingStyle}>+91 8597002535</p>
+                        <p style={subHeadingStyle}>+91 8597002535</p>
                       </div>
                     </div>
+
                   </div>
 
-                  {/* Empty Middle Column */}
-                  <div className="col-span-1"></div>
+                  {/* Right Column */}
+                  <div className="flex flex-col justify-start space-y-6 ml-[-100px] col-span-1">
+                    {/* Emergency Services */}
+                    {/* Emergency Services */}
+                    <div
+                        className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100 cursor-default"
+                        style={serviceCardStyle}
+                    >
+                      <h3 style={serviceHeadingStyle}>Emergency Services</h3>
+                      <div className="mt-2 space-y-1">
+                        <p style={subHeadingStyle}>+91 7002585724</p>
+                        <p style={subHeadingStyle}>+91 7002585724</p>
+                      </div>
+                    </div>
 
-                  {/* Right Column: Images */}
+                  </div>
+
+                  {/* Image Column */}
                   <div className="flex flex-col justify-start space-y-4 col-span-1">
                     <div className="mt-4">
                       <img
                           src="/images/nav_con.svg"
-                          alt="Contact Image 1"
+                          alt="Service Image 1"
                           className="rounded-lg ml-[20px] w-[320px] h-[268px] object-cover shadow-none"
                           style={{ borderRadius: '12px' }}
                       />
@@ -391,14 +338,13 @@ const Navbar: React.FC<NavbarProps> = () => {
                     <div className="mt-4">
                       <img
                           src="/images/logos.svg"
-                          alt="Contact Image 2"
+                          alt="Service Image 2"
                           className="rounded-lg object-cover ml-[30px] mt-5 w-[130px] h-[28px] shadow-none"
                           style={{ borderRadius: '12px' }}
                       />
                     </div>
                   </div>
                 </div>
-
                 {/* Social Links */}
                 <div className="absolute bottom-6 left-550 flex ml-[930px] gap-6">
                   <Link

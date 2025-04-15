@@ -50,13 +50,13 @@ const TestimonialsSection = () => {
     lowerRowAnimation = requestAnimationFrame(animateLowerRow);
 
     // Pause animation on hover
-    const pauseAnimation = (e: MouseEvent) => {
+    const pauseAnimation = () => {
       cancelAnimationFrame(upperRowAnimation);
       cancelAnimationFrame(lowerRowAnimation);
     };
 
     // Resume animation when not hovering
-    const resumeAnimation = (e: MouseEvent) => {
+    const resumeAnimation = () => {
       upperRowAnimation = requestAnimationFrame(animateUpperRow);
       lowerRowAnimation = requestAnimationFrame(animateLowerRow);
     };
@@ -77,40 +77,65 @@ const TestimonialsSection = () => {
     };
   }, []);
 
-  // Initialize cards with optimal duplication for smooth infinite scrolling
+  // Random testimonials with Indian villager names, unique headings, and varying text lengths
   const testimonials = [
     {
       id: 1,
-      name: "Sarah Johnson",
-      role: "Hip Replacement Patient",
-      quote: "The entire team at Life Hospital made my hip replacement experience remarkably smooth.",
+      name: "Ramesh Kumar",
+      heading: "Timely Help and Excellent Care",
+      quote: "The doctors at Life Hospital treated me with great care and helped me recover quickly.",
       rating: 5,
     },
     {
       id: 2,
-      name: "Michael Chen",
-      role: "Cardiac Patient",
-      quote: "After my cardiac event, I was terrified. The cardiologists provided exceptional medical care.",
+      name: "Sita Devi",
+      heading: "Emergency Care That Saved My Life",
+      quote: "I am grateful for the timely care provided by the staff during my emergency.",
       rating: 5,
     },
     {
       id: 3,
-      name: "Rebecca Torres",
-      role: "ENT Surgery Patient",
-      quote: "The ENT specialists identified and resolved an issue other doctors had missed for years.",
+      name: "Venkatesh Naidu",
+      heading: "Successful Surgery with Expert Doctors",
+      quote: "Life Hospital's facilities and doctors ensured my surgery was a success. Thank you!",
       rating: 5,
     },
     {
       id: 4,
-      name: "David Wilson",
-      role: "Orthopedic Patient",
-      quote: "Thanks to the orthopedic team, I'm back to doing what I love after my sports injury.",
+      name: "Lakshmi Bai",
+      heading: "Compassionate and Stress-Free Treatment",
+      quote: "Their dedication and care made my treatment smooth and stress-free.",
+      rating: 5,
+    },
+    {
+      id: 5,
+      name: "Arvind Patel",
+      heading: "Highly Recommended for Quality Care",
+      quote: "I will always recommend Life Hospital for their professional and kind-hearted approach.",
+      rating: 5,
+    },
+    {
+      id: 6,
+      name: "Manju Yadav",
+      heading: "Recovery Made Possible by Their Team",
+      quote: "The team at Life Hospital worked tirelessly to ensure my recovery.",
       rating: 5,
     },
   ];
 
   // Duplicate testimonials for smooth scrolling
   const duplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials];
+
+  const calculateCardSize = (quote: string) => {
+    const baseWidth = 260;
+    const baseHeight = 160;
+    const extraWidth = Math.min(quote.length * 1.2, 100); // Adjust width based on text length
+    const extraHeight = Math.min(quote.length * 0.8, 120); // Adjust height based on text length
+    return {
+      width: `${baseWidth + extraWidth}px`,
+      height: `${baseHeight + extraHeight}px`,
+    };
+  };
 
   return (
       <section className="bg-white py-16 overflow-hidden">
@@ -126,22 +151,34 @@ const TestimonialsSection = () => {
                 className="flex overflow-x-hidden scroll-smooth"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-              {duplicatedTestimonials.map((testimonial, index) => (
-                  <div
-                      key={`upper-${testimonial.id}-${index}`}
-                      className="flex-shrink-0 w-80 h-52 bg-white rounded-xl shadow-lg p-5 border border-gray-100 mx-3"
-                  >
-                    <p className="text-black mb-4 text-sm">{testimonial.quote}</p>
-                    <div className="flex flex-col items-end">
-                      <h3 className="font-bold text-lg text-black mb-1">{testimonial.name}</h3>
-                      <div className="flex">
+              {duplicatedTestimonials.map((testimonial, index) => {
+                const { width, height } = calculateCardSize(testimonial.quote);
+                return (
+                    <div
+                        key={`upper-${testimonial.id}-${index}`}
+                        className="flex-shrink-0 rounded-xl shadow-lg p-5 border border-gray-100 mx-3"
+                        style={{ width, height, backgroundColor: '#F9F9F9' }}
+                    >
+                      <div className="flex items-start mb-4">
                         {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 text-orange-500 fill-current" />
+                            <Star
+                                key={i}
+                                className="w-5 h-5 text-orange-500 fill-current mr-1"
+                            />
                         ))}
                       </div>
+                      <p className="text-black text-sm font-bold mb-4">
+                        {testimonial.heading}
+                      </p>
+                      <p className="text-black text-xs font-medium mb-4">
+                        {testimonial.quote}
+                      </p>
+                      <div className="flex flex-col items-end">
+                        <h3 className="font-bold text-lg text-black mb-1">{testimonial.name}</h3>
+                      </div>
                     </div>
-                  </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -152,22 +189,34 @@ const TestimonialsSection = () => {
                 className="flex overflow-x-hidden scroll-smooth"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-              {duplicatedTestimonials.map((testimonial, index) => (
-                  <div
-                      key={`lower-${testimonial.id}-${index}`}
-                      className="flex-shrink-0 w-64 h-48 bg-white rounded-lg shadow-md p-4 border border-gray-100 mx-3"
-                  >
-                    <p className="text-black mb-3 text-xs">{testimonial.quote}</p>
-                    <div className="flex flex-col items-end">
-                      <h3 className="font-bold text-base text-black mb-1">{testimonial.name}</h3>
-                      <div className="flex">
+              {duplicatedTestimonials.map((testimonial, index) => {
+                const { width, height } = calculateCardSize(testimonial.quote);
+                return (
+                    <div
+                        key={`lower-${testimonial.id}-${index}`}
+                        className="flex-shrink-0 rounded-xl shadow-lg p-5 border border-gray-100 mx-3"
+                        style={{ width, height, backgroundColor: '#F9F9F9' }}
+                    >
+                      <div className="flex items-start mb-4">
                         {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="w-3 h-3 text-orange-500 fill-current" />
+                            <Star
+                                key={i}
+                                className="w-5 h-5 text-orange-500 fill-current mr-1"
+                            />
                         ))}
                       </div>
+                      <p className="text-black text-sm font-bold mb-4">
+                        {testimonial.heading}
+                      </p>
+                      <p className="text-black text-xs font-medium mb-4">
+                        {testimonial.quote}
+                      </p>
+                      <div className="flex flex-col items-end">
+                        <h3 className="font-bold text-lg text-black mb-1">{testimonial.name}</h3>
+                      </div>
                     </div>
-                  </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
