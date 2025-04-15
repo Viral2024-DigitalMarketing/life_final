@@ -13,7 +13,7 @@ const Footer = () => {
                 <img
                     src="/images/logo.svg"
                     alt="Life Hospital Logo"
-                    className="h-20 md:h-30 object-contain"
+                    className="h-15 md:h-25 object-contain"
                 />
               </Link>
               <div className="space-y-4 mt-10 text-sm sm:text-base">

@@ -81,17 +81,17 @@ const AboutSection = () => {
         });
 
         if (isMobile) {
-            // Mobile animation: Shrink and center the number but keep it larger and move higher
+            // Mobile animation: Keep number centered without shrinking
             tl.to(containerRef.current, {
-                scale: 0.7,
-                x: "0",
-                y: "-10vh", // Further 30px up (moved from -7vh to -10vh)
+                scale: 1, // No scaling
+                x: "0", // Stay centered
+                y: "-10vh", // Keep the upward movement
                 transformOrigin: "center center",
                 duration: 1.8,
                 ease: "power3.inOut",
             });
         } else {
-            // Desktop animation: Keep as is - Simultaneous shrink while moving to extreme left
+            // Desktop animation: Unchanged
             tl.to(containerRef.current, {
                 scale: 0.2,
                 x: "-42vw",
@@ -180,7 +180,7 @@ const AboutSection = () => {
             {isMobile && (
                 <div
                     ref={floatingCardsRef}
-                    className="absolute left-0 top-5 w-full overflow-hidden pointer-events-none"
+                    className="absolute left-0 top-0 w-full overflow-hidden pointer-events-none"
                 >
                     {/* Single row with proper infinite scroll */}
                     <div className="w-full overflow-hidden h-[50px] flex items-center">
@@ -216,12 +216,12 @@ const AboutSection = () => {
                     className="relative flex items-center justify-center"
                 >
                     <span
-                        className="text-[450px] md:text-[900px] mt-30 lg:text-[2200px] font-extrabold leading-none"
+                        className="text-[400px] md:text-[900px] mt-30 lg:text-[2200px]  items-center justify-center font-extrabold leading-none"
                         style={{
                             color: "#424294",
                             fontFamily: "Plus Jakarta Sans",
                             position: "relative",
-                            marginTop: isMobile ? "-260px" : "0px", // Move it up by 30px on mobile
+                            marginTop: isMobile ? "-180px" : "0px", // Move it up by 30px on mobile
                         }}
                     >
                         9
@@ -233,7 +233,7 @@ const AboutSection = () => {
                         style={{
                             width: isMobile ? "150px" : "650px",
                             height: isMobile ? "150px" : "650px",
-                            top: isMobile ? "-160px" : "530px", // moved 30px up on mobile
+                            top: isMobile ? "-100px" : "530px", // moved 30px up on mobile
                             left: "50%",
                             transform: "translateX(-50%)",
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
@@ -259,7 +259,7 @@ const AboutSection = () => {
                     lineHeight: "110%",
                     letterSpacing: "3%",
                     color: "#424294",
-                    marginTop: isMobile ? "55px" : "0", // Changed from 70px to 55px (15px less)
+                    marginTop: isMobile ? "80px" : "0", // Changed from 70px to 55px (15px less)
                 }}
             >
                 Years of <br/> Orthopedic Excellence

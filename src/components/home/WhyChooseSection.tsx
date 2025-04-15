@@ -186,7 +186,7 @@ const WhyChooseSection = () => {
             {/* Section 1 */}
             <motion.div
                 ref={ref1}
-                className="min-h-[90vh] md:min-h-screen ml-[-130px] mt-[-60px] sm:mt-0 md:mt-[-120px] flex items-center justify-center py-10 md:py-20 relative"
+                className="min-h-[90vh] md:min-h-screen ml-[-5px] mt-[-60px] sm:mt-0 md:mt-[-120px] flex items-center justify-center py-10 md:py-20 relative"
                 initial={{ opacity: 0, y: 50 }}
                 animate={inView1 ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8 }}
@@ -392,11 +392,12 @@ const WhyChooseSection = () => {
                     <motion.div
                         className="relative mx-auto rounded-xl overflow-hidden shadow-xl cursor-pointer flex items-center justify-center"
                         style={{
-                            width: "90%",
-                            maxWidth: "904px",
-                            height: "100px",
-                            backgroundColor: "#F9D020",
+                            width: "80%", // Keeps the width to 80% for both desktop and mobile
+                            maxWidth: "904px", // Keeps the max width at 904px
+                            height: "80px", // Keeps the height at 100px for both desktop and mobile
+                            backgroundColor: "#F9D020", // Sets the background color
                         }}
+
                         initial={{ opacity: 0, y: -100 }}
                         animate={inView3 ? { opacity: 1, y: 0 } : {}}
                         transition={{
