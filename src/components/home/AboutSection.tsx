@@ -81,12 +81,12 @@ const AboutSection = () => {
         });
 
         if (isMobile) {
-            // Mobile animation: Move higher up with the same scale
+            // Mobile animation: Keep the number centered while scaling down
             tl.to(containerRef.current, {
-                scale: 0.5, // Keep the original scale
-                x: "0", // Stay centered
-                y: "-20vh", // Move higher up (-20vh instead of -10vh)
-                transformOrigin: "center center",
+                scale: 0.5,
+                x: "0", // Keep centered horizontally
+                y: "-20vh", // Move up vertically
+                transformOrigin: "center center", // This ensures scaling happens from the center
                 duration: 1.8,
                 ease: "power3.inOut",
             });
@@ -206,7 +206,7 @@ const AboutSection = () => {
                 </div>
             )}
 
-            {/* Initial container position */}
+            {/* Initial container position - Updated for proper centering in mobile */}
             <div
                 ref={containerRef}
                 className="absolute top-1/5 left-1/2 transform -translate-x-1/2 -translate-y-1/4 w-full h-[80vh] flex items-center justify-center"
@@ -216,7 +216,7 @@ const AboutSection = () => {
                     className="relative flex items-center justify-center"
                 >
                     <span
-                        className="text-[450px] md:text-[900px] mt-30 lg:text-[2200px]  items-center justify-center font-extrabold leading-none"
+                        className="text-[450px] md:text-[900px] mt-30 lg:text-[2200px] items-center justify-center font-extrabold leading-none"
                         style={{
                             color: "#424294",
                             fontFamily: "Plus Jakarta Sans",
@@ -248,10 +248,10 @@ const AboutSection = () => {
                 </div>
             </div>
 
-            {/* Text content positioned to appear next to the number when it's in left position */}
+            {/* Text content positioned - Updated for better mobile positioning */}
             <div
                 ref={textContainerRef}
-                className={`absolute ${isMobile ? 'top-[32vh] left-[calc(50%-80px)] transform ml-[180px] -translate-x-1/2 text-center' : 'top-1/4 left-0 ml-[360px] mt-[-20px]'}`}
+                className={`absolute ${isMobile ? 'top-[32vh] left-1/2 transform -translate-x-1/2 text-center' : 'top-1/4 left-0 ml-[360px] mt-[-20px]'}`}
                 style={{
                     fontFamily: "Be Vietnam Pro",
                     fontWeight: 700,
@@ -259,7 +259,7 @@ const AboutSection = () => {
                     lineHeight: "110%",
                     letterSpacing: "3%",
                     color: "#424294",
-                    marginTop: isMobile ? "80px" : "0",
+                    marginTop: isMobile ? "100px" : "0",
                 }}
             >
                 Years of <br/> Orthopedic Excellence

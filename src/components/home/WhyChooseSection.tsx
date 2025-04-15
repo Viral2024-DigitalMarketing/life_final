@@ -451,42 +451,34 @@ const WhyChooseSection = () => {
                 </div>
             </div>
 
-            {/* Mobile Version Card */}
-            <div className="block md:hidden">
+            {/* Mobile Version Card - UPDATED */}
+            <div className="block md:hidden my-8">
                 <div
                     className="relative mx-auto rounded-xl overflow-hidden shadow-xl cursor-pointer flex items-center justify-center"
                     style={{
-                        width: "80%",
+                        width: "90%",
                         maxWidth: "350px",
-                        height: "40px",
+                        height: "60px", // Increased height from 40px to 60px
                         backgroundColor: "#F9D020",
                     }}
                     onClick={() => setIsModalOpen(true)}
                 >
-                    <div className="flex items-center justify-center w-full">
-                        <motion.h2
+                    <div className="flex items-center justify-center w-full px-2">
+                        <h2
                             style={{
                                 fontFamily: "Merriweather, serif",
-                                fontWeight: 400,
-                                fontSize: "clamp(14px, 6vw, 40px)",
-                                lineHeight: "100%",
-                                letterSpacing: "1%",
+                                fontWeight: 500, // Increased from 400 to 500
+                                fontSize: "18px", // Fixed size instead of using clamp
+                                lineHeight: "120%", // Increased from 100% to 120%
+                                letterSpacing: "0.02em",
                                 color: "#06009E",
                             }}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={inView3 ? { opacity: 1, scale: 1 } : {}}
-                            transition={{ duration: 0.5, delay: 0.6 }}
                         >
                             Request Appointment
-                        </motion.h2>
-                        <motion.div
-                            className="ml-3 md:ml-6"
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={inView3 ? { opacity: 1, x: 0 } : {}}
-                            transition={{ duration: 0.5, delay: 0.8 }}
-                        >
-                            <ArrowRight size={24} color="#06009E" strokeWidth={2.5} />
-                        </motion.div>
+                        </h2>
+                        <div className="ml-2">
+                            <ArrowRight size={20} color="#06009E" strokeWidth={2.5} />
+                        </div>
                     </div>
                 </div>
             </div>
