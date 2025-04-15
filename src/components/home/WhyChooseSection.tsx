@@ -22,9 +22,9 @@ const BlobSVG = ({ color, className = "", rotation = 0 }) => {
 }
 
 const WhyChooseSection = () => {
-    const [ref1, inView1] = useInView({ threshold: 0.3, triggerOnce: true })
-    const [ref2, inView2] = useInView({ threshold: 0.3, triggerOnce: true })
-    const [ref3, inView3] = useInView({ threshold: 0.3, triggerOnce: true })
+    const [ref1, inView1] = useInView({ threshold: 0.2, triggerOnce: true })
+    const [ref2, inView2] = useInView({ threshold: 0.2, triggerOnce: true })
+    const [ref3, inView3] = useInView({ threshold: 0.2, triggerOnce: true })
 
     // Track animation states
     const animationStarted = useRef(false)
@@ -61,7 +61,7 @@ const WhyChooseSection = () => {
                 </h2>
             </div>
 
-            {/* Section 1 - All three blobs stacked in same direction */}
+            {/* Section 1 - Desktop View */}
             <motion.div
                 ref={ref1}
                 className="min-h-screen flex items-center justify-center py-20 hidden lg:flex relative"
@@ -71,7 +71,7 @@ const WhyChooseSection = () => {
             >
                 <div className="container mx-auto ml-0 mt-[-10px] px-4">
                     <div className="relative w-full max-w-6xl mt-[-250px] mx-auto flex flex-col-reverse lg:flex-row items-center gap-8">
-                        <div className="relative w-full lg:w-1/2 h-[600px] flex items-center justify-center">
+                        <div className="relative w-full lg:w-1/2 h-[700px] flex items-center justify-center">
                             {/* Bottom Blob (Purple) - Falls to section 2 */}
                             <motion.div
                                 className="absolute w-full h-full z-[3] top-[-60px] right-[-30px]"
@@ -116,11 +116,11 @@ const WhyChooseSection = () => {
                                 transition={{ duration: 0.8, delay: 0.4 }}
                             >
                                 <BlobSVG color="#6FCBCF" />
-                                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                                    <h3 className="text-3xl md:text-4xl font-bold text-black mb-4 font-merriweather">
+                                <div className="absolute inset-0 flex flex-col items-center justify-center p-10 text-center">
+                                    <h3 className="text-3xl md:text-4xl font-bold text-black mb-6 font-merriweather">
                                         Recognized for excellence in Ayushman Bharat & Rajiv Aarogyasri.
                                     </h3>
-                                    <p className="text-sm ml-[-5px] text-black/80 max-w-md">
+                                    <p className="text-lg ml-[-5px] text-black/80 max-w-lg">
                                         This certificate is awarded to Life Hospital, Kamareddy for exemplary performance under Ayushman
                                         Bharat Pradhan Mantri Jan Arogya Yojana (AB PM-JAY)-Rajiv Aarogyasri in the State of Telangana on 26
                                         January 2024
@@ -150,7 +150,7 @@ const WhyChooseSection = () => {
                     </div>
                 </div>
 
-                {/* Animated Blobs that Fall from Section 1 to Section 2 - With rotation */}
+                {/* Animated Blobs that Fall from Section 1 to Section 2 - With rotation - Only one of each color */}
                 {inView1 && (
                     <>
                         <motion.div
@@ -194,7 +194,7 @@ const WhyChooseSection = () => {
                 )}
             </motion.div>
 
-            {/* Section 2 - Purple blob with text that stays */}
+            {/* Section 2 - Desktop View - Purple blob with text that stays */}
             <motion.div
                 ref={ref2}
                 className="min-h-screen flex items-center justify-center py-20 relative hidden lg:flex"
@@ -218,8 +218,8 @@ const WhyChooseSection = () => {
                         </div>
 
                         <div className="w-full lg:w-1/2 relative">
-                            {/* Stacked cards container */}
-                            <div className="relative h-[400px]">
+                            {/* Stacked cards container - Increased height for better content display */}
+                            <div className="relative h-[500px]">
                                 {/* Bottom card (Purple) - Arrived from section 1 with text that stays */}
                                 <motion.div
                                     className="absolute w-full h-full z-10"
@@ -234,15 +234,15 @@ const WhyChooseSection = () => {
                                     }}
                                 >
                                     <BlobSVG color="#7272AF" className="w-full h-full" />
-                                    <div className="absolute inset-0 flex flex-col items-start justify-center px-10 text-left">
+                                    <div className="absolute inset-0 flex flex-col items-start justify-center px-12 py-4 text-left">
                                         <h3
-                                            className="font-[500] text-[20px] leading-[120%] tracking-[0.02em] text-[#002622]"
+                                            className="font-[500] text-2xl leading-[120%] tracking-[0.02em] text-[#002622] mb-6"
                                             style={{ fontFamily: "Be Vietnam Pro" }}
                                         >
                                             Recognized for excellence in Ayushman Bharat & Rajiv Aarogyasri.
                                         </h3>
                                         <p
-                                            className="mt-4 font-[400] text-[16px] leading-[140%] tracking-[0.02em] text-[#002622]"
+                                            className="mt-4 font-[400] text-lg leading-[140%] tracking-[0.02em] text-[#002622] max-w-xl"
                                             style={{ fontFamily: "Be Vietnam Pro" }}
                                         >
                                             This Certificate Is Awarded To Life Hospital, Kamareddy For Exemplary Performance Under Ayushman
@@ -303,7 +303,7 @@ const WhyChooseSection = () => {
                 )}
             </motion.div>
 
-            {/* Section 3 - Yellow appointment card - Now appears as if fallen from section 2 */}
+            {/* Section 3 - Desktop View - Yellow appointment card */}
             <div
                 ref={ref3}
                 className="min-h-[300px] mt-[-180px] lg:block hidden flex items-center justify-center py-18 relative"
@@ -342,65 +342,30 @@ const WhyChooseSection = () => {
                 </div>
             </div>
 
-            {/* Mobile Layout - Only shown on mobile */}
+            {/* Mobile Layout - Significantly improved and optimized */}
             <div className="block lg:hidden">
                 {/* Mobile View - Card 1 with animated blobs */}
                 <motion.div
+                    ref={ref1}
                     className="py-6 px-4 md:py-8"
                     initial={{ opacity: 0, y: 30 }}
                     animate={inView1 ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8 }}
                 >
                     <div className="relative w-full mb-12 md:mb-16">
-                        {/* Bottom Blob (Purple) */}
+                        {/* Single animated blob for mobile - simplified for better performance */}
                         <motion.div
-                            className="absolute w-full h-80 md:h-96 z-[1]"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={
-                                section1Animated.current
-                                    ? { opacity: [1, 1, 0], scale: [1, 1, 0.8], y: [0, 0, 200], rotateZ: [0, 0, 180] }
-                                    : { opacity: 1, scale: 1 }
-                            }
-                            transition={{
-                                duration: 2,
-                                times: [0, 0.5, 1],
-                                delay: 1.2,
-                            }}
-                        >
-                            <BlobSVG color="#7272AF" />
-                        </motion.div>
-
-                        {/* Middle Blob (Yellow) */}
-                        <motion.div
-                            className="absolute w-full h-80 md:h-96 z-[2] top-[5px] left-[5px]"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={
-                                section1Animated.current
-                                    ? { opacity: [1, 1, 0], scale: [1, 1, 0.8], y: [0, 0, 200], rotateZ: [0, 0, 180] }
-                                    : { opacity: 1, scale: 1 }
-                            }
-                            transition={{
-                                duration: 2,
-                                times: [0, 0.5, 1],
-                                delay: 1.4,
-                            }}
-                        >
-                            <BlobSVG color="#F9D020" />
-                        </motion.div>
-
-                        {/* Top Blob (Cyan) */}
-                        <motion.div
-                            className="relative w-full h-80 md:h-96 mx-auto z-[3] top-[10px] left-[10px]"
+                            className="relative w-full h-[400px] mx-auto z-[3]"
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={inView1 ? { opacity: 1, scale: 1 } : {}}
                             transition={{ duration: 0.8, delay: 0.2 }}
                         >
                             <BlobSVG color="#6FCBCF" />
-                            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 md:p-10 text-center">
-                                <h3 className="text-lg md:text-xl font-bold text-black mb-2 md:mb-4 font-merriweather">
+                            <div className="absolute inset-0 flex flex-col items-center justify-center p-8 md:p-12 text-center">
+                                <h3 className="text-xl md:text-2xl font-bold text-black mb-4 md:mb-6 font-merriweather">
                                     Recognized for excellence in Ayushman Bharat & Rajiv Aarogyasri.
                                 </h3>
-                                <p className="text-xs md:text-sm text-black/80 mx-4 md:mx-6">
+                                <p className="text-sm md:text-base text-black/80 mx-4 md:mx-6">
                                     This certificate is awarded to Life Hospital, Kamareddy for exemplary performance under Ayushman
                                     Bharat Pradhan Mantri Jan Arogya Yojana (AB PM-JAY)-Rajiv Aarogyasri in the State of Telangana on 26
                                     January 2024
@@ -409,27 +374,16 @@ const WhyChooseSection = () => {
                         </motion.div>
                     </div>
 
-                    {/* Falling cards animation for mobile */}
-                    {inView1 && (
-                        <>
-                            <motion.div
-                                className="fixed w-full h-80 md:h-96 z-[35] pointer-events-none"
-                                initial={{ y: 0, opacity: 0 }}
-                                animate={{ y: [0, 400, 600], opacity: [0, 1, 0], rotate: [0, 180, 360] }}
-                                transition={{ duration: 2, delay: 1.5 }}
-                            >
-                                <BlobSVG color="#7272AF" />
-                            </motion.div>
-
-                            <motion.div
-                                className="fixed w-full h-80 md:h-96 z-[36] pointer-events-none"
-                                initial={{ y: 0, opacity: 0 }}
-                                animate={{ y: [0, 420, 620], opacity: [0, 1, 0], rotate: [0, 180, 360] }}
-                                transition={{ duration: 2.2, delay: 1.7 }}
-                            >
-                                <BlobSVG color="#F9D020" />
-                            </motion.div>
-                        </>
+                    {/* Single falling card animation for mobile - one animation instead of multiple */}
+                    {inView1 && section1Animated.current && (
+                        <motion.div
+                            className="fixed w-full h-[400px] z-[35] pointer-events-none"
+                            initial={{ y: 0, opacity: 0 }}
+                            animate={{ y: [0, 400], opacity: [0, 1, 0], rotate: [0, 180] }}
+                            transition={{ duration: 1.8, delay: 1.5 }}
+                        >
+                            <BlobSVG color="#7272AF" />
+                        </motion.div>
                     )}
 
                     {/* Mobile Image 1 */}
@@ -442,26 +396,27 @@ const WhyChooseSection = () => {
                         <img
                             src="/images/why_image.svg"
                             alt="Hospital Scene"
-                            className="w-full h-56 md:h-64 object-cover rounded-2xl shadow-xl"
+                            className="w-full h-64 md:h-72 object-cover rounded-2xl shadow-xl"
                         />
                         <img
                             src="/images/certi_why.svg"
                             alt="Certified Badge"
-                            className="absolute top-[-20px] right-[-5px] w-28 h-28 md:w-36 md:h-36 object-contain z-30"
+                            className="absolute top-[-20px] right-[-5px] w-32 h-32 md:w-40 md:h-40 object-contain z-30"
                         />
                     </motion.div>
                 </motion.div>
 
-                {/* Mobile View - Purple card for Section 2 with text that stays */}
+                {/* Mobile View - Purple card for Section 2 with text */}
                 <motion.div
+                    ref={ref2}
                     className="py-6 px-4 md:py-8"
                     initial={{ opacity: 0, y: 30 }}
                     animate={inView2 ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8 }}
                 >
-                    {/* Stacked cards container */}
-                    <div className="relative w-full mb-12 md:mb-16 h-80 md:h-96">
-                        {/* Bottom card (Purple) - Stays in section 2 with text */}
+                    {/* Stacked cards container - Increased height */}
+                    <div className="relative w-full mb-12 md:mb-16 h-[400px]">
+                        {/* Bottom card (Purple) - With text */}
                         <motion.div
                             className="absolute w-full h-full z-10"
                             initial={{ opacity: 0, y: -200, scale: 0.9 }}
@@ -474,15 +429,15 @@ const WhyChooseSection = () => {
                             }}
                         >
                             <BlobSVG color="#7272AF" className="w-full h-full" />
-                            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 md:p-10 text-center">
+                            <div className="absolute inset-0 flex flex-col items-center justify-center p-8 md:p-12 text-center">
                                 <h3
-                                    className="text-lg md:text-xl font-bold text-[#002622] mb-2 md:mb-4"
+                                    className="text-xl md:text-2xl font-bold text-[#002622] mb-4 md:mb-6"
                                     style={{ fontFamily: "Merriweather, serif" }}
                                 >
                                     Recognized for excellence in Ayushman Bharat & Rajiv Aarogyasri.
                                 </h3>
                                 <p
-                                    className="text-xs md:text-sm text-[#002622]/80 mx-2 md:mx-4"
+                                    className="text-sm md:text-base text-[#002622]/80 mx-3 md:mx-5"
                                     style={{ fontFamily: "Merriweather, serif" }}
                                 >
                                     This Certificate Is Awarded To Life Hospital, Kamareddy For Exemplary Performance Under Ayushman
@@ -490,24 +445,6 @@ const WhyChooseSection = () => {
                                     January 2024
                                 </p>
                             </div>
-                        </motion.div>
-
-                        {/* Yellow card - Appears briefly then falls */}
-                        <motion.div
-                            className="absolute w-full h-full z-20 top-[5px] left-[5px]"
-                            initial={{ opacity: 0, y: -200, scale: 0.9 }}
-                            animate={
-                                inView2 && !section3Animated.current
-                                    ? { opacity: [0, 1, 1, 0], y: [-200, 0, 0, 400], scale: [0.9, 1, 1, 0.9], rotateZ: [0, 0, 0, 180] }
-                                    : { opacity: 0 }
-                            }
-                            transition={{
-                                duration: 3,
-                                times: [0, 0.2, 0.7, 1],
-                                delay: 0.4,
-                            }}
-                        >
-                            <BlobSVG color="#F9D020" className="w-full h-full" />
                         </motion.div>
                     </div>
 
@@ -521,17 +458,17 @@ const WhyChooseSection = () => {
                         <img
                             src="/images/why_image.svg"
                             alt="Medical Team"
-                            className="w-full h-56 md:h-64 object-cover rounded-2xl shadow-xl"
+                            className="w-full h-64 md:h-72 object-cover rounded-2xl shadow-xl"
                         />
                         <img
                             src="/images/cert2.svg"
                             alt="Certified Badge"
-                            className="absolute top-[-20px] right-[-5px] w-28 h-28 md:w-36 md:h-36 object-contain z-10"
+                            className="absolute top-[-20px] right-[-5px] w-32 h-32 md:w-40 md:h-40 object-contain z-10"
                         />
                     </motion.div>
 
-                    {/* Yellow card falling animation for mobile */}
-                    {inView2 && (
+                    {/* Single Yellow card falling animation for mobile */}
+                    {inView2 && section2Animated.current && (
                         <motion.div
                             className="fixed w-full z-[40] pointer-events-none"
                             initial={{
@@ -543,24 +480,30 @@ const WhyChooseSection = () => {
                                 rotate: 0,
                             }}
                             animate={{
-                                y: [0, 300],
+                                y: [0, 400],
                                 opacity: [0, 1],
-                                height: ["320px", "64px"],
+                                height: ["320px", "72px"],
                                 borderRadius: ["50%", "0.75rem"],
                                 rotate: [0, 360],
                             }}
-                            transition={{ duration: 1.5, delay: 2 }}
+                            transition={{ duration: 1.8, delay: 1.2 }}
                         />
                     )}
                 </motion.div>
 
-                {/* Mobile Yellow Appointment Section - Now appears as if fallen from section 2 */}
-                <div className="block lg:hidden py-6 px-4 mb-10">
+                {/* Mobile Yellow Appointment Section */}
+                <motion.div
+                    ref={ref3}
+                    className="block lg:hidden py-6 px-4 mb-10"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={inView3 ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8 }}
+                >
                     <motion.div
                         className="mx-auto rounded-xl overflow-hidden shadow-xl flex items-center justify-center"
                         style={{
                             width: "100%",
-                            height: "64px",
+                            height: "72px",
                             backgroundColor: "#F9D020",
                         }}
                         initial={{ opacity: 0, y: -100 }}
@@ -577,7 +520,7 @@ const WhyChooseSection = () => {
                                 fontFamily: "Merriweather, serif",
                                 fontWeight: 400,
                                 color: "#06009E",
-                                fontSize: "24px",
+                                fontSize: "28px",
                                 lineHeight: "1.2",
                             }}
                             className="px-4 text-center"
@@ -588,7 +531,7 @@ const WhyChooseSection = () => {
                             Request Appointment
                         </motion.h2>
                     </motion.div>
-                </div>
+                </motion.div>
             </div>
         </div>
     )
