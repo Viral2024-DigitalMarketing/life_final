@@ -194,7 +194,7 @@ const WhyChooseSection = () => {
                 )}
             </motion.div>
 
-            {/* Section 2 - Purple blob with text that stays - INCREASED SIZE */}
+            {/* Section 2 - Purple blob with text that stays */}
             <motion.div
                 ref={ref2}
                 className="min-h-screen flex items-center justify-center py-20 relative hidden lg:flex"
@@ -218,11 +218,11 @@ const WhyChooseSection = () => {
                         </div>
 
                         <div className="w-full lg:w-1/2 relative">
-                            {/* Stacked cards container with INCREASED SIZE */}
-                            <div className="relative h-[600px]"> {/* Increased height from 400px to 600px */}
-                                {/* Bottom card (Purple) - Arrived from section 1 with text that stays - INCREASED SIZE */}
+                            {/* Stacked cards container */}
+                            <div className="relative h-[400px]">
+                                {/* Bottom card (Purple) - Arrived from section 1 with text that stays */}
                                 <motion.div
-                                    className="absolute w-[120%] h-full z-10 left-[-10%]" /* Increased width to 120% and adjusted position */
+                                    className="absolute w-full h-full z-10"
                                     initial={{ opacity: 0, y: -400, scale: 0.8 }}
                                     animate={inView2 ? { opacity: 1, y: 0, scale: 1 } : {}}
                                     transition={{
@@ -234,15 +234,15 @@ const WhyChooseSection = () => {
                                     }}
                                 >
                                     <BlobSVG color="#7272AF" className="w-full h-full" />
-                                    <div className="absolute inset-0 flex flex-col items-start justify-center px-16 text-left"> {/* Increased padding */}
+                                    <div className="absolute inset-0 flex flex-col items-start justify-center px-10 text-left">
                                         <h3
-                                            className="font-[500] text-[28px] leading-[120%] tracking-[0.02em] text-[#002622] mb-6" /* Increased text size */
+                                            className="font-[500] text-[20px] leading-[120%] tracking-[0.02em] text-[#002622]"
                                             style={{ fontFamily: "Be Vietnam Pro" }}
                                         >
                                             Recognized for excellence in Ayushman Bharat & Rajiv Aarogyasri.
                                         </h3>
                                         <p
-                                            className="font-[400] text-[20px] leading-[140%] tracking-[0.02em] text-[#002622] max-w-xl" /* Increased text size and max width */
+                                            className="mt-4 font-[400] text-[16px] leading-[140%] tracking-[0.02em] text-[#002622]"
                                             style={{ fontFamily: "Be Vietnam Pro" }}
                                         >
                                             This Certificate Is Awarded To Life Hospital, Kamareddy For Exemplary Performance Under Ayushman
@@ -252,9 +252,9 @@ const WhyChooseSection = () => {
                                     </div>
                                 </motion.div>
 
-                                {/* Top card (Yellow) - Arrives then falls to section 3 - INCREASED SIZE */}
+                                {/* Top card (Yellow) - Arrives then falls to section 3 */}
                                 <motion.div
-                                    className="absolute w-[120%] h-full z-20 top-[-20px] left-[0px]" /* Increased width to 120% and adjusted position */
+                                    className="absolute w-full h-full z-20 top-[-20px] left-[20px]"
                                     initial={{ opacity: 0, y: -400, scale: 0.8 }}
                                     animate={
                                         inView2 && !section3Animated.current
@@ -278,14 +278,14 @@ const WhyChooseSection = () => {
                 {inView2 && (
                     <motion.div
                         className="absolute w-[900px] h-[340px] left-1/2 transform -translate-x-1/2 z-[25]"
-                        initial={{ y: 0, opacity: 0, width: "620px", height: "620px" }} /* Increased initial size */
+                        initial={{ y: 0, opacity: 0, width: "520px", height: "520px" }}
                         animate={
                             inView2
                                 ? {
                                     y: [0, 700, 1100],
                                     opacity: [0, 1, 1],
-                                    width: ["620px", "620px", "1214px"],
-                                    height: ["620px", "620px", "100px"],
+                                    width: ["520px", "520px", "1214px"],
+                                    height: ["520px", "520px", "100px"],
                                     borderRadius: ["50%", "50%", "0.75rem"],
                                     rotate: [0, 180, 360],
                                 }
@@ -594,4 +594,4 @@ const WhyChooseSection = () => {
     )
 }
 
-export default WhyChooseSection;
+export default WhyChooseSection
