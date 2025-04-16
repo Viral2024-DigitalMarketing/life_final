@@ -165,42 +165,13 @@ const AboutSection = () => {
             ref={sectionRef}
             className="bg-white mt-20 min-h-[100vh] pt-32 pb-16 px-4 sm:px-8 md:px-12 lg:px-24 overflow-hidden relative"
         >
-            {/* Mobile Floating Cards - Improved infinite scroll */}
-            {isMobile && (
-                <div
-                    ref={floatingCardsRef}
-                    className="absolute left-0 top-0 w-full overflow-hidden pointer-events-none"
-                >
-                    {/* Single row with proper infinite scroll */}
-                    <div className="w-full mt-[-5px] overflow-hidden h-[50px] flex items-center">
-                        <div className="mobile-scrolling-cards flex gap-4">
-                            {/* We need to duplicate the cards multiple times to ensure continuous flow */}
-                            {[...cardsData[0], ...cardsData[0], ...cardsData[0]].map((card, cardIndex) => (
-                                <div
-                                    key={`mobile-row1-${cardIndex}`}
-                                    className="bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[250px] h-[40px] opacity-100"
-                                >
-                                    <img
-                                        src={card.icon}
-                                        alt="Avatar"
-                                        className="w-[24px] h-[24px] rounded-full flex-shrink-0"
-                                    />
-                                    <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis ml-2">
-                                        {card.text}
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Initial container position - Updated for consistent desktop layout with additional 150px margin */}
+            {/* Initial container position with the number "9" - Middle z-index */}
             <div
                 ref={containerRef}
                 className={`absolute ${isMobile || isTablet ? 'top-1/5 left-1/2 transform -translate-x-1/2' : 'top-1/5 left-[180px]'} -translate-y-1/4 w-full h-[80vh] flex items-center ${isMobile || isTablet ? 'justify-center' : 'justify-start'}`}
                 style={{
-                    overflow: 'visible'
+                    overflow: 'visible',
+                    zIndex: 20, // Middle z-index (cards will go from below to above this)
                 }}
             >
                 <div
@@ -230,11 +201,11 @@ const AboutSection = () => {
                         style={{
                             width: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "600px" : isLarge ? "600px" : "700px",
                             height: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "600px" : isLarge ? "600px" : "700px",
-                            // Move image higher for larger screens
                             top: isMobile ? "-350px" : isTablet ? "-100px" : isDesktop ? "330px" : isLarge ? "320px" : "380px",
                             left: "70%",
                             transform: "translateX(-50%)",
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+                            zIndex: 25, // Ensure the image always appears above everything
                         }}
                     >
                         <img
@@ -246,7 +217,81 @@ const AboutSection = () => {
                 </div>
             </div>
 
-            {/* Text content positioned - Updated with additional 150px margin from left */}
+            {/* Floating Cards - Now positioned relative to use z-index animation */}
+            {!isMobile && (
+                <div
+                    ref={floatingCardsRef}
+                    className="absolute left-0 right-0 top-[100px] w-full flex flex-col gap-6 pointer-events-none"
+                    style={{
+                        maskImage: isTablet ? 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)' : 'none',
+                        WebkitMaskImage: isTablet ? 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)' : 'none',
+                    }}
+                >
+                    {[0, 1, 2, 3].map((rowIndex) => (
+                        <div
+                            key={rowIndex}
+                            className="card-row relative w-full overflow-hidden h-[50px] flex items-center"
+                        >
+                            <div
+                                className={`flex gap-4 animate-rowScroll${rowIndex}`}
+                                style={{
+                                    animationDelay: `${rowIndex * 2}s`,
+                                    width: "200%", // Ensure there's enough width for animation
+                                }}
+                            >
+                                {/* Duplicated for seamless loop */}
+                                {[...cardsData[rowIndex], ...cardsData[rowIndex]].map((card, cardIndex) => (
+                                    <div
+                                        key={`${rowIndex}-${cardIndex}`}
+                                        className={`floating-card card-${rowIndex}-${cardIndex} bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[318px] h-[40px] opacity-100 transition-opacity duration-300`}
+                                    >
+                                        <img
+                                            src={card.icon}
+                                            alt="Avatar"
+                                            className="w-[24px] h-[24px] rounded-full"
+                                        />
+                                        <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis ml-2">
+                                            {card.text}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {/* Mobile Floating Cards - With z-index animation */}
+            {isMobile && (
+                <div
+                    ref={floatingCardsRef}
+                    className="absolute left-0 top-0 w-full overflow-hidden pointer-events-none"
+                >
+                    {/* Single row with proper infinite scroll */}
+                    <div className="w-full mt-[-5px] overflow-hidden h-[50px] flex items-center">
+                        <div className="mobile-scrolling-cards flex gap-4">
+                            {/* We need to duplicate the cards multiple times to ensure continuous flow */}
+                            {[...cardsData[0], ...cardsData[0], ...cardsData[0]].map((card, cardIndex) => (
+                                <div
+                                    key={`mobile-row1-${cardIndex}`}
+                                    className="mobile-card bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[250px] h-[40px] opacity-100"
+                                >
+                                    <img
+                                        src={card.icon}
+                                        alt="Avatar"
+                                        className="w-[24px] h-[24px] rounded-full flex-shrink-0"
+                                    />
+                                    <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis ml-2">
+                                        {card.text}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Text content positioned - With highest z-index to always appear on top */}
             <div
                 ref={textContainerRef}
                 className={`absolute ${
@@ -265,60 +310,16 @@ const AboutSection = () => {
                     color: '#424294',
                     marginTop: isMobile ? '200px' : isTablet ? '210px' : '300px',
                     right: isMobile ? 0 : 'auto',
-                    // Consistent left positioning for desktop and above with additional 150px
                     left: isMobile ? 0 : isTablet ? '50px' : '230px', // Increased from 80px to 230px (added 150px)
                     textAlign: isMobile ? 'center' : 'left',
                     width: isMobile ? '100%' : 'auto',
+                    zIndex: 30, // Higher z-index to ensure text appears above everything
                 }}
             >
                 Years of <br/> Orthopedic Excellence
             </div>
 
-            {/* Floating Cards - Consistently positioned for desktop and above */}
-            {!isMobile && (
-                <div
-                    ref={floatingCardsRef}
-                    className="absolute right-0 top-[100px] flex flex-col gap-6 pointer-events-none"
-                    style={{
-                        width: isTablet ? '50vw' : '50vw',
-                        maskImage: isTablet ? 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)' : 'none',
-                        WebkitMaskImage: isTablet ? 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)' : 'none',
-                    }}
-                >
-                    {[0, 1, 2, 3].map((rowIndex) => (
-                        <div
-                            key={rowIndex}
-                            className="card-row relative w-full overflow-hidden h-[50px] flex items-center"
-                        >
-                            <div
-                                className={`flex gap-4 animate-rowScroll${rowIndex}`}
-                                style={{
-                                    animationDelay: `${rowIndex * 2}s`,
-                                }}
-                            >
-                                {/* Duplicated for seamless loop */}
-                                {[...cardsData[rowIndex], ...cardsData[rowIndex]].map((card, cardIndex) => (
-                                    <div
-                                        key={`${rowIndex}-${cardIndex}`}
-                                        className="floating-card bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[318px] h-[40px] opacity-100 transition-opacity duration-300"
-                                    >
-                                        <img
-                                            src={card.icon}
-                                            alt="Avatar"
-                                            className="w-[24px] h-[24px] rounded-full"
-                                        />
-                                        <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis ml-2">
-                                            {card.text}
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            )}
-
-            {/* Cards Section - maintained at bottom of page with consistent positioning */}
+            {/* Cards Section - maintained at bottom of page with consistent positioning and higher z-index */}
             <div
                 className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${
                     isMobile ? 'mt-[34vh]' :
@@ -326,7 +327,7 @@ const AboutSection = () => {
                             isDesktop ? 'mt-[65vh]' :
                                 isLarge ? 'mt-[65vh]' :
                                     'mt-[70vh]'
-                } relative z-10 max-w-[1200px] mx-auto`}
+                } relative z-40 max-w-[1200px] mx-auto`} // Higher z-index to ensure cards appear above everything
             >
                 {[1, 2].map((_, idx) => (
                     <div
@@ -377,15 +378,32 @@ const AboutSection = () => {
                 ))}
             </div>
 
-            {/* Fixed style element with animations */}
+            {/* UPDATED Fixed style element with animations for z-index transition */}
             <style jsx>{`
                 /* Improved infinite scroll for mobile */
                 @keyframes mobileInfiniteScroll {
                     0% {
                         transform: translateX(0);
+                        z-index: 10; /* Start behind the number */
+                    }
+                    25% {
+                        z-index: 10; /* Still behind */
+                    }
+                    45% {
+                        z-index: 10; /* About to pass through */
+                    }
+                    50% {
+                        z-index: 25; /* Passing through the number - higher than number */
+                    }
+                    55% {
+                        z-index: 25; /* Still passing through */
+                    }
+                    75% {
+                        z-index: 25; /* In front of the number */
                     }
                     100% {
                         transform: translateX(-100%);
+                        z-index: 10; /* Back behind as it loops */
                     }
                 }
 
@@ -394,41 +412,109 @@ const AboutSection = () => {
                     width: max-content;
                 }
 
-                /* IMPROVED ANIMATIONS for desktop/tablet floating cards */
+                .mobile-card {
+                    position: relative;
+                    animation: cardZIndexAnimation 60s linear infinite;
+                    animation-delay: inherit; /* Inherit delay from parent */
+                }
+
+                /* IMPROVED ANIMATIONS with z-index transitions */
                 @keyframes animate-rowScroll0 {
                     0% {
                         transform: translateX(0);
                     }
                     100% {
-                        transform: translateX(-100%);
+                        transform: translateX(-50%); /* Only move half way since we duplicated the content */
                     }
                 }
 
                 @keyframes animate-rowScroll1 {
                     0% {
-                        transform: translateX(-20%);
+                        transform: translateX(-10%);
                     }
                     100% {
-                        transform: translateX(-120%);
+                        transform: translateX(-60%);
                     }
                 }
 
                 @keyframes animate-rowScroll2 {
                     0% {
-                        transform: translateX(0);
+                        transform: translateX(-5%);
                     }
                     100% {
-                        transform: translateX(-100%);
+                        transform: translateX(-55%);
                     }
                 }
 
                 @keyframes animate-rowScroll3 {
                     0% {
-                        transform: translateX(-20%);
+                        transform: translateX(-15%);
                     }
                     100% {
-                        transform: translateX(-120%);
+                        transform: translateX(-65%);
                     }
+                }
+
+                /* Z-index animation for cards to move from behind to front */
+                @keyframes cardZIndexAnimation {
+                    0% {
+                        z-index: 10; /* Start behind the number */
+                    }
+                    40% {
+                        z-index: 10; /* Still behind */
+                    }
+                    48% {
+                        z-index: 10; /* About to transition */
+                    }
+                    50% {
+                        z-index: 23; /* Same level as number */
+                    }
+                    52% {
+                        z-index: 25; /* Above the number */
+                    }
+                    70% {
+                        z-index: 25; /* Still above */
+                    }
+                    100% {
+                        z-index: 10; /* Back behind */
+                    }
+                }
+
+                /* Apply animations to each row */
+                .animate-rowScroll0 {
+                    animation: animate-rowScroll0 60s linear infinite;
+                }
+
+                .animate-rowScroll1 {
+                    animation: animate-rowScroll1 70s linear infinite; /* Slightly different speeds */
+                }
+
+                .animate-rowScroll2 {
+                    animation: animate-rowScroll2 65s linear infinite;
+                }
+
+                .animate-rowScroll3 {
+                    animation: animate-rowScroll3 80s linear infinite;
+                }
+
+                /* Apply z-index animation to each card */
+                .floating-card {
+                    position: relative;
+                    animation: cardZIndexAnimation 60s linear infinite;
+                }
+
+                /* Stagger the z-index animations for different rows */
+                .card-0-0, .card-0-1, .card-0-2, .card-0-3, .card-0-4, .card-0-5 {
+                    animation-delay: 0s;
+                }
+                .card-1-0, .card-1-1, .card-1-2, .card-1-3, .card-1-4, .card-1-5 {
+                    animation-delay: 15s;
+                }
+                .card-2-0, .card-2-1, .card-2-2, .card-2-3, .card-2-4, .card-2-5 {
+                    animation-delay: 30s;
+                }
+                .card-3-0, .card-3-1, .card-3-2, .card-3-3, .card-3-4, .card-3-5 {
+                    animation-delay: 45s;
                 }
             `}</style>
 
