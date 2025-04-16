@@ -42,19 +42,18 @@ const AboutSection = () => {
     ];
 
     useEffect(() => {
-        // Check if the screen is mobile
-        const checkMobile = () => {
+        // Check if the screen is mobile - use ResizeObserver for better performance
+        const resizeObserver = new ResizeObserver((entries) => {
             setIsMobile(window.innerWidth < 768);
-        };
+        });
+
+        resizeObserver.observe(document.body);
 
         // Initial check
-        checkMobile();
-
-        // Add resize listener
-        window.addEventListener('resize', checkMobile);
+        setIsMobile(window.innerWidth < 768);
 
         return () => {
-            window.removeEventListener('resize', checkMobile);
+            resizeObserver.disconnect();
         };
     }, []);
 
@@ -123,51 +122,66 @@ const AboutSection = () => {
             "-=0.3"
         );
 
-        // Improved scrolling animation for floating cards
-        // Animate each row of cards
-        document.querySelectorAll('.card-row').forEach((row, rowIndex) => {
-            const cards = row.querySelectorAll('.floating-card');
+        // Use requestAnimationFrame for smoother animations
+        let animationFrameId;
+        const animate = () => {
+            // Improved scrolling animation for floating cards
+            // Animate each row of cards
+            const rows = document.querySelectorAll('.card-row');
+            if (rows && rows.length) {
+                rows.forEach((row, rowIndex) => {
+                    const cards = row.querySelectorAll('.floating-card');
 
-            // Create a separate timeline for each row
-            const rowTimeline = gsap.timeline({
-                repeat: -1,
-                delay: rowIndex * 0.5, // Stagger start time between rows
-            });
+                    // Create a separate timeline for each row with will-change for better performance
+                    gsap.set(cards, { willChange: "transform, opacity" });
 
-            // Set initial positions for all cards in the row (outside view)
-            gsap.set(cards, { x: '100vw', opacity: 0 });
+                    // Set initial positions for all cards in the row (outside view)
+                    gsap.set(cards, { x: '100vw', opacity: 0 });
 
-            // Animate each card in the row with staggered delays
-            cards.forEach((card, cardIndex) => {
-                // Entry animation
-                rowTimeline.to(card, {
-                    x: '0',
-                    opacity: 1,
-                    duration: 0.5,
-                    ease: "power1.out",
-                    delay: cardIndex * 0.8, // Stagger between cards in same row
-                }, cardIndex > 0 ? ">" : 0);
+                    // Animate each card in the row with staggered delays
+                    cards.forEach((card, cardIndex) => {
+                        // Create separate timelines for better performance
+                        const cardTl = gsap.timeline({
+                            repeat: -1,
+                            delay: rowIndex * 0.5 + cardIndex * 0.8,
+                        });
 
-                // Hold visible
-                rowTimeline.to(card, {
-                    duration: 1.5,
+                        // Entry animation
+                        cardTl.to(card, {
+                            x: '0',
+                            opacity: 1,
+                            duration: 0.5,
+                            ease: "power1.out",
+                        });
+
+                        // Hold visible
+                        cardTl.to(card, {
+                            duration: 1.5,
+                        });
+
+                        // Exit animation
+                        cardTl.to(card, {
+                            x: '-100vw',
+                            opacity: 0,
+                            duration: 0.5,
+                            ease: "power1.in",
+                        });
+
+                        // Add delay between cycles of this card
+                        cardTl.to({}, { duration: 1 });
+                    });
                 });
+            }
 
-                // Exit animation
-                rowTimeline.to(card, {
-                    x: '-100vw',
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "power1.in",
-                });
-            });
+            animationFrameId = requestAnimationFrame(animate);
+        };
 
-            // Add delay between cycles of this row
-            rowTimeline.to({}, { duration: 1 });
-        });
+        // Start the animation loop
+        animate();
 
         return () => {
             ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+            cancelAnimationFrame(animationFrameId);
         };
     }, [isMobile]);
 
@@ -183,18 +197,20 @@ const AboutSection = () => {
                     className="absolute left-0 top-0 w-full overflow-hidden pointer-events-none"
                 >
                     {/* Single row with proper infinite scroll */}
-                    <div className="w-full overflow-hidden h-[50px] flex items-center">
+                    <div className="w-full mt-[-5px] overflow-hidden h-[50px] flex items-center">
                         <div className="mobile-scrolling-cards flex gap-4">
                             {/* We need to duplicate the cards multiple times to ensure continuous flow */}
                             {[...cardsData[0], ...cardsData[0], ...cardsData[0]].map((card, cardIndex) => (
                                 <div
                                     key={`mobile-row1-${cardIndex}`}
                                     className="bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[250px] h-[40px] opacity-100"
+                                    style={{ willChange: "transform" }}
                                 >
                                     <img
                                         src={card.icon}
                                         alt="Avatar"
                                         className="w-[24px] h-[24px] rounded-full flex-shrink-0" // Added flex-shrink-0 to prevent image shrinking
+                                        loading="lazy"
                                     />
                                     <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis ml-2"> {/* Added margin-left for spacing */}
                                         {card.text}
@@ -210,6 +226,7 @@ const AboutSection = () => {
             <div
                 ref={containerRef}
                 className="absolute top-1/5 left-1/2 transform -translate-x-1/2 -translate-y-1/4 w-full h-[80vh] flex items-center justify-center"
+                style={{ willChange: "transform" }}
             >
                 <div
                     ref={numberRef}
@@ -221,7 +238,7 @@ const AboutSection = () => {
                             color: "#424294",
                             fontFamily: "Plus Jakarta Sans",
                             position: "relative",
-                            marginTop: isMobile ? "-220px" : "0px", // Adjusted: moved higher up on mobile
+                            marginTop: isMobile ? "-380px" : "0px", // Adjusted: moved higher up on mobile
                         }}
                     >
                         9
@@ -233,7 +250,7 @@ const AboutSection = () => {
                         style={{
                             width: isMobile ? "150px" : "650px",
                             height: isMobile ? "150px" : "650px",
-                            top: isMobile ? "-130px" : "530px", // Adjusted: moved higher up on mobile
+                            top: isMobile ? "-280px" : "530px", // Adjusted: moved higher up on mobile
                             left: "50%",
                             transform: "translateX(-50%)",
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
@@ -243,6 +260,7 @@ const AboutSection = () => {
                             src="/images/hap.svg"
                             alt="Healthcare Image"
                             className="w-full h-full object-cover"
+                            loading="lazy"
                         />
                     </div>
                 </div>
@@ -251,15 +269,21 @@ const AboutSection = () => {
             {/* Text content positioned - Updated for better mobile positioning */}
             <div
                 ref={textContainerRef}
-                className={`absolute ${isMobile ? 'top-[32vh] left-1/2 transform -translate-x-1/2 text-center' : 'top-1/4 left-0 ml-[360px] mt-[-20px]'}`}
+                className={`absolute ${
+                    isMobile
+                        ? 'top-[10vh] text-center'
+                        : 'top-1/4 left-0 ml-[360px] mt-[-10px]'
+                }`}
                 style={{
-                    fontFamily: "Be Vietnam Pro",
+                    fontFamily: 'Be Vietnam Pro',
                     fontWeight: 700,
-                    fontSize: isMobile ? "20px" : "36px",
-                    lineHeight: "110%",
-                    letterSpacing: "3%",
-                    color: "#424294",
-                    marginTop: isMobile ? "100px" : "0",
+                    fontSize: isMobile ? '20px' : '36px',
+                    lineHeight: '120%',
+                    letterSpacing: '3%',
+                    color: '#424294',
+                    marginTop: isMobile ? '210px' : '0',
+                    marginRight: isMobile ? '87px' : '0', // <-- this moves it to the right side
+                    right: isMobile ? 0 : 'auto',         // <-- anchor it to the right edge
                 }}
             >
                 Years of <br/> Orthopedic Excellence
@@ -274,24 +298,26 @@ const AboutSection = () => {
                     {[0, 1, 2, 3].map((rowIndex) => (
                         <div
                             key={rowIndex}
-                            className="relative w-full overflow-hidden h-[50px] flex items-center"
+                            className="relative w-full overflow-hidden h-[50px] flex items-center card-row"
                         >
                             <div
                                 className={`flex gap-4 animate-rowScroll${rowIndex}`}
                                 style={{
                                     animationDelay: `${rowIndex * 2}s`,
+                                    willChange: "transform"
                                 }}
                             >
                                 {/* Duplicated for seamless loop */}
                                 {[...cardsData[rowIndex], ...cardsData[rowIndex]].map((card, cardIndex) => (
                                     <div
                                         key={`${rowIndex}-${cardIndex}`}
-                                        className="bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[318px] h-[40px] opacity-100 transition-opacity duration-300"
+                                        className="bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[318px] h-[40px] opacity-100 transition-opacity duration-300 floating-card"
                                     >
                                         <img
                                             src={card.icon}
                                             alt="Avatar"
                                             className="w-[24px] h-[24px] rounded-full"
+                                            loading="lazy"
                                         />
                                         <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis">
                                             {card.text}
@@ -306,7 +332,7 @@ const AboutSection = () => {
 
             {/* Cards Section - Moved higher up for mobile */}
             <div
-                className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${isMobile ? 'mt-[40vh]' : 'mt-96 sm:mt-96 md:mt-80'} relative z-10 max-w-[1200px] mx-auto`}
+                className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${isMobile ? 'mt-[34vh]' : 'mt-96 sm:mt-96 md:mt-80'} relative z-10 max-w-[1200px] mx-auto`}
             >
                 {[1, 2].map((_, idx) => (
                     <div
@@ -317,6 +343,7 @@ const AboutSection = () => {
                             src={`/images/about_sec${idx === 0 ? "" : "2"}.svg`}
                             className="w-full h-[200px] sm:h-[220px] sm:w-[551px] sm:h-[385px] object-con mb-3 sm:mb-4 rounded-lg"
                             alt={idx === 0 ? "Best Healthcare" : "Trusted Specialists"}
+                            loading="lazy"
                         />
                         <p className="text-xs sm:text-sm text-gray-600">#1 in Kamareddy</p>
                         <h3 className="text-base sm:text-lg md:text-2xl font-bold text-black mt-1">
@@ -357,36 +384,62 @@ const AboutSection = () => {
                 ))}
             </div>
 
-            {/* Fixed style element - removed global attribute */}
-            <style jsx>{`
+            {/* Fixed style element - fixed the TypeScript error by removing jsx attribute */}
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 /* Improved infinite scroll for mobile */
                 @keyframes mobileInfiniteScroll {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-100%); }
+                    0% {
+                        transform: translateX(0);
+                    }
+                    100% {
+                        transform: translateX(-100%);
+                    }
                 }
 
                 .mobile-scrolling-cards {
                     animation: mobileInfiniteScroll 60s linear infinite;
                     width: max-content;
+                    will-change: transform;
                 }
 
                 @keyframes animate-rowScroll0 {
-                    0% { transform: translateX(100vw); }
-                    100% { transform: translateX(-200vw); }
+                    0% {
+                        transform: translateX(100vw);
+                    }
+                    100% {
+                        transform: translateX(-200vw);
+                    }
                 }
+
                 @keyframes animate-rowScroll1 {
-                    0% { transform: translateX(100vw); }
-                    100% { transform: translateX(-200vw); }
+                    0% {
+                        transform: translateX(100vw);
+                    }
+                    100% {
+                        transform: translateX(-200vw);
+                    }
                 }
+
                 @keyframes animate-rowScroll2 {
-                    0% { transform: translateX(100vw); }
-                    100% { transform: translateX(-200vw); }
+                    0% {
+                        transform: translateX(100vw);
+                    }
+                    100% {
+                        transform: translateX(-200vw);
+                    }
                 }
+
                 @keyframes animate-rowScroll3 {
-                    0% { transform: translateX(100vw); }
-                    100% { transform: translateX(-200vw); }
+                    0% {
+                        transform: translateX(100vw);
+                    }
+                    100% {
+                        transform: translateX(-200vw);
+                    }
                 }
-            `}</style>
+                `
+            }}/>
 
             {/* Appointment Modal */}
             <AppointmentModal

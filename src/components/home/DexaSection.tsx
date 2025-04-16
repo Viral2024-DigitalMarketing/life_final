@@ -6,8 +6,8 @@ const DexaSection = () => {
     return (
         <section className="bg-[#207882] relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden">
             {/* Heading Positioned at Top */}
-            <h2 className="absolute top-8 w-full text-center font-[Merriweather] font-normal
-                text-[24px] sm:text-[28px] md:text-[32px] lg:text-[40px]
+            <h2 className="absolute top-20 w-full text-center font-[Merriweather] font-normal
+                text-[28px] sm:text-[28px] md:text-[32px] lg:text-[40px]
                 leading-tight tracking-[0.02em] text-[#DAFFF4] z-10">
                 1st DEXA scanning in North Telangana.
             </h2>
