@@ -17,9 +17,9 @@ const About = () => {
                 <PageHero
                     customContent={<></>} // No text, just image
                     backgroundImage="/images/abt_he.svg"
-
-                    height="h-[100vh]" // Full screen height
-                    backgroundPositionY="1%" // Adjust image framing
+                    height="h-[100vh] md:h-[80vh]" // Full height on mobile, slightly shorter on desktop
+                    backgroundPositionY="top" // Or use a percentage like "10%" if needed
+                    className="bg-contain md:bg-cover bg-no-repeat bg-top" // Best for SVG scaling on mobile
                 />
 
                 <FounderDescriptionSection />

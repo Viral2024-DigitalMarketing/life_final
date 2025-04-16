@@ -110,11 +110,11 @@ const AboutSection = () => {
                     scale = 0.2;
                     break;
                 case 'large':
-                    xPosition = "-30vw";
+                    xPosition = "-35vw";
                     scale = 0.2;
                     break;
                 case 'xlarge':
-                    xPosition = "-25vw"; // Less negative value for ultra-wide screens
+                    xPosition = "-35vw"; // Less negative value for ultra-wide screens
                     scale = 0.18; // Slightly smaller scale for ultra-wide
                     break;
                 default:
@@ -295,7 +295,7 @@ const AboutSection = () => {
                     lineHeight: '120%',
                     letterSpacing: '3%',
                     color: '#424294',
-                    marginTop: isMobile ? '0px' : '0',
+                    marginTop: isMobile ? '200px' : '0',
                     marginRight: isMobile ? '67px' : '0',
                     right: isMobile ? 0 : 'auto',
                     // Adjusted margins based on screen type

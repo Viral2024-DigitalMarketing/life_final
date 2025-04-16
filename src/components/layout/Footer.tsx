@@ -36,7 +36,7 @@ const Footer = () => {
 
             {/* Column 2: Quick Links */}
             <div className="flex flex-col md:ml-8">
-              <h3 className="font-medium text-base md:text-xl mb-4">Quick Links</h3>
+              <h3 className="text-base md:text-xl font-semibold text-gray-800 mb-4">Quick Links</h3>
               <ul className="space-y-2 text-sm md:text-base">
                 <li><Link to="/services" className="text-gray-600 hover:text-blue-600 transition-colors">Services</Link></li>
                 <li><Link to="/about" className="text-gray-600 hover:text-blue-600 transition-colors">About Us</Link></li>
@@ -47,7 +47,7 @@ const Footer = () => {
 
             {/* Column 3: Services */}
             <div className="flex flex-col">
-              <h3 className="font-medium text-base md:text-xl mb-4">Services</h3>
+              <h3 className="text-base md:text-xl font-semibold text-gray-800 mb-4">Services</h3>
               <ul className="space-y-2 text-sm md:text-base">
                 <li><Link to="/services/joint-replacement" className="text-gray-600 hover:text-blue-600 transition-colors">Joint Replacement</Link></li>
                 <li><Link to="/services/orthopedic" className="text-gray-600 hover:text-blue-600 transition-colors">Orthopedics & Muscle Care</Link></li>
@@ -58,7 +58,7 @@ const Footer = () => {
 
             {/* Column 4: Socials + Map */}
             <div className="flex flex-col">
-              <h3 className="font-medium text-base md:text-xl mb-4">Follow Us</h3>
+              <h3 className="text-base md:text-xl font-semibold text-gray-800 mb-4">Follow Us</h3>
               <div className="flex gap-3 mb-6">
                 <a href="#" className="p-2 bg-gray-100 rounded-full text-gray-600 hover:bg-blue-600 hover:text-white transition-colors">
                   <Facebook className="w-5 h-5" />
@@ -74,7 +74,7 @@ const Footer = () => {
                 </a>
               </div>
 
-              <h3 className="font-medium text-base md:text-xl mb-3">Location</h3>
+              <h3 className="text-base md:text-xl font-semibold text-gray-800 mb-3">Location</h3>
               <a
                   href="https://www.google.com/maps/dir/?api=1&destination=Life+Hospital+Kamareddy"
                   target="_blank"
