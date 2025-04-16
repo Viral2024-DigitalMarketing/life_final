@@ -15,7 +15,7 @@ const AboutSection = () => {
     const textContainerRef = useRef(null);
     const floatingCardsRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [screenType, setScreenType] = useState('desktop'); // 'mobile', 'desktop', 'large', 'xlarge'
+    const [screenType, setScreenType] = useState('desktop'); // 'mobile', 'tablet', 'desktop', 'large', 'xlarge'
 
     // Data for floating cards - multiple cards per row
     const cardsData = [
@@ -42,12 +42,14 @@ const AboutSection = () => {
     ];
 
     useEffect(() => {
-        // Check screen type based on width
+        // Check screen type based on width - added tablet breakpoint
         const checkScreenSize = () => {
             const width = window.innerWidth;
-            if (width < 768) {
+            if (width < 640) {
                 setScreenType('mobile');
-            } else if (width >= 768 && width < 1280) {
+            } else if (width >= 640 && width < 1024) { // 640-1024px range for tablets
+                setScreenType('tablet');
+            } else if (width >= 1024 && width < 1280) {
                 setScreenType('desktop');
             } else if (width >= 1280 && width < 1536) {
                 setScreenType('large');
@@ -100,32 +102,46 @@ const AboutSection = () => {
                 duration: 1.8,
                 ease: "power3.inOut",
             });
+        } else if (screenType === 'tablet') {
+            // Tablet-specific animation
+            tl.to(containerRef.current, {
+                scale: 0.25, // Smaller scale for tablets
+                x: "-22vw", // Less offset than desktop
+                y: "-30vh",
+                transformOrigin: "center center",
+                duration: 1.8,
+                ease: "power3.inOut",
+            });
         } else {
             // Different desktop animations based on screen width
-            let xPosition, scale;
+            let xPosition, scale, yPosition;
 
             switch(screenType) {
                 case 'desktop':
                     xPosition = "-35vw";
                     scale = 0.2;
+                    yPosition = "-35vh";
                     break;
                 case 'large':
-                    xPosition = "-35vw";
-                    scale = 0.2;
+                    xPosition = "-28vw";
+                    scale = 0.15;
+                    yPosition = "-30vh";
                     break;
                 case 'xlarge':
-                    xPosition = "-35vw"; // Less negative value for ultra-wide screens
-                    scale = 0.18; // Slightly smaller scale for ultra-wide
+                    xPosition = "-25vw";
+                    scale = 0.12;
+                    yPosition = "-28vh";
                     break;
                 default:
                     xPosition = "-35vw";
                     scale = 0.2;
+                    yPosition = "-35vh";
             }
 
             tl.to(containerRef.current, {
                 scale: scale,
                 x: xPosition,
-                y: "-35vh",
+                y: yPosition,
                 transformOrigin: "left center",
                 duration: 1.8,
                 ease: "power3.inOut",
@@ -202,58 +218,159 @@ const AboutSection = () => {
     }, [screenType]); // Updated dependency to screenType
 
     const isMobile = screenType === 'mobile';
+    const isTablet = screenType === 'tablet';
+
+    // Determine section height based on screen type
+    const getSectionHeight = () => {
+        switch(screenType) {
+            case 'mobile': return 'min-h-[100vh]';
+            case 'tablet': return 'min-h-[110vh]'; // Increased height for tablets
+            case 'desktop': return 'min-h-[100vh]';
+            case 'large': return 'min-h-[120vh]';
+            case 'xlarge': return 'min-h-[130vh]';
+            default: return 'min-h-[100vh]';
+        }
+    };
+
+    // Determine number size based on screen type for better scaling
+    const getNumberSize = () => {
+        switch(screenType) {
+            case 'mobile': return '450px';
+            case 'tablet': return '600px'; // Better size for tablets
+            case 'desktop': return '900px';
+            case 'large': return '1800px';
+            case 'xlarge': return '2000px';
+            default: return '900px';
+        }
+    };
+
+    // Calculate card section margin based on screen type
+    const getCardSectionMargin = () => {
+        switch(screenType) {
+            case 'mobile': return 'mt-[34vh]';
+            case 'tablet': return 'mt-[30vh]'; // Reduced for tablets
+            case 'desktop': return 'mt-96';
+            case 'large': return 'mt-[35rem]';
+            case 'xlarge': return 'mt-[40rem]';
+            default: return 'mt-96';
+        }
+    };
+
+    // Calculate text container position and sizing
+    const getTextContainerStyles = () => {
+        let styles = {
+            fontFamily: 'Be Vietnam Pro',
+            fontWeight: 700,
+            lineHeight: '120%',
+            letterSpacing: '3%',
+            color: '#424294',
+        };
+
+        if (isMobile) {
+            return {
+                ...styles,
+                fontSize: '23px',
+                marginTop: '200px',
+                marginRight: '67px',
+            };
+        } else if (isTablet) {
+            return {
+                ...styles,
+                fontSize: '32px',
+                marginTop: '90px',
+                marginLeft: '280px',
+            };
+        } else {
+            return {
+                ...styles,
+                fontSize: screenType === 'large' ? '42px' : screenType === 'xlarge' ? '48px' : '36px',
+                marginTop: screenType === 'large' ? '20px' : screenType === 'xlarge' ? '30px' : '0',
+                marginLeft: screenType === 'desktop' ? '360px' : screenType === 'large' ? '500px' : '600px',
+            };
+        }
+    };
 
     return (
         <section
             ref={sectionRef}
-            className="bg-white mt-20 min-h-[100vh] pt-32 pb-16 px-4 sm:px-8 md:px-12 lg:px-24 overflow-hidden relative"
+            className={`bg-white mt-20 ${getSectionHeight()} pt-32 pb-16 px-4 sm:px-8 md:px-12 lg:px-24 overflow-hidden relative`}
         >
-            {/* Mobile Floating Cards - Improved infinite scroll */}
-            {isMobile && (
+            {/* Mobile/Tablet Floating Cards - Improved infinite scroll */}
+            {(isMobile || isTablet) && (
                 <div
                     ref={floatingCardsRef}
                     className="absolute left-0 top-0 w-full overflow-hidden pointer-events-none"
                 >
                     {/* Single row with proper infinite scroll */}
-                    <div className="w-full mt-[-5px] overflow-hidden h-[50px] flex items-center">
+                    <div className={`w-full ${isTablet ? 'mt-[15px]' : 'mt-[-5px]'} overflow-hidden h-[50px] flex items-center`}>
                         <div className="mobile-scrolling-cards flex gap-4">
                             {/* We need to duplicate the cards multiple times to ensure continuous flow */}
                             {[...cardsData[0], ...cardsData[0], ...cardsData[0]].map((card, cardIndex) => (
                                 <div
                                     key={`mobile-row1-${cardIndex}`}
-                                    className="bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[250px] h-[40px] opacity-100"
+                                    className={`bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center ${isTablet ? 'min-w-[280px]' : 'min-w-[250px]'} h-[40px] opacity-100`}
                                 >
                                     <img
                                         src={card.icon}
                                         alt="Avatar"
-                                        className="w-[24px] h-[24px] rounded-full flex-shrink-0" // Added flex-shrink-0 to prevent image shrinking
+                                        className="w-[24px] h-[24px] rounded-full flex-shrink-0"
                                     />
-                                    <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis ml-2"> {/* Added margin-left for spacing */}
+                                    <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis ml-2">
                                         {card.text}
                                     </p>
                                 </div>
                             ))}
                         </div>
                     </div>
+
+                    {/* Add a second row of cards for tablet view */}
+                    {isTablet && (
+                        <div className="w-full mt-[10px] overflow-hidden h-[50px] flex items-center">
+                            <div className="tablet-scrolling-cards-reverse flex gap-4">
+                                {/* Second row moves in opposite direction */}
+                                {[...cardsData[1], ...cardsData[1], ...cardsData[1]].map((card, cardIndex) => (
+                                    <div
+                                        key={`tablet-row2-${cardIndex}`}
+                                        className="bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[280px] h-[40px] opacity-100"
+                                    >
+                                        <img
+                                            src={card.icon}
+                                            alt="Avatar"
+                                            className="w-[24px] h-[24px] rounded-full flex-shrink-0"
+                                        />
+                                        <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis ml-2">
+                                            {card.text}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
 
-            {/* Initial container position - Updated for proper centering in mobile */}
+            {/* Initial container position - Special handling for tablet view */}
             <div
                 ref={containerRef}
-                className="absolute top-1/5 left-1/2 transform -translate-x-1/2 -translate-y-1/4 w-full h-[80vh] flex items-center justify-center"
+                className={`absolute ${
+                    isTablet ? 'top-[15vh] left-1/2' :
+                        screenType === 'large' || screenType === 'xlarge' ? 'top-1/4 left-1/2' : 'top-1/5 left-1/2'
+                } transform -translate-x-1/2 -translate-y-1/4 w-full h-[80vh] flex items-center justify-center`}
             >
                 <div
                     ref={numberRef}
                     className="relative flex items-center justify-center"
                 >
                     <span
-                        className="text-[450px] md:text-[900px] mt-30 lg:text-[2200px] items-center justify-center font-extrabold leading-none"
+                        className="text-[450px] md:text-[900px] mt-30 items-center justify-center font-extrabold leading-none"
                         style={{
                             color: "#424294",
                             fontFamily: "Plus Jakarta Sans",
                             position: "relative",
-                            marginTop: isMobile ? "-450px" : "0px", // Adjusted: moved higher up on mobile
+                            fontSize: getNumberSize(),
+                            marginTop: isMobile ? "-450px" :
+                                isTablet ? "-180px" :
+                                    screenType === 'large' || screenType === 'xlarge' ? "-200px" : "0px",
                         }}
                     >
                         9
@@ -263,9 +380,15 @@ const AboutSection = () => {
                         ref={imageRef}
                         className="absolute rounded-full overflow-hidden"
                         style={{
-                            width: isMobile ? "150px" : "650px",
-                            height: isMobile ? "150px" : "650px",
-                            top: isMobile ? "-350px" : "530px", // Adjusted: moved higher up on mobile
+                            width: isMobile ? "150px" :
+                                isTablet ? "300px" :
+                                    screenType === 'large' ? "600px" : screenType === 'xlarge' ? "650px" : "650px",
+                            height: isMobile ? "150px" :
+                                isTablet ? "300px" :
+                                    screenType === 'large' ? "600px" : screenType === 'xlarge' ? "650px" : "650px",
+                            top: isMobile ? "-350px" :
+                                isTablet ? "150px" :
+                                    screenType === 'large' ? "450px" : screenType === 'xlarge' ? "500px" : "530px",
                             left: "50%",
                             transform: "translateX(-50%)",
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
@@ -280,43 +403,33 @@ const AboutSection = () => {
                 </div>
             </div>
 
-            {/* Text content positioned - Updated for better positioning across screen sizes */}
+            {/* Text content positioned - Special handling for tablet view */}
             <div
                 ref={textContainerRef}
                 className={`absolute ${
                     isMobile
                         ? 'top-[10vh] text-center'
-                        : 'top-1/4 left-0'
+                        : isTablet
+                            ? 'top-[28vh] left-0'
+                            : 'top-1/4 left-0'
                 }`}
-                style={{
-                    fontFamily: 'Be Vietnam Pro',
-                    fontWeight: 700,
-                    fontSize: isMobile ? '23px' : '36px',
-                    lineHeight: '120%',
-                    letterSpacing: '3%',
-                    color: '#424294',
-                    marginTop: isMobile ? '200px' : '0',
-                    marginRight: isMobile ? '67px' : '0',
-                    right: isMobile ? 0 : 'auto',
-                    // Adjusted margins based on screen type
-                    marginLeft: isMobile ? '0' :
-                        screenType === 'desktop' ? '360px' :
-                            screenType === 'large' ? '400px' : '440px',
-                }}
+                style={getTextContainerStyles()}
             >
                 Years of <br/> Orthopedic Excellence
             </div>
 
-            {/* Floating Cards - Desktop view remains untouched */}
-            {!isMobile && (
+            {/* Floating Cards - Desktop view */}
+            {!isMobile && !isTablet && (
                 <div
                     ref={floatingCardsRef}
-                    className="absolute -right-[80px] top-[50px] w-[50vw] flex flex-col gap-6 pointer-events-none fade-mask"
+                    className={`absolute -right-[80px] ${
+                        screenType === 'large' || screenType === 'xlarge' ? 'top-[100px]' : 'top-[50px]'
+                    } w-[50vw] flex flex-col gap-6 pointer-events-none fade-mask`}
                 >
                     {[0, 1, 2, 3].map((rowIndex) => (
                         <div
                             key={rowIndex}
-                            className="relative w-full overflow-hidden h-[50px] flex items-center"
+                            className="relative w-full overflow-hidden h-[50px] flex items-center card-row"
                         >
                             <div
                                 className={`flex gap-4 animate-rowScroll${rowIndex}`}
@@ -328,7 +441,7 @@ const AboutSection = () => {
                                 {[...cardsData[rowIndex], ...cardsData[rowIndex]].map((card, cardIndex) => (
                                     <div
                                         key={`${rowIndex}-${cardIndex}`}
-                                        className="bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[318px] h-[40px] opacity-100 transition-opacity duration-300"
+                                        className="bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[318px] h-[40px] opacity-100 transition-opacity duration-300 floating-card"
                                     >
                                         <img
                                             src={card.icon}
@@ -346,25 +459,36 @@ const AboutSection = () => {
                 </div>
             )}
 
-            {/* Cards Section - Moved higher up for mobile */}
+            {/* Cards Section - Special handling for tablet */}
             <div
-                className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${isMobile ? 'mt-[34vh]' : 'mt-96 sm:mt-96 md:mt-80'} relative z-10 max-w-[1200px] mx-auto`}
+                className={`grid grid-cols-1 gap-6 ${isTablet ? 'sm:grid-cols-1 md:grid-cols-2' : 'sm:grid-cols-2'} sm:gap-10 md:gap-12 ${getCardSectionMargin()} relative z-10 max-w-[1200px] mx-auto`}
             >
                 {[1, 2].map((_, idx) => (
                     <div
                         key={idx}
-                        className="border-[2px] sm:border-[3px] md:border-[5px] border-solid border-light-blue-400 w-full max-w-full h-auto sm:max-w-[600px] sm:h-[605px] flex flex-col items-start p-3 sm:p-4 md:p-6 rounded-xl bg-white shadow-lg"
+                        className={`border-[2px] sm:border-[3px] md:border-[5px] border-solid border-light-blue-400 w-full max-w-full h-auto 
+                            ${isTablet ? 'sm:max-w-[500px] sm:h-[550px]' :
+                            screenType === 'large' || screenType === 'xlarge' ? 'sm:max-w-[650px] sm:h-[650px]' : 'sm:max-w-[600px] sm:h-[605px]'} 
+                            flex flex-col items-start p-3 sm:p-4 md:p-6 rounded-xl bg-white shadow-lg ${isTablet ? 'mx-auto' : ''}`}
                     >
                         <img
                             src={`/images/about_sec${idx === 0 ? "" : "2"}.svg`}
-                            className="w-full h-[200px] sm:h-[220px] sm:w-[551px] sm:h-[385px] object-con mb-3 sm:mb-4 rounded-lg"
+                            className={`w-full 
+                                ${isTablet ? 'h-[250px] sm:h-[350px] sm:w-full' :
+                                screenType === 'large' || screenType === 'xlarge' ? 'h-[200px] sm:h-[420px] sm:w-[600px]' : 'h-[200px] sm:h-[385px] sm:w-[551px]'}
+                                object-cover mb-3 sm:mb-4 rounded-lg`}
                             alt={idx === 0 ? "Best Healthcare" : "Trusted Specialists"}
                         />
                         <p className="text-xs sm:text-sm text-gray-600">#1 in Kamareddy</p>
-                        <h3 className="text-base sm:text-lg md:text-2xl font-bold text-black mt-1">
+                        <h3 className={`text-base sm:text-lg 
+                            ${isTablet ? 'md:text-xl' :
+                            screenType === 'large' || screenType === 'xlarge' ? 'md:text-3xl' : 'md:text-2xl'} 
+                            font-bold text-black mt-1`}>
                             {idx === 0 ? "Best Healthcare" : "Trusted Specialists"}
                         </h3>
-                        <p className="text-sm text-gray-500 mt-1 sm:text-base">
+                        <p className={`text-sm text-gray-500 mt-1 
+                            ${isTablet ? 'sm:text-base' :
+                            screenType === 'large' || screenType === 'xlarge' ? 'sm:text-lg' : 'sm:text-base'}`}>
                             {idx === 0
                                 ? "Delivering exceptional medical services with care."
                                 : "Our team of experts is here for your health needs."}
@@ -372,9 +496,14 @@ const AboutSection = () => {
                         <div className="flex justify-end w-full items-center mt-4 sm:mr-2">
                             <button
                                 onClick={() => setIsModalOpen(true)}
-                                className="group w-full sm:w-[240px] h-[36px] sm:h-[42px] bg-[#333374] text-[#CACAE8] flex items-center justify-between px-4 sm:px-5 md:px-6 rounded-full hover:bg-[#2a2a5e] transition-colors"
+                                className={`group w-full sm:w-[240px] h-[36px] 
+                                    ${isTablet ? 'sm:h-[45px]' :
+                                    screenType === 'large' || screenType === 'xlarge' ? 'sm:h-[50px] sm:w-[280px]' : 'sm:h-[42px]'} 
+                                    bg-[#333374] text-[#CACAE8] flex items-center justify-between px-4 sm:px-5 md:px-6 rounded-full hover:bg-[#2a2a5e] transition-colors`}
                             >
-                                <span className="text-xs sm:text-sm md:text-base">
+                                <span className={`text-xs sm:text-sm 
+                                    ${isTablet ? 'md:text-base' :
+                                    screenType === 'large' || screenType === 'xlarge' ? 'md:text-lg' : 'md:text-base'}`}>
                                     Request Appointment
                                 </span>
                                 <svg
@@ -399,9 +528,9 @@ const AboutSection = () => {
                 ))}
             </div>
 
-            {/* Fixed style element - removed global attribute */}
+            {/* Fixed style element */}
             <style jsx>{`
-                /* Improved infinite scroll for mobile */
+                /* Improved infinite scroll for mobile/tablet */
                 @keyframes mobileInfiniteScroll {
                     0% {
                         transform: translateX(0);
@@ -416,6 +545,22 @@ const AboutSection = () => {
                     width: max-content;
                 }
 
+                /* Reverse direction for second tablet row */
+                @keyframes tabletReverseScroll {
+                    0% {
+                        transform: translateX(-100%);
+                    }
+                    100% {
+                        transform: translateX(0);
+                    }
+                }
+
+                .tablet-scrolling-cards-reverse {
+                    animation: tabletReverseScroll 60s linear infinite;
+                    width: max-content;
+                }
+
+                /* Optimized animations for each row */
                 @keyframes animate-rowScroll0 {
                     0% {
                         transform: translateX(100vw);
@@ -450,6 +595,27 @@ const AboutSection = () => {
                     100% {
                         transform: translateX(-200vw);
                     }
+                }
+
+                /* Fade mask for better card appearance */
+                .fade-mask::before,
+                .fade-mask::after {
+                    content: '';
+                    position: absolute;
+                    z-index: 2;
+                    width: 30px;
+                    height: 100%;
+                    pointer-events: none;
+                }
+
+                .fade-mask::before {
+                    left: 0;
+                    background: linear-gradient(to right, white, transparent);
+                }
+
+                .fade-mask::after {
+                    right: 0;
+                    background: linear-gradient(to left, white, transparent);
                 }
             `}</style>
 
