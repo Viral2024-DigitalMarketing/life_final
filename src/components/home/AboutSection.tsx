@@ -114,36 +114,16 @@ const AboutSection = () => {
                 ease: "power3.inOut",
             });
         } else {
-            // Desktop layouts (desktop, large, xlarge) - REVISED ANIMATION
-            // Move the number to the left side of the screen
-            if (screenType === 'desktop') {
-                tl.to(containerRef.current, {
-                    scale: 0.3,
-                    x: "-40vw", // Further left position
-                    y: "-22vh",  // Less upward movement to stay in left half
-                    transformOrigin: "center center",
-                    duration: 1.8,
-                    ease: "power3.inOut",
-                });
-            } else if (screenType === 'large') {
-                tl.to(containerRef.current, {
-                    scale: 0.25,
-                    x: "-42vw", // Further left position
-                    y: "-25vh",
-                    transformOrigin: "center center",
-                    duration: 1.8,
-                    ease: "power3.inOut",
-                });
-            } else { // xlarge
-                tl.to(containerRef.current, {
-                    scale: 0.2,
-                    x: "-45vw", // Further left position
-                    y: "-28vh",
-                    transformOrigin: "center center",
-                    duration: 1.8,
-                    ease: "power3.inOut",
-                });
-            }
+            // Unified desktop, large, and xlarge layout
+            // Consistent positioning with 180px margin from left (increased by 150px total)
+            tl.to(containerRef.current, {
+                scale: screenType === 'desktop' ? 0.3 : screenType === 'large' ? 0.25 : 0.2,
+                x: "calc(-50% + 180px)", // Increased from original 30px to 180px (added 150px total)
+                y: "-25vh",
+                transformOrigin: "left center", // Scale from left side
+                duration: 1.8,
+                ease: "power3.inOut",
+            });
         }
 
         // Show the text content and floating cards after animation is complete
@@ -170,13 +150,15 @@ const AboutSection = () => {
         return () => {
             ScrollTrigger.getAll().forEach((trigger) => trigger.kill(true));
         };
-    }, [screenType]); // Updated dependency to screenType
+    }, [screenType]);
 
     const isMobile = screenType === 'mobile';
     const isTablet = screenType === 'tablet';
     const isDesktop = screenType === 'desktop';
     const isLarge = screenType === 'large';
     const isXLarge = screenType === 'xlarge';
+    const isLargeOrAbove = isLarge || isXLarge;
+    const isDesktopOrAbove = isDesktop || isLarge || isXLarge;
 
     return (
         <section
@@ -213,12 +195,11 @@ const AboutSection = () => {
                 </div>
             )}
 
-            {/* Initial container position - Updated for proper centering across all screen sizes */}
+            {/* Initial container position - Updated for consistent desktop layout with additional 150px margin */}
             <div
                 ref={containerRef}
-                className="absolute top-1/5 left-1/2 transform -translate-x-1/2 -translate-y-1/4 w-full h-[80vh] flex items-center justify-center"
+                className={`absolute ${isMobile || isTablet ? 'top-1/5 left-1/2 transform -translate-x-1/2' : 'top-1/5 left-[180px]'} -translate-y-1/4 w-full h-[80vh] flex items-center ${isMobile || isTablet ? 'justify-center' : 'justify-start'}`}
                 style={{
-                    // Ensure the container is fully visible initially
                     overflow: 'visible'
                 }}
             >
@@ -226,32 +207,32 @@ const AboutSection = () => {
                     ref={numberRef}
                     className="relative flex items-center justify-center"
                     style={{
-                        // Ensure the number is fully visible initially
                         overflow: 'visible'
                     }}
                 >
-                    {/* UPDATED: Adjusted text sizes for different screens with better desktop sizing */}
-                    <span
-                        className="text-[450px] sm:text-[600px] md:text-[900px] lg:text-[1400px] xl:text-[1600px] 2xl:text-[1800px] items-center justify-center font-extrabold leading-none"
-                        style={{
-                            color: "#424294",
-                            fontFamily: "Plus Jakarta Sans",
-                            position: "relative",
-                            marginTop: isMobile ? "-450px" : isTablet ? "-300px" : "0px",
-                        }}
-                    >
-                        9
-                    </span>
+                  <span
+                      className="text-[450px] sm:text-[600px] md:text-[900px] lg:text-[1400px] xl:text-[1600px] 2xl:text-[1800px] items-center justify-center font-extrabold leading-none"
+                      style={{
+                          color: "#424294",
+                          fontFamily: "Plus Jakarta Sans",
+                          position: "relative",
+                          marginTop: isMobile ? "-450px" : isTablet ? "-300px" : "0px",
+                          left: isMobile || isTablet ? "0px" : "200px", // Increased from 50px to 200px (added 150px)
+                      }}
+                  >
+                    9
+                  </span>
 
-                    {/* Circular image inside the "9" - adjusted position */}
+                    {/* Circular image inside the "9" - adjusted position for all screens */}
                     <div
                         ref={imageRef}
                         className="absolute rounded-full overflow-hidden"
                         style={{
-                            width: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "600px" : isLarge ? "650px" : "700px",
-                            height: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "600px" : isLarge ? "650px" : "700px",
-                            top: isMobile ? "-350px" : isTablet ? "-100px" : isDesktop ? "400px" : isLarge ? "430px" : "450px",
-                            left: "50%",
+                            width: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "600px" : isLarge ? "600px" : "700px",
+                            height: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "600px" : isLarge ? "600px" : "700px",
+                            // Move image higher for larger screens
+                            top: isMobile ? "-350px" : isTablet ? "-100px" : isDesktop ? "330px" : isLarge ? "320px" : "380px",
+                            left: "70%",
                             transform: "translateX(-50%)",
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
                         }}
@@ -265,7 +246,7 @@ const AboutSection = () => {
                 </div>
             </div>
 
-            {/* Text content positioned - REVISED FOR DESKTOP - Now below the number in left half */}
+            {/* Text content positioned - Updated with additional 150px margin from left */}
             <div
                 ref={textContainerRef}
                 className={`absolute ${
@@ -282,10 +263,10 @@ const AboutSection = () => {
                     lineHeight: '120%',
                     letterSpacing: '3%',
                     color: '#424294',
-                    marginTop: isMobile ? '200px' : isTablet ? '210px' : '300px', // Push down for desktop
+                    marginTop: isMobile ? '200px' : isTablet ? '210px' : '300px',
                     right: isMobile ? 0 : 'auto',
-                    // REVISED DESKTOP POSITIONING - Now below the number on left side
-                    left: isMobile ? 0 : isTablet ? '50px' : isDesktop ? '10%' : isLarge ? '8%' : '5%',
+                    // Consistent left positioning for desktop and above with additional 150px
+                    left: isMobile ? 0 : isTablet ? '50px' : '230px', // Increased from 80px to 230px (added 150px)
                     textAlign: isMobile ? 'center' : 'left',
                     width: isMobile ? '100%' : 'auto',
                 }}
@@ -293,15 +274,13 @@ const AboutSection = () => {
                 Years of <br/> Orthopedic Excellence
             </div>
 
-            {/* Floating Cards - REVISED for desktop views - Now positioned on right half */}
+            {/* Floating Cards - Consistently positioned for desktop and above */}
             {!isMobile && (
                 <div
                     ref={floatingCardsRef}
-                    className={`absolute ${
-                        isTablet ? 'right-0' : 'right-0'  // Always right aligned
-                    } top-[100px] flex flex-col gap-6 pointer-events-none`}
+                    className="absolute right-0 top-[100px] flex flex-col gap-6 pointer-events-none"
                     style={{
-                        width: isTablet ? '50vw' : '45vw', // Consistent width for desktop
+                        width: isTablet ? '50vw' : '50vw',
                         maskImage: isTablet ? 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)' : 'none',
                         WebkitMaskImage: isTablet ? 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)' : 'none',
                     }}
@@ -339,7 +318,7 @@ const AboutSection = () => {
                 </div>
             )}
 
-            {/* Cards Section - maintained at bottom of page */}
+            {/* Cards Section - maintained at bottom of page with consistent positioning */}
             <div
                 className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${
                     isMobile ? 'mt-[34vh]' :
