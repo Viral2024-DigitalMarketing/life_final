@@ -1,13 +1,12 @@
 'use client';
 import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Preload } from '@react-three/drei';
+import { useGLTF, Preload } from '@react-three/drei';
 import * as THREE from 'three';
 
 const DexaSection = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [visible, setVisible] = useState(false);
-    const [interacting, setInteracting] = useState(false);
     const [modelLoaded, setModelLoaded] = useState(false);
 
     // Performance flag for animation control
@@ -125,6 +124,7 @@ const DexaSection = () => {
         useFrame((state, delta) => {
             if (!shouldAnimate.current || !modelRef.current) return;
 
+            // Apply continuous rotation animation since we disabled user interaction
             modelRef.current.rotation.y += delta * rotationSpeed.current;
             rotationSpeed.current = 0.2 + Math.sin(state.clock.elapsedTime * 0.3) * 0.1;
         });
@@ -155,6 +155,24 @@ const DexaSection = () => {
         );
     };
 
+    // Event handler to prevent default behavior for touch events
+    const preventCanvasEvents = (e: React.TouchEvent | React.MouseEvent) => {
+        e.stopPropagation();
+    };
+
+    useEffect(() => {
+        // Add passive touch event listener to document to ensure smooth scrolling
+        const handleTouchMove = () => {
+            // This is intentionally empty - we're just ensuring passive listeners
+        };
+
+        document.addEventListener('touchmove', handleTouchMove, { passive: true });
+
+        return () => {
+            document.removeEventListener('touchmove', handleTouchMove);
+        };
+    }, []);
+
     return (
         <section
             ref={sectionRef}
@@ -167,40 +185,43 @@ const DexaSection = () => {
                 1st DEXA Scanning in North Telangana.
             </h2>
 
-            {/* 3D Model container with reduced height for mobile */}
+            {/* 3D Model container with absolute position to not interfere with scrolling */}
             <div className="w-full flex-1 flex justify-center items-center px-4 sm:px-6 md:px-12 lg:px-24 pt-2 sm:pt-4">
-                <div className="w-full h-[50vh] md:h-full rounded-xl overflow-hidden bg-white/10 backdrop-blur-md">
-                    <Canvas
-                        camera={{ position: [0, 0, 5], fov: 45 }}
-                        dpr={getDpr()}
-                        gl={{
-                            antialias: false,
-                            powerPreference: 'high-performance',
-                            alpha: true
-                        }}
-                    >
-                        <ambientLight intensity={0.4} />
-                        <spotLight position={[10, 20, 10]} angle={0.3} intensity={0.8} castShadow={false} />
-                        <directionalLight position={[-5, 5, 5]} intensity={1} />
-                        <CameraController active={visible && !interacting} />
+                <div
+                    className="w-full h-[50vh] md:h-full rounded-xl overflow-hidden bg-white/10 backdrop-blur-md relative"
+                    onTouchStart={preventCanvasEvents}
+                    onTouchMove={preventCanvasEvents}
+                    onTouchEnd={preventCanvasEvents}
+                    onMouseDown={preventCanvasEvents}
+                    onMouseMove={preventCanvasEvents}
+                    onMouseUp={preventCanvasEvents}
+                >
+                    {/* Insert a transparent overlay div to capture all events */}
+                    <div className="absolute inset-0 z-20"></div>
 
-                        <Suspense fallback={<LoadingIndicator />}>
-                            <DexaModel />
-                            <Preload all />
-                        </Suspense>
+                    {/* The canvas itself is placed below the overlay and has pointer-events-none */}
+                    <div className="w-full h-full pointer-events-none">
+                        <Canvas
+                            camera={{ position: [0, 0, 5], fov: 45 }}
+                            dpr={getDpr()}
+                            gl={{
+                                antialias: false,
+                                powerPreference: 'high-performance',
+                                alpha: true
+                            }}
+                            style={{ touchAction: 'pan-y' }}
+                        >
+                            <ambientLight intensity={0.4} />
+                            <spotLight position={[10, 20, 10]} angle={0.3} intensity={0.8} castShadow={false} />
+                            <directionalLight position={[-5, 5, 5]} intensity={1} />
+                            <CameraController active={visible} />
 
-                        <OrbitControls
-                            enabled={true}
-                            enableZoom
-                            enablePan={false}
-                            minDistance={2.5}
-                            maxDistance={7}
-                            enableDamping
-                            dampingFactor={0.05}
-                            onStart={() => setInteracting(true)}
-                            onEnd={() => setInteracting(false)}
-                        />
-                    </Canvas>
+                            <Suspense fallback={<LoadingIndicator />}>
+                                <DexaModel />
+                                <Preload all />
+                            </Suspense>
+                        </Canvas>
+                    </div>
                 </div>
             </div>
         </section>

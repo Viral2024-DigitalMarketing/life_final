@@ -16,6 +16,7 @@ const AboutSection = () => {
     const floatingCardsRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
 
     // Data for floating cards - multiple cards per row
     const cardsData = [
@@ -42,19 +43,20 @@ const AboutSection = () => {
     ];
 
     useEffect(() => {
-        // Check if the screen is mobile
-        const checkMobile = () => {
+        // Check if the screen is mobile or large
+        const checkScreenSize = () => {
             setIsMobile(window.innerWidth < 768);
+            setIsLargeScreen(window.innerWidth > 1600);
         };
 
         // Initial check
-        checkMobile();
+        checkScreenSize();
 
         // Add resize listener
-        window.addEventListener('resize', checkMobile);
+        window.addEventListener('resize', checkScreenSize);
 
         return () => {
-            window.removeEventListener('resize', checkMobile);
+            window.removeEventListener('resize', checkScreenSize);
         };
     }, []);
 
@@ -216,12 +218,13 @@ const AboutSection = () => {
                     className="relative flex items-center justify-center"
                 >
                     <span
-                        className="text-[450px] md:text-[900px] mt-30 lg:text-[2200px] items-center justify-center font-extrabold leading-none"
+                        className="text-[450px] md:text-[900px] mt-30 lg:text-[1800px] xl:text-[2200px] items-center justify-center font-extrabold leading-none"
                         style={{
                             color: "#424294",
                             fontFamily: "Plus Jakarta Sans",
                             position: "relative",
                             marginTop: isMobile ? "-450px" : "0px", // Adjusted: moved higher up on mobile
+                            fontSize: isLargeScreen ? "calc(60vw / 3)" : "", // Responsive font size for large screens
                         }}
                     >
                         9
@@ -231,9 +234,9 @@ const AboutSection = () => {
                         ref={imageRef}
                         className="absolute rounded-full overflow-hidden"
                         style={{
-                            width: isMobile ? "150px" : "650px",
-                            height: isMobile ? "150px" : "650px",
-                            top: isMobile ? "-350px" : "530px", // Adjusted: moved higher up on mobile
+                            width: isMobile ? "150px" : isLargeScreen ? "calc(25vw)" : "650px",
+                            height: isMobile ? "150px" : isLargeScreen ? "calc(25vw)" : "650px",
+                            top: isMobile ? "-350px" : isLargeScreen ? "calc(20vw)" : "530px", // Adjusted for large screens
                             left: "50%",
                             transform: "translateX(-50%)",
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
@@ -264,8 +267,10 @@ const AboutSection = () => {
                     letterSpacing: '3%',
                     color: '#424294',
                     marginTop: isMobile ? '190px' : '0',
-                    marginRight: isMobile ? '67px' : '0', // <-- this moves it to the right side
-                    right: isMobile ? 0 : 'auto',         // <-- anchor it to the right edge
+                    marginRight: isMobile ? '67px' : '0',
+                    right: isMobile ? 0 : 'auto',
+                    // Add left positioning for large screens
+                    left: isLargeScreen ? 'calc(16vw)' : '',
                 }}
             >
                 Years of <br/> Orthopedic Excellence
