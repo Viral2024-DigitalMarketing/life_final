@@ -421,45 +421,45 @@ const Navbar: React.FC<NavbarProps> = () => {
           }`}>
             <div className="p-5">
               <div className="flex justify-between items-center mb-8">
-                <h1 className="text-2xl font-bold text-hospital-blue">LIFE Hospital</h1>
+                <h1 className="text-xl font-bold text-hospital-blue">LIFE Hospital</h1>
                 <Button variant="ghost" size="icon" onClick={toggleMenu}>
                   <X size={24} />
                 </Button>
               </div>
 
-              <nav className="flex flex-col gap-6">
-                <Link to="/" className="text-gray-800 text-lg font-medium" onClick={toggleMenu}>Home</Link>
+              <nav className="flex flex-col gap-4">
+                <Link to="/" className="text-gray-800 text-base font-medium" onClick={toggleMenu}>Home</Link>
 
-                {/* Services as a clickable button with proper navigation */}
-                <Button
-                    variant="ghost"
-                    className="w-full text-left text-gray-800 text-lg font-medium hover:bg-gray-100 rounded-md p-2"
-                    onClick={navigateToServices}
+                {/* Services as a clickable link aligned left like Home */}
+                <Link
+                    to="/services"
+                    className="text-gray-800 text-base font-medium"
+                    onClick={toggleMenu}
                 >
                   Services
-                </Button>
+                </Link>
 
                 <div className="ml-4 space-y-2">
-                  <Link to="/services/joint-replacement" className="block text-gray-700 hover:text-hospital-blue" onClick={toggleMenu}>Joint Replacement</Link>
-                  <Link to="/services/orthopedic" className="block text-gray-700 hover:text-hospital-blue" onClick={toggleMenu}>Orthopedics & Muscle Care</Link>
-                  <Link to="/services/general-health" className="block text-gray-700 hover:text-hospital-blue" onClick={toggleMenu}>General Health</Link>
-                  <Link to="/services/specialized-services" className="block text-gray-700 hover:text-hospital-blue" onClick={toggleMenu}>Specialized Services</Link>
+                  <Link to="/services/joint-replacement" className="block text-gray-700 text-sm hover:text-hospital-blue" onClick={toggleMenu}>Joint Replacement</Link>
+                  <Link to="/services/orthopedic" className="block text-gray-700 text-sm hover:text-hospital-blue" onClick={toggleMenu}>Orthopedics & Muscle Care</Link>
+                  <Link to="/services/general-health" className="block text-gray-700 text-sm hover:text-hospital-blue" onClick={toggleMenu}>General Health</Link>
+                  <Link to="/services/specialized-services" className="block text-gray-700 text-sm hover:text-hospital-blue" onClick={toggleMenu}>Specialized Services</Link>
                 </div>
 
-                <Link to="/about" className="text-gray-800 text-lg font-medium" onClick={toggleMenu}>About Us</Link>
+                <Link to="/about" className="text-gray-800 text-base font-medium" onClick={toggleMenu}>About Us</Link>
 
                 {/* Contact Us with hover card-like content in mobile */}
-                <div className="space-y-4">
-                  <Link to="/contact" className="text-gray-800 text-lg font-medium" onClick={toggleMenu}>Contact Us</Link>
+                <div className="space-y-3">
+                  <Link to="/contact" className="text-gray-800 text-base font-medium" onClick={toggleMenu}>Contact Us</Link>
 
                   {/* Contact info styled like hover card */}
                   <div className="ml-4 bg-gray-50 rounded-lg p-4">
                     {/* General Enquiry */}
-                    <div className="mb-4">
+                    <div className="mb-3">
                       <h3 style={{
                         fontFamily: 'Ranade',
                         fontWeight: 500,
-                        fontSize: '20px',
+                        fontSize: '16px',
                         lineHeight: '100%',
                         letterSpacing: '1%',
                         color: '#000000',
@@ -468,7 +468,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                         <a href="tel:+918592859585" style={{
                           fontFamily: 'Be Vietnam Pro',
                           fontWeight: 400,
-                          fontSize: '16px',
+                          fontSize: '14px',
                           lineHeight: '100%',
                           letterSpacing: '0%',
                           color: '#2C2C2CF2',
@@ -477,11 +477,11 @@ const Navbar: React.FC<NavbarProps> = () => {
                     </div>
 
                     {/* Emergency Services */}
-                    <div className="mb-4">
+                    <div className="mb-3">
                       <h3 style={{
                         fontFamily: 'Ranade',
                         fontWeight: 500,
-                        fontSize: '20px',
+                        fontSize: '16px',
                         lineHeight: '100%',
                         letterSpacing: '1%',
                         color: '#D61A1A',
@@ -490,7 +490,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                         <a href="tel:+917002585724" style={{
                           fontFamily: 'Be Vietnam Pro',
                           fontWeight: 400,
-                          fontSize: '16px',
+                          fontSize: '14px',
                           lineHeight: '100%',
                           letterSpacing: '0%',
                           color: '#2C2C2CF2',
@@ -503,7 +503,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                       <h3 style={{
                         fontFamily: 'Ranade',
                         fontWeight: 500,
-                        fontSize: '20px',
+                        fontSize: '16px',
                         lineHeight: '100%',
                         letterSpacing: '1%',
                         color: '#000000',
@@ -512,7 +512,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                         <a href="tel:+918597002535" style={{
                           fontFamily: 'Be Vietnam Pro',
                           fontWeight: 400,
-                          fontSize: '16px',
+                          fontSize: '14px',
                           lineHeight: '100%',
                           letterSpacing: '0%',
                           color: '#2C2C2CF2',
@@ -522,13 +522,13 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </div>
                 </div>
 
-                <Link to="/blog" className="text-gray-800 text-lg font-medium" onClick={toggleMenu}>Blog</Link>
+                <Link to="/blog" className="text-gray-800 text-base font-medium" onClick={toggleMenu}>Blog</Link>
               </nav>
 
-              <div className="mt-8 space-y-4">
+              <div className="mt-6 space-y-4">
                 <div className="flex items-center justify-center gap-2">
-                  <Phone size={18} />
-                  <span>+91 7002585724</span>
+                  <Phone size={16} />
+                  <span className="text-sm">+91 7002585724</span>
                 </div>
 
                 <Button
@@ -536,13 +536,13 @@ const Navbar: React.FC<NavbarProps> = () => {
                       setShowAppointmentModal(true);
                       toggleMenu();
                     }}
-                    className="w-full bg-hospital-blue hover:bg-blue-800 text-white rounded-full"
+                    className="w-full bg-hospital-blue hover:bg-blue-800 text-white text-sm rounded-full"
                 >
                   Request Appointment
                 </Button>
 
-                <Button className="w-full bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center gap-2">
-                  <Siren size={18} />
+                <Button className="w-full bg-red-600 hover:bg-red-700 text-white text-sm rounded-full flex items-center justify-center gap-2">
+                  <Siren size={16} />
                   Emergency
                 </Button>
               </div>

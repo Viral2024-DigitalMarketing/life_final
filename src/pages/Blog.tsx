@@ -5,73 +5,85 @@ import Footer from '@/components/layout/Footer';
 
 const Blog = () => {
     return (
-        <div className="min-h-screen flex mt-[95px] flex-col bg-gray-50">
+        <div className="min-h-screen flex mt-[90px] bg-[#f9f9f9] flex-col bg-gray-50">
             <Navbar />
             <main className="flex-grow">
-                {/* Hero Section with background image */}
+                {/* Hero Section with background image - moved to right corner and optimized for mobile */}
                 <section
-                    className="relative bg-cover bg-no-repeat bg-right min-h-[700px] flex items-center justify-center"
-                    style={{ backgroundImage: "url('/images/legblog.svg')" }}
+                    className="relative bg-[#f7f7f7] ml-[-25px] mt-[-50px] bg-no-repeat bg-cover min-h-[600px] md:min-h-[750px] flex items-center overflow-hidden"
+                    style={{
+                        backgroundImage: "url('/images/legblog.svg')",
+                        backgroundPosition: "122% center", // Push image right
+                        backgroundSize: "auto 90%", // Increase height for visual balance
+                        backgroundRepeat: "no-repeat",
+                    }}
                 >
-                    {/* Dark overlay */}
-                    <div className="absolute inset-0 bg-black bg-opacity-60 z-0" />
-
-                    {/* Centered Text Content */}
-                    <div className="container ml-[700px] mt-[250px] mx-auto relative z-10 px-4 text-center">
-                        <div className="max-w-xl mx-auto">
-                            <h1 className="font-['Abhaya Libre SemiBold'] font-semibold text-3xl md:text-5xl lg:text-6xl leading-tight mb-4 text-white">
+                    {/* Text Content */}
+                    <div className="container mt-40 ml-[-10px] mx-auto relative z-10 px-6 py-10 sm:py-14 md:py-0">
+                        <div className="max-w-xl md:ml-8 lg:ml-16 text-center sm:text-left">
+                            <h1 className="font-['Be Vietnam Pro'] font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-6xl leading-tight mb-4 text-gray-900">
                                 Bone Health Mistakes You'll Regret
                             </h1>
-                            <p className="font-['Be Vietnam Pro'] font-normal text-base leading-tight mb-6 text-gray-100">
+                            <p className="font-['Be Vietnam Pro'] font-normal text-base sm:text-lg leading-relaxed mb-6 text-gray-700">
                                 Ignoring early symptoms results in severe joint deterioration and expensive treatments.
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <div className="flex flex-col sm:flex-row sm:justify-start gap-4">
                                 <span
-                                    className="bg-[#015B52] text-white font-['Product Sans Medium'] font-medium text-base rounded-[24.04px] px-8 py-3 border border-[#015B52] hover:bg-[#01473c] cursor-pointer transition-colors"
+                                    className="bg-[#015B52] text-white font-['Be Vietnam Pro'] font-medium text-sm sm:text-base rounded-[24px] px-5 sm:px-8 py-2.5 sm:py-3 border border-[#015B52] hover:bg-[#01473c] transition-all duration-300 text-center cursor-pointer"
                                 >
-                                    Read full article
+                                  Read full article
                                 </span>
                                 <span
-                                    className="border border-white text-white font-['Product Sans Medium'] font-medium text-base rounded-[24.04px] px-8 py-3 hover:bg-white hover:text-[#015B52] cursor-pointer transition-colors"
+                                    className="border border-[#015B52] text-[#015B52] font-['Be Vietnam Pro'] font-medium text-sm sm:text-base rounded-[24px] px-5 sm:px-8 py-2.5 sm:py-3 hover:bg-[#015B52] hover:text-white transition-all duration-300 text-center cursor-pointer"
                                 >
-                                    Explore more articles
+                                  Explore more articles
                                 </span>
                             </div>
                         </div>
                     </div>
                 </section>
 
+
                 {/* Your Guide to a Healthier You Section */}
-                <section className="py-16 bg-gray-100">
-                    <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center gap-8">
-                        <div className="w-full lg:w-[560px] h-[250px] md:h-[350px] rounded-lg overflow-hidden shadow-md">
-                            <img
-                                src="/images/blog1.svg"
-                                alt="Future of Joint Replacement"
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-                        <div className="w-full lg:w-1/2">
-                            <h2 className="font-['Be Vietnam Pro'] font-medium text-2xl md:text-3xl leading-tight mb-4">
-                                The Future of Joint Replacement
-                            </h2>
-                            <p className="font-['Be Vietnam Pro'] font-normal text-base md:text-xl leading-relaxed mb-6">
-                                Our mission is to provide compassionate, high-quality healthcare services to all, regardless of location or socioeconomic status.
-                            </p>
-                            <span className="bg-[#06009E] text-white font-['Be Vietnam Pro'] font-medium text-base rounded-full px-6 py-2 hover:bg-[#04006e] cursor-pointer transition-colors">
-                                Read full article
-                            </span>
+                <section className="py-8 md:py-16 bg-gray-100">
+                    <div className="container mx-auto px-4">
+                        {/* Added section heading */}
+                        <h2 className="font-['Abhaya Libre SemiBold'] font-semibold text-2xl md:text-3xl lg:text-4xl text-center mb-8 md:mb-12">
+                            Your Guide to a Healthier You
+                        </h2>
+                        <div className="flex flex-col lg:flex-row items-center gap-8">
+                            <div
+                                className="w-full lg:w-[560px] h-[200px] sm:h-[250px] md:h-[350px] rounded-lg overflow-hidden shadow-md">
+                                <img
+                                    src="/images/blog1.svg"
+                                    alt="Future of Joint Replacement"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            <div className="w-full lg:w-1/2 mt-6 lg:mt-0">
+                                <h2 className="font-['Be Vietnam Pro'] font-medium text-xl sm:text-2xl md:text-3xl leading-tight mb-4">
+                                    The Future of Joint Replacement
+                                </h2>
+                                <p className="font-['Be Vietnam Pro'] font-normal text-sm sm:text-base md:text-xl leading-relaxed mb-6">
+                                    Our mission is to provide compassionate, high-quality healthcare services to all,
+                                    regardless of location or socioeconomic status.
+                                </p>
+                                <span
+                                    className="bg-[#06009E] text-white font-['Be Vietnam Pro'] font-medium text-sm sm:text-base rounded-full px-4 sm:px-6 py-2 hover:bg-[#04006e] cursor-pointer transition-colors inline-block">
+                                    Read full article
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </section>
 
                 {/* Healthier Blogs Section */}
-                <section className="py-16 bg-white">
+                <section className="py-8 md:py-16 bg-white">
                     <div className="container mx-auto px-4">
-                        <h2 className="font-['Abhaya Libre SemiBold'] font-semibold text-2xl md:text-3xl leading-tight mb-8">
+                        <h2 className="font-['Abhaya Libre SemiBold'] font-semibold text-xl sm:text-2xl md:text-3xl leading-tight mb-6 md:mb-8 text-center">
                             Healthier blogs
                         </h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                             {[
                                 {
                                     title: 'Empowering Rural Communities',
@@ -106,23 +118,23 @@ const Blog = () => {
                             ].map((card, idx) => (
                                 <div
                                     key={idx}
-                                    className="w-full max-w-[382px] h-auto rounded-lg shadow-md overflow-hidden mx-auto"
+                                    className="w-full h-auto rounded-lg shadow-md overflow-hidden"
                                 >
-                                    <div className="w-full h-[200px] sm:h-[219px] rounded-t-lg overflow-hidden">
+                                    <div className="w-full h-[180px] sm:h-[200px] rounded-t-lg overflow-hidden">
                                         <img
                                             src={card.img}
                                             alt={card.title}
                                             className="w-full h-full object-cover"
                                         />
                                     </div>
-                                    <div className="p-6">
-                                        <h3 className="font-['Be Vietnam Pro'] font-medium text-xl leading-tight mb-2">
+                                    <div className="p-4 md:p-6">
+                                        <h3 className="font-['Be Vietnam Pro'] font-medium text-lg md:text-xl leading-tight mb-2">
                                             {card.title}
                                         </h3>
-                                        <p className="font-['Be Vietnam Pro'] font-normal text-base leading-relaxed text-gray-700 mb-4">
+                                        <p className="font-['Be Vietnam Pro'] font-normal text-sm md:text-base leading-relaxed text-gray-700 mb-4">
                                             {card.desc}
                                         </p>
-                                        <span className="text-[#06009E] font-['Be Vietnam Pro'] text-base font-medium cursor-pointer hover:underline">
+                                        <span className="text-[#06009E] font-['Be Vietnam Pro'] text-sm md:text-base font-medium cursor-pointer hover:underline">
                                             Read more
                                         </span>
                                     </div>

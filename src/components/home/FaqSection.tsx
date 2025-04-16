@@ -41,33 +41,33 @@ const FaqSection = () => {
   const faqs = [
     {
       id: 1,
-      question: 'What insurance plans do you accept?',
+      question: 'What medical services does Life Hospital provide?',
       answer:
-          'Life Hospital works with most major insurance providers. We recommend contacting our billing department or your insurance company directly to verify your coverage before scheduling non-emergency procedures.',
+          'Life Hospital offers a wide range of specialties, including but not limited to, orthopedics and joint replacement, general surgery, internal medicine, pediatrics, cardiology, neurology, and diagnostic services. We strive to provide comprehensive care for the entire family.',
     },
     {
       id: 2,
-      question: 'How do I schedule an appointment?',
+      question: 'How can I find a specific doctor or specialist at Life Hospital?',
       answer:
-          'You can schedule an appointment by calling our main line, using our online booking system on our website, or through the patient portal. For specialist appointments, a referral may be required depending on your insurance plan.',
+          'You can find a specific doctor or specialist at Life Hospital through multiple channels. Visit our website\'s physician directory where you can search by name, specialty, or health condition. Our patient care helpline at +91 7763545463 can also help match you with an appropriate specialist based on your needs. Additionally, you can visit our front desk in person where our staff will guide you to the right healthcare professional. For specialized referrals, your primary care physician can directly connect you with the appropriate specialist within our network.',
     },
     {
       id: 3,
-      question: 'What should I bring to my first appointment?',
+      question: 'What insurance plans does Life Hospital accept, and how do I know if my plan is covered?',
       answer:
-          'Please bring your government-issued ID, insurance card, list of current medications, medical records if available, and any referral forms. Arriving 15 minutes early to complete paperwork is recommended for new patients.',
+          'Life Hospital accepts most major insurance plans including leading national and regional providers. To verify if your specific insurance is accepted, you can: 1) Contact our billing department at +91 7763545463 with your policy details for immediate verification, 2) Check our website\'s insurance information page where we maintain an updated list of accepted providers, 3) Call your insurance provider directly and ask if Life Hospital is in-network, or 4) Visit our administrative office with your insurance card for in-person verification. We also offer financial counseling services to help navigate coverage questions and payment options.',
     },
     {
       id: 4,
-      question: 'Do you offer telehealth services?',
+      question: 'What measures does Life Hospital take to ensure patient safety and hygiene?',
       answer:
-          'Yes, we offer telehealth appointments for many specialties and follow-up visits. These virtual consultations are convenient for patients and provide the same quality care as in-person visits for appropriate medical situations.',
+          'Life Hospital implements comprehensive safety and hygiene protocols exceeding industry standards. Our measures include rigorous sanitization procedures in all areas using hospital-grade disinfectants, mandatory hand hygiene stations throughout the facility, regular staff training on infection control, and strict adherence to sterilization protocols for medical equipment. We maintain negative pressure isolation rooms for infectious disease control, conduct continuous air quality monitoring, and have implemented contactless check-in options. Our dedicated Infection Prevention team performs regular audits and updates protocols based on the latest medical research and guidelines. Additionally, we maintain transparent reporting of our safety metrics and have earned accreditation from leading healthcare quality organizations.',
     },
     {
       id: 5,
-      question: 'What are your visiting hours?',
+      question: 'Is Life Hospital open 24/7, and what about emergency services?',
       answer:
-          'Our general visiting hours are 8:00 AM to 8:00 PM daily. Specialized units like ICU may have restricted visiting hours. We recommend checking our website or calling ahead for the most current information.',
+          'Yes, Life Hospital operates 24 hours a day, 7 days a week, including holidays. Our emergency department is fully staffed around the clock with board-certified emergency physicians, specialized nurses, and support staff ready to handle any medical crisis. Critical care specialists are always on call for complex emergencies. For non-emergency situations, our outpatient departments operate from 8:00 AM to 8:00 PM on weekdays and 9:00 AM to 5:00 PM on weekends. Certain specialized clinics may have specific timings, which are clearly displayed at the reception and on our website. Our pharmacy and diagnostic services also maintain 24/7 availability to support emergency care needs.',
     },
   ];
 
