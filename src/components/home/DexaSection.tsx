@@ -179,11 +179,12 @@ const DexaSection = () => {
             className="bg-[#207882] relative h-[80vh] md:h-[80vh] flex flex-col items-center w-full"
         >
             {/* Heading at the top with minimal spacing */}
-            <h2 className="pt-4 sm:pt-6 md:pt-8 lg:pt-10 w-full text-center font-[Merriweather] font-normal
+            <h2 className="pt-12 sm:pt-6 md:pt-8 lg:pt-10 w-full text-center font-[Merriweather] font-normal
                 text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px]
                 leading-tight tracking-[0.02em] text-[#DAFFF4] z-10">
                 1st DEXA Scanning in North Telangana.
             </h2>
+
 
             {/* 3D Model container with absolute position to not interfere with scrolling */}
             <div className="w-full flex-1 flex justify-center items-center px-4 sm:px-6 md:px-12 lg:px-24 pt-2 sm:pt-4">

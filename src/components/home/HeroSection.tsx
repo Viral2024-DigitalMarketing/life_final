@@ -46,7 +46,7 @@ const HeroSection = () => {
     // Preload the image
     useEffect(() => {
         const img = new Image();
-        img.src = "/images/hero_section.svg";
+        img.src = "/images/hero_section.webp";
         img.onload = () => setImageLoaded(true);
     }, []);
 
@@ -56,7 +56,7 @@ const HeroSection = () => {
                 {/* Background Image and Gradient */}
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="/images/hero_section.svg"
+                        src="/images/hero_section.webp"
                         alt="Medical professional with patient"
                         className="w-full h-full object-cover sm:object-cover sm:translate-y-0"
                         loading="eager"

@@ -16,7 +16,6 @@ const AboutSection = () => {
     const floatingCardsRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-    const [isLargeScreen, setIsLargeScreen] = useState(false);
 
     // Data for floating cards - multiple cards per row
     const cardsData = [
@@ -43,20 +42,19 @@ const AboutSection = () => {
     ];
 
     useEffect(() => {
-        // Check if the screen is mobile or large
-        const checkScreenSize = () => {
+        // Check if the screen is mobile
+        const checkMobile = () => {
             setIsMobile(window.innerWidth < 768);
-            setIsLargeScreen(window.innerWidth > 1600);
         };
 
         // Initial check
-        checkScreenSize();
+        checkMobile();
 
         // Add resize listener
-        window.addEventListener('resize', checkScreenSize);
+        window.addEventListener('resize', checkMobile);
 
         return () => {
-            window.removeEventListener('resize', checkScreenSize);
+            window.removeEventListener('resize', checkMobile);
         };
     }, []);
 
@@ -218,13 +216,12 @@ const AboutSection = () => {
                     className="relative flex items-center justify-center"
                 >
                     <span
-                        className="text-[450px] md:text-[900px] mt-30 lg:text-[1800px] xl:text-[2200px] items-center justify-center font-extrabold leading-none"
+                        className="text-[450px] md:text-[600px] lg:text-[750px] xl:text-[900px] 2xl:text-[1100px] items-center justify-center font-extrabold leading-none"
                         style={{
                             color: "#424294",
                             fontFamily: "Plus Jakarta Sans",
                             position: "relative",
                             marginTop: isMobile ? "-450px" : "0px", // Adjusted: moved higher up on mobile
-                            fontSize: isLargeScreen ? "calc(60vw / 3)" : "", // Responsive font size for large screens
                         }}
                     >
                         9
@@ -234,9 +231,9 @@ const AboutSection = () => {
                         ref={imageRef}
                         className="absolute rounded-full overflow-hidden"
                         style={{
-                            width: isMobile ? "150px" : isLargeScreen ? "calc(25vw)" : "650px",
-                            height: isMobile ? "150px" : isLargeScreen ? "calc(25vw)" : "650px",
-                            top: isMobile ? "-350px" : isLargeScreen ? "calc(20vw)" : "530px", // Adjusted for large screens
+                            width: isMobile ? "150px" : "650px",
+                            height: isMobile ? "150px" : "650px",
+                            top: isMobile ? "-350px" : "530px", // Adjusted: moved higher up on mobile
                             left: "50%",
                             transform: "translateX(-50%)",
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
@@ -267,10 +264,8 @@ const AboutSection = () => {
                     letterSpacing: '3%',
                     color: '#424294',
                     marginTop: isMobile ? '190px' : '0',
-                    marginRight: isMobile ? '67px' : '0',
-                    right: isMobile ? 0 : 'auto',
-                    // Add left positioning for large screens
-                    left: isLargeScreen ? 'calc(16vw)' : '',
+                    marginRight: isMobile ? '67px' : '0', // <-- this moves it to the right side
+                    right: isMobile ? 0 : 'auto',         // <-- anchor it to the right edge
                 }}
             >
                 Years of <br/> Orthopedic Excellence
@@ -280,7 +275,8 @@ const AboutSection = () => {
             {!isMobile && (
                 <div
                     ref={floatingCardsRef}
-                    className="absolute -right-[80px] top-[50px] w-[50vw] flex flex-col gap-6 pointer-events-none fade-mask"
+                    className="absolute right-0 top-[50px] w-[50vw] flex flex-col gap-6 pointer-events-none fade-mask"
+                    style={{ paddingRight: '80px' }} // Add padding to adjust for the cards on the right
                 >
                     {[0, 1, 2, 3].map((rowIndex) => (
                         <div
@@ -291,6 +287,7 @@ const AboutSection = () => {
                                 className={`flex gap-4 animate-rowScroll${rowIndex}`}
                                 style={{
                                     animationDelay: `${rowIndex * 2}s`,
+                                    paddingLeft: '80px', // Offset for initial positioning
                                 }}
                             >
                                 {/* Duplicated for seamless loop */}
