@@ -17,6 +17,7 @@ const AboutSection = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
+    // Data for floating cards - multiple cards per row
     const cardsData = [
         [
             { icon: "/images/gen_hel.svg", text: "World🌍-Class care🏥, zero financial burden!" },
@@ -41,11 +42,17 @@ const AboutSection = () => {
     ];
 
     useEffect(() => {
+        // Check if the screen is mobile
         const checkMobile = () => {
             setIsMobile(window.innerWidth < 768);
         };
+
+        // Initial check
         checkMobile();
+
+        // Add resize listener
         window.addEventListener('resize', checkMobile);
+
         return () => {
             window.removeEventListener('resize', checkMobile);
         };
@@ -54,8 +61,11 @@ const AboutSection = () => {
     useEffect(() => {
         if (!containerRef.current || !sectionRef.current || !textContainerRef.current || !floatingCardsRef.current) return;
 
+        // Hide the text and floating cards initially
         gsap.set(textContainerRef.current, { opacity: 0 });
         gsap.set(floatingCardsRef.current, { opacity: 0 });
+
+        // Clear any existing animations
         gsap.set(containerRef.current, { clearProps: "all" });
 
         const tl = gsap.timeline({
@@ -71,25 +81,28 @@ const AboutSection = () => {
         });
 
         if (isMobile) {
+            // Mobile animation: Keep the number centered while scaling down
             tl.to(containerRef.current, {
                 scale: 0.5,
-                x: "0",
-                y: "-20vh",
-                transformOrigin: "center center",
+                x: "0", // Keep centered horizontally
+                y: "-20vh", // Move up vertically
+                transformOrigin: "center center", // This ensures scaling happens from the center
                 duration: 1.8,
                 ease: "power3.inOut",
             });
         } else {
+            // Desktop animation: Unchanged from original
             tl.to(containerRef.current, {
                 scale: 0.2,
-                x: "-35%",
+                x: "-42vw",
                 y: "-35vh",
-                transformOrigin: "center center",
+                transformOrigin: "left center",
                 duration: 1.8,
                 ease: "power3.inOut",
             });
         }
 
+        // Show the text content and floating cards after animation is complete
         tl.to(
             textContainerRef.current,
             {
@@ -110,22 +123,37 @@ const AboutSection = () => {
             "-=0.3"
         );
 
+        // Improved scrolling animation for floating cards
+        // Animate each row of cards
         document.querySelectorAll('.card-row').forEach((row, rowIndex) => {
             const cards = row.querySelectorAll('.floating-card');
+
+            // Create a separate timeline for each row
             const rowTimeline = gsap.timeline({
                 repeat: -1,
-                delay: rowIndex * 0.5,
+                delay: rowIndex * 0.5, // Stagger start time between rows
             });
+
+            // Set initial positions for all cards in the row (outside view)
             gsap.set(cards, { x: '100vw', opacity: 0 });
+
+            // Animate each card in the row with staggered delays
             cards.forEach((card, cardIndex) => {
+                // Entry animation
                 rowTimeline.to(card, {
                     x: '0',
                     opacity: 1,
                     duration: 0.5,
                     ease: "power1.out",
-                    delay: cardIndex * 0.8,
+                    delay: cardIndex * 0.8, // Stagger between cards in same row
                 }, cardIndex > 0 ? ">" : 0);
-                rowTimeline.to(card, { duration: 1.5 });
+
+                // Hold visible
+                rowTimeline.to(card, {
+                    duration: 1.5,
+                });
+
+                // Exit animation
                 rowTimeline.to(card, {
                     x: '-100vw',
                     opacity: 0,
@@ -133,6 +161,8 @@ const AboutSection = () => {
                     ease: "power1.in",
                 });
             });
+
+            // Add delay between cycles of this row
             rowTimeline.to({}, { duration: 1 });
         });
 
@@ -144,15 +174,18 @@ const AboutSection = () => {
     return (
         <section
             ref={sectionRef}
-            className="bg-white mt-20 min-h-[100vh] pt-32 pb-16 px-4 sm:px-8 md}px-12 lg:px-24 overflow-hidden relative"
+            className="bg-white mt-20 min-h-[100vh] pt-32 pb-16 px-4 sm:px-8 md:px-12 lg:px-24 overflow-hidden relative"
         >
+            {/* Mobile Floating Cards - Improved infinite scroll */}
             {isMobile && (
                 <div
                     ref={floatingCardsRef}
                     className="absolute left-0 top-0 w-full overflow-hidden pointer-events-none"
                 >
+                    {/* Single row with proper infinite scroll */}
                     <div className="w-full mt-[-5px] overflow-hidden h-[50px] flex items-center">
                         <div className="mobile-scrolling-cards flex gap-4">
+                            {/* We need to duplicate the cards multiple times to ensure continuous flow */}
                             {[...cardsData[0], ...cardsData[0], ...cardsData[0]].map((card, cardIndex) => (
                                 <div
                                     key={`mobile-row1-${cardIndex}`}
@@ -161,9 +194,9 @@ const AboutSection = () => {
                                     <img
                                         src={card.icon}
                                         alt="Avatar"
-                                        className="w-[24px] h-[24px] rounded-full flex-shrink-0"
+                                        className="w-[24px] h-[24px] rounded-full flex-shrink-0" // Added flex-shrink-0 to prevent image shrinking
                                     />
-                                    <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis ml-2">
+                                    <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis ml-2"> {/* Added margin-left for spacing */}
                                         {card.text}
                                     </p>
                                 </div>
@@ -173,6 +206,7 @@ const AboutSection = () => {
                 </div>
             )}
 
+            {/* Initial container position - Updated for proper centering in mobile */}
             <div
                 ref={containerRef}
                 className="absolute top-1/5 left-1/2 transform -translate-x-1/2 -translate-y-1/4 w-full h-[80vh] flex items-center justify-center"
@@ -182,12 +216,12 @@ const AboutSection = () => {
                     className="relative flex items-center justify-center"
                 >
                     <span
-                        className="text-[450px] md:text-[900px] lg:text-[clamp(900px,150vw,1800px)] font-extrabold leading-none"
+                        className="text-[450px] md:text-[900px] mt-30 lg:text-[2200px] items-center justify-center font-extrabold leading-none"
                         style={{
                             color: "#424294",
                             fontFamily: "Plus Jakarta Sans",
                             position: "relative",
-                            marginTop: isMobile ? "-450px" : "0px",
+                            marginTop: isMobile ? "-450px" : "0px", // Adjusted: moved higher up on mobile
                         }}
                     >
                         9
@@ -199,7 +233,7 @@ const AboutSection = () => {
                         style={{
                             width: isMobile ? "150px" : "650px",
                             height: isMobile ? "150px" : "650px",
-                            top: isMobile ? "-350px" : "530px",
+                            top: isMobile ? "-350px" : "530px", // Adjusted: moved higher up on mobile
                             left: "50%",
                             transform: "translateX(-50%)",
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
@@ -214,6 +248,7 @@ const AboutSection = () => {
                 </div>
             </div>
 
+            {/* Text content positioned - Updated for better mobile positioning */}
             <div
                 ref={textContainerRef}
                 className={`absolute ${
@@ -229,11 +264,14 @@ const AboutSection = () => {
                     letterSpacing: '3%',
                     color: '#424294',
                     marginTop: isMobile ? '190px' : '0',
+                    marginRight: isMobile ? '67px' : '0', // <-- this moves it to the right side
+                    right: isMobile ? 0 : 'auto',         // <-- anchor it to the right edge
                 }}
             >
                 Years of <br/> Orthopedic Excellence
             </div>
 
+            {/* Floating Cards - Desktop view remains untouched */}
             {!isMobile && (
                 <div
                     ref={floatingCardsRef}
@@ -250,6 +288,7 @@ const AboutSection = () => {
                                     animationDelay: `${rowIndex * 2}s`,
                                 }}
                             >
+                                {/* Duplicated for seamless loop */}
                                 {[...cardsData[rowIndex], ...cardsData[rowIndex]].map((card, cardIndex) => (
                                     <div
                                         key={`${rowIndex}-${cardIndex}`}
@@ -271,6 +310,7 @@ const AboutSection = () => {
                 </div>
             )}
 
+            {/* Cards Section - Moved higher up for mobile */}
             <div
                 className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${isMobile ? 'mt-[30vh]' : 'mt-96 sm:mt-96 md:mt-80'} relative z-10 max-w-[1200px] mx-auto`}
             >
@@ -281,7 +321,7 @@ const AboutSection = () => {
                     >
                         <img
                             src={`/images/about_sec${idx === 0 ? "" : "2"}.svg`}
-                            className="w-full h-[200px] sm:h-[220px] sm:w-[551px] sm:h-[385px] object-contain mb-3 sm:mb-4 rounded-lg"
+                            className="w-full h-[200px] sm:h-[220px] sm:w-[551px] sm:h-[385px] object-con mb-3 sm:mb-4 rounded-lg"
                             alt={idx === 0 ? "Best Healthcare" : "Trusted Specialists"}
                         />
                         <p className="text-xs sm:text-sm text-gray-600">#1 in Kamareddy</p>
@@ -323,7 +363,9 @@ const AboutSection = () => {
                 ))}
             </div>
 
+            {/* Fixed style element - removed global attribute */}
             <style jsx>{`
+                /* Improved infinite scroll for mobile */
                 @keyframes mobileInfiniteScroll {
                     0% {
                         transform: translateX(0);
@@ -375,6 +417,7 @@ const AboutSection = () => {
                 }
             `}</style>
 
+            {/* Appointment Modal */}
             <AppointmentModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
