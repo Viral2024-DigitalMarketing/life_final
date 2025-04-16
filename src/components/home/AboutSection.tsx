@@ -15,7 +15,7 @@ const AboutSection = () => {
     const textContainerRef = useRef(null);
     const floatingCardsRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
+    const [screenType, setScreenType] = useState('desktop'); // 'mobile', 'desktop', 'large', 'xlarge'
 
     // Data for floating cards - multiple cards per row
     const cardsData = [
@@ -42,19 +42,28 @@ const AboutSection = () => {
     ];
 
     useEffect(() => {
-        // Check if the screen is mobile
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768);
+        // Check screen type based on width
+        const checkScreenSize = () => {
+            const width = window.innerWidth;
+            if (width < 768) {
+                setScreenType('mobile');
+            } else if (width >= 768 && width < 1280) {
+                setScreenType('desktop');
+            } else if (width >= 1280 && width < 1536) {
+                setScreenType('large');
+            } else {
+                setScreenType('xlarge');
+            }
         };
 
         // Initial check
-        checkMobile();
+        checkScreenSize();
 
         // Add resize listener
-        window.addEventListener('resize', checkMobile);
+        window.addEventListener('resize', checkScreenSize);
 
         return () => {
-            window.removeEventListener('resize', checkMobile);
+            window.removeEventListener('resize', checkScreenSize);
         };
     }, []);
 
@@ -80,7 +89,8 @@ const AboutSection = () => {
             },
         });
 
-        if (isMobile) {
+        // Different animations based on screen type
+        if (screenType === 'mobile') {
             // Mobile animation: Keep the number centered while scaling down
             tl.to(containerRef.current, {
                 scale: 0.5,
@@ -91,10 +101,30 @@ const AboutSection = () => {
                 ease: "power3.inOut",
             });
         } else {
-            // Desktop animation: Unchanged from original
+            // Different desktop animations based on screen width
+            let xPosition, scale;
+
+            switch(screenType) {
+                case 'desktop':
+                    xPosition = "-35vw";
+                    scale = 0.2;
+                    break;
+                case 'large':
+                    xPosition = "-30vw";
+                    scale = 0.2;
+                    break;
+                case 'xlarge':
+                    xPosition = "-25vw"; // Less negative value for ultra-wide screens
+                    scale = 0.18; // Slightly smaller scale for ultra-wide
+                    break;
+                default:
+                    xPosition = "-35vw";
+                    scale = 0.2;
+            }
+
             tl.to(containerRef.current, {
-                scale: 0.2,
-                x: "-42vw",
+                scale: scale,
+                x: xPosition,
                 y: "-35vh",
                 transformOrigin: "left center",
                 duration: 1.8,
@@ -169,7 +199,9 @@ const AboutSection = () => {
         return () => {
             ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
         };
-    }, [isMobile]);
+    }, [screenType]); // Updated dependency to screenType
+
+    const isMobile = screenType === 'mobile';
 
     return (
         <section
@@ -216,7 +248,7 @@ const AboutSection = () => {
                     className="relative flex items-center justify-center"
                 >
                     <span
-                        className="text-[450px] md:text-[600px] lg:text-[750px] xl:text-[900px] 2xl:text-[1100px] items-center justify-center font-extrabold leading-none"
+                        className="text-[450px] md:text-[900px] mt-30 lg:text-[2200px] items-center justify-center font-extrabold leading-none"
                         style={{
                             color: "#424294",
                             fontFamily: "Plus Jakarta Sans",
@@ -248,13 +280,13 @@ const AboutSection = () => {
                 </div>
             </div>
 
-            {/* Text content positioned - Updated for better mobile positioning */}
+            {/* Text content positioned - Updated for better positioning across screen sizes */}
             <div
                 ref={textContainerRef}
                 className={`absolute ${
                     isMobile
                         ? 'top-[10vh] text-center'
-                        : 'top-1/4 left-0 ml-[360px] mt-[-10px]'
+                        : 'top-1/4 left-0'
                 }`}
                 style={{
                     fontFamily: 'Be Vietnam Pro',
@@ -263,9 +295,13 @@ const AboutSection = () => {
                     lineHeight: '120%',
                     letterSpacing: '3%',
                     color: '#424294',
-                    marginTop: isMobile ? '190px' : '0',
-                    marginRight: isMobile ? '67px' : '0', // <-- this moves it to the right side
-                    right: isMobile ? 0 : 'auto',         // <-- anchor it to the right edge
+                    marginTop: isMobile ? '0px' : '0',
+                    marginRight: isMobile ? '67px' : '0',
+                    right: isMobile ? 0 : 'auto',
+                    // Adjusted margins based on screen type
+                    marginLeft: isMobile ? '0' :
+                        screenType === 'desktop' ? '360px' :
+                            screenType === 'large' ? '400px' : '440px',
                 }}
             >
                 Years of <br/> Orthopedic Excellence
@@ -275,8 +311,7 @@ const AboutSection = () => {
             {!isMobile && (
                 <div
                     ref={floatingCardsRef}
-                    className="absolute right-0 top-[50px] w-[50vw] flex flex-col gap-6 pointer-events-none fade-mask"
-                    style={{ paddingRight: '80px' }} // Add padding to adjust for the cards on the right
+                    className="absolute -right-[80px] top-[50px] w-[50vw] flex flex-col gap-6 pointer-events-none fade-mask"
                 >
                     {[0, 1, 2, 3].map((rowIndex) => (
                         <div
@@ -287,7 +322,6 @@ const AboutSection = () => {
                                 className={`flex gap-4 animate-rowScroll${rowIndex}`}
                                 style={{
                                     animationDelay: `${rowIndex * 2}s`,
-                                    paddingLeft: '80px', // Offset for initial positioning
                                 }}
                             >
                                 {/* Duplicated for seamless loop */}
@@ -314,7 +348,7 @@ const AboutSection = () => {
 
             {/* Cards Section - Moved higher up for mobile */}
             <div
-                className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${isMobile ? 'mt-[30vh]' : 'mt-96 sm:mt-96 md:mt-80'} relative z-10 max-w-[1200px] mx-auto`}
+                className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${isMobile ? 'mt-[34vh]' : 'mt-96 sm:mt-96 md:mt-80'} relative z-10 max-w-[1200px] mx-auto`}
             >
                 {[1, 2].map((_, idx) => (
                     <div
