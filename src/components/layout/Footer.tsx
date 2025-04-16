@@ -6,16 +6,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-      <footer
-          className="bg-white py-8 md:py-12 px-4 md:px-8 font-['Ranade']"
-          style={{
-            fontWeight: 500,
-            fontSize: '18px',
-            lineHeight: '28px',
-            letterSpacing: '0px',
-            color: '#030303',
-          }}
-      >
+      <footer className="bg-white text-black py-8 md:py-12 px-4 md:px-8 font-['Be_Vietnam_Pro']">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Column 1: Logo + Contact */}
@@ -47,18 +38,10 @@ const Footer = () => {
             <div className="flex flex-col md:ml-8">
               <h3 className="font-medium text-base md:text-xl mb-4">Quick Links</h3>
               <ul className="space-y-2 text-sm md:text-base">
-                <li>
-                  <Link to="/services" className="text-gray-600 hover:text-blue-600 transition-colors">Services</Link>
-                </li>
-                <li>
-                  <Link to="/about" className="text-gray-600 hover:text-blue-600 transition-colors">About Us</Link>
-                </li>
-                <li>
-                  <Link to="/contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact Us</Link>
-                </li>
-                <li>
-                  <Link to="/blog" className="text-gray-600 hover:text-blue-600 transition-colors">Blog</Link>
-                </li>
+                <li><Link to="/services" className="text-gray-600 hover:text-blue-600 transition-colors">Services</Link></li>
+                <li><Link to="/about" className="text-gray-600 hover:text-blue-600 transition-colors">About Us</Link></li>
+                <li><Link to="/contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact Us</Link></li>
+                <li><Link to="/blog" className="text-gray-600 hover:text-blue-600 transition-colors">Blog</Link></li>
               </ul>
             </div>
 
@@ -66,24 +49,16 @@ const Footer = () => {
             <div className="flex flex-col">
               <h3 className="font-medium text-base md:text-xl mb-4">Services</h3>
               <ul className="space-y-2 text-sm md:text-base">
-                <li>
-                  <Link to="/services/joint-replacement" className="text-gray-600 hover:text-blue-600 transition-colors">Joint Replacement</Link>
-                </li>
-                <li>
-                  <Link to="/services/orthopedic" className="text-gray-600 hover:text-blue-600 transition-colors">Orthopedics & Muscle Care</Link>
-                </li>
-                <li>
-                  <Link to="/services/general-health" className="text-gray-600 hover:text-blue-600 transition-colors">General Health</Link>
-                </li>
-                <li>
-                  <Link to="/services/specialized-services" className="text-gray-600 hover:text-blue-600 transition-colors">Specialized Services</Link>
-                </li>
+                <li><Link to="/services/joint-replacement" className="text-gray-600 hover:text-blue-600 transition-colors">Joint Replacement</Link></li>
+                <li><Link to="/services/orthopedic" className="text-gray-600 hover:text-blue-600 transition-colors">Orthopedics & Muscle Care</Link></li>
+                <li><Link to="/services/general-health" className="text-gray-600 hover:text-blue-600 transition-colors">General Health</Link></li>
+                <li><Link to="/services/specialized-services" className="text-gray-600 hover:text-blue-600 transition-colors">Specialized Services</Link></li>
               </ul>
             </div>
 
             {/* Column 4: Socials + Map */}
             <div className="flex flex-col">
-              <h3 className="font-medium text-base md:text-lg mb-4">Follow Us</h3>
+              <h3 className="font-medium text-base md:text-xl mb-4">Follow Us</h3>
               <div className="flex gap-3 mb-6">
                 <a href="#" className="p-2 bg-gray-100 rounded-full text-gray-600 hover:bg-blue-600 hover:text-white transition-colors">
                   <Facebook className="w-5 h-5" />
@@ -99,7 +74,7 @@ const Footer = () => {
                 </a>
               </div>
 
-              <h3 className="font-medium text-base md:text-lg mb-3">Location</h3>
+              <h3 className="font-medium text-base md:text-xl mb-3">Location</h3>
               <a
                   href="https://www.google.com/maps/dir/?api=1&destination=Life+Hospital+Kamareddy"
                   target="_blank"

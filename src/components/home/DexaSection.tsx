@@ -93,9 +93,7 @@ const DexaSection = () => {
 
         useEffect(() => {
             if (modelRef.current) {
-                // Set scale based on screen size
-                const isMobile = window.innerWidth < 640; // Matches Tailwind's 'sm' breakpoint
-                modelRef.current.scale.set(isMobile ? 1.0 : 1.5, isMobile ? 1.0 : 1.5, isMobile ? 1.0 : 1.5);
+                modelRef.current.scale.set(1.5, 1.5, 1.5);
                 modelRef.current.position.y = 0;
                 setModelLoaded(true);
             }
@@ -160,7 +158,7 @@ const DexaSection = () => {
     return (
         <section
             ref={sectionRef}
-            className="bg-[#207882] relative h-[80vh] flex flex-col items-center w-full"
+            className="bg-[#207882] relative h-[80vh] md:h-[80vh] flex flex-col items-center w-full"
         >
             {/* Heading at the top with minimal spacing */}
             <h2 className="pt-4 sm:pt-6 md:pt-8 lg:pt-10 w-full text-center font-[Merriweather] font-normal
@@ -169,9 +167,9 @@ const DexaSection = () => {
                 1st DEXA Scanning in North Telangana.
             </h2>
 
-            {/* 3D Model container takes remaining space but with controlled height */}
+            {/* 3D Model container with reduced height for mobile */}
             <div className="w-full flex-1 flex justify-center items-center px-4 sm:px-6 md:px-12 lg:px-24 pt-2 sm:pt-4">
-                <div className="w-full h-full rounded-xl overflow-hidden bg-white/10 backdrop-blur-md">
+                <div className="w-full h-[50vh] md:h-full rounded-xl overflow-hidden bg-white/10 backdrop-blur-md">
                     <Canvas
                         camera={{ position: [0, 0, 5], fov: 45 }}
                         dpr={getDpr()}

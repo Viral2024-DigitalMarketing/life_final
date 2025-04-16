@@ -221,7 +221,7 @@ const AboutSection = () => {
                             color: "#424294",
                             fontFamily: "Plus Jakarta Sans",
                             position: "relative",
-                            marginTop: isMobile ? "-380px" : "0px", // Adjusted: moved higher up on mobile
+                            marginTop: isMobile ? "-450px" : "0px", // Adjusted: moved higher up on mobile
                         }}
                     >
                         9
@@ -233,7 +233,7 @@ const AboutSection = () => {
                         style={{
                             width: isMobile ? "150px" : "650px",
                             height: isMobile ? "150px" : "650px",
-                            top: isMobile ? "-280px" : "530px", // Adjusted: moved higher up on mobile
+                            top: isMobile ? "-350px" : "530px", // Adjusted: moved higher up on mobile
                             left: "50%",
                             transform: "translateX(-50%)",
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
@@ -263,7 +263,7 @@ const AboutSection = () => {
                     lineHeight: '120%',
                     letterSpacing: '3%',
                     color: '#424294',
-                    marginTop: isMobile ? '210px' : '0',
+                    marginTop: isMobile ? '190px' : '0',
                     marginRight: isMobile ? '67px' : '0', // <-- this moves it to the right side
                     right: isMobile ? 0 : 'auto',         // <-- anchor it to the right edge
                 }}
@@ -312,7 +312,7 @@ const AboutSection = () => {
 
             {/* Cards Section - Moved higher up for mobile */}
             <div
-                className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${isMobile ? 'mt-[34vh]' : 'mt-96 sm:mt-96 md:mt-80'} relative z-10 max-w-[1200px] mx-auto`}
+                className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${isMobile ? 'mt-[30vh]' : 'mt-96 sm:mt-96 md:mt-80'} relative z-10 max-w-[1200px] mx-auto`}
             >
                 {[1, 2].map((_, idx) => (
                     <div
