@@ -114,39 +114,36 @@ const AboutSection = () => {
                 ease: "power3.inOut",
             });
         } else {
-            // Different desktop animations based on screen width
-            let xPosition, scale, transformOrigin;
-
-            switch(screenType) {
-                case 'desktop':
-                    xPosition = "-30vw"; // Less movement left for regular desktop
-                    scale = 0.2;
-                    transformOrigin = "center center";
-                    break;
-                case 'large':
-                    xPosition = "-32vw";
-                    scale = 0.2;
-                    transformOrigin = "center center";
-                    break;
-                case 'xlarge':
-                    xPosition = "-35vw";
-                    scale = 0.18;
-                    transformOrigin = "center center";
-                    break;
-                default:
-                    xPosition = "-30vw";
-                    scale = 0.2;
-                    transformOrigin = "center center";
+            // Desktop layouts (desktop, large, xlarge) - REVISED ANIMATION
+            // Move the number to the left side of the screen
+            if (screenType === 'desktop') {
+                tl.to(containerRef.current, {
+                    scale: 0.3,
+                    x: "-40vw", // Further left position
+                    y: "-22vh",  // Less upward movement to stay in left half
+                    transformOrigin: "center center",
+                    duration: 1.8,
+                    ease: "power3.inOut",
+                });
+            } else if (screenType === 'large') {
+                tl.to(containerRef.current, {
+                    scale: 0.25,
+                    x: "-42vw", // Further left position
+                    y: "-25vh",
+                    transformOrigin: "center center",
+                    duration: 1.8,
+                    ease: "power3.inOut",
+                });
+            } else { // xlarge
+                tl.to(containerRef.current, {
+                    scale: 0.2,
+                    x: "-45vw", // Further left position
+                    y: "-28vh",
+                    transformOrigin: "center center",
+                    duration: 1.8,
+                    ease: "power3.inOut",
+                });
             }
-
-            tl.to(containerRef.current, {
-                scale: scale,
-                x: xPosition,
-                y: "-35vh",
-                transformOrigin: transformOrigin,
-                duration: 1.8,
-                ease: "power3.inOut",
-            });
         }
 
         // Show the text content and floating cards after animation is complete
@@ -170,49 +167,6 @@ const AboutSection = () => {
             "-=0.3"
         );
 
-        // Improved scrolling animation for floating cards
-        // Animate each row of cards
-        document.querySelectorAll('.card-row').forEach((row, rowIndex) => {
-            const cards = row.querySelectorAll('.floating-card');
-
-            // Create a separate timeline for each row
-            const rowTimeline = gsap.timeline({
-                repeat: -1,
-                delay: rowIndex * 0.5, // Stagger start time between rows
-            });
-
-            // Set initial positions for all cards in the row (outside view)
-            gsap.set(cards, { x: '100vw', opacity: 0 });
-
-            // Animate each card in the row with staggered delays
-            cards.forEach((card, cardIndex) => {
-                // Entry animation
-                rowTimeline.to(card, {
-                    x: '0',
-                    opacity: 1,
-                    duration: 0.5,
-                    ease: "power1.out",
-                    delay: cardIndex * 0.8, // Stagger between cards in same row
-                }, cardIndex > 0 ? ">" : 0);
-
-                // Hold visible
-                rowTimeline.to(card, {
-                    duration: 1.5,
-                });
-
-                // Exit animation
-                rowTimeline.to(card, {
-                    x: '-100vw',
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "power1.in",
-                });
-            });
-
-            // Add delay between cycles of this row
-            rowTimeline.to({}, { duration: 1 });
-        });
-
         return () => {
             ScrollTrigger.getAll().forEach((trigger) => trigger.kill(true));
         };
@@ -220,6 +174,9 @@ const AboutSection = () => {
 
     const isMobile = screenType === 'mobile';
     const isTablet = screenType === 'tablet';
+    const isDesktop = screenType === 'desktop';
+    const isLarge = screenType === 'large';
+    const isXLarge = screenType === 'xlarge';
 
     return (
         <section
@@ -244,9 +201,9 @@ const AboutSection = () => {
                                     <img
                                         src={card.icon}
                                         alt="Avatar"
-                                        className="w-[24px] h-[24px] rounded-full flex-shrink-0" // Added flex-shrink-0 to prevent image shrinking
+                                        className="w-[24px] h-[24px] rounded-full flex-shrink-0"
                                     />
-                                    <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis ml-2"> {/* Added margin-left for spacing */}
+                                    <p className="font-['Be_Vietnam_Pro'] text-[12px] font-[400] leading-[100%] text-[#030303] whitespace-nowrap overflow-hidden text-ellipsis ml-2">
                                         {card.text}
                                     </p>
                                 </div>
@@ -273,8 +230,9 @@ const AboutSection = () => {
                         overflow: 'visible'
                     }}
                 >
+                    {/* UPDATED: Adjusted text sizes for different screens with better desktop sizing */}
                     <span
-                        className="text-[450px] sm:text-[600px] md:text-[900px] lg:text-[1200px] xl:text-[1500px] 2xl:text-[1800px] items-center justify-center font-extrabold leading-none"
+                        className="text-[450px] sm:text-[600px] md:text-[900px] lg:text-[1400px] xl:text-[1600px] 2xl:text-[1800px] items-center justify-center font-extrabold leading-none"
                         style={{
                             color: "#424294",
                             fontFamily: "Plus Jakarta Sans",
@@ -285,13 +243,14 @@ const AboutSection = () => {
                         9
                     </span>
 
+                    {/* Circular image inside the "9" - adjusted position */}
                     <div
                         ref={imageRef}
                         className="absolute rounded-full overflow-hidden"
                         style={{
-                            width: isMobile ? "150px" : isTablet ? "300px" : "650px",
-                            height: isMobile ? "150px" : isTablet ? "300px" : "650px",
-                            top: isMobile ? "-350px" : isTablet ? "-150px" : "530px",
+                            width: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "600px" : isLarge ? "650px" : "700px",
+                            height: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "600px" : isLarge ? "650px" : "700px",
+                            top: isMobile ? "-350px" : isTablet ? "-100px" : isDesktop ? "400px" : isLarge ? "430px" : "450px",
                             left: "50%",
                             transform: "translateX(-50%)",
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
@@ -306,43 +265,46 @@ const AboutSection = () => {
                 </div>
             </div>
 
-            {/* Text content positioned - Updated for better positioning across screen sizes */}
+            {/* Text content positioned - REVISED FOR DESKTOP - Now below the number in left half */}
             <div
                 ref={textContainerRef}
                 className={`absolute ${
                     isMobile
                         ? 'top-[10vh] text-center'
                         : isTablet
-                            ? 'top-[15vh] text-center'
-                            : 'top-1/4 left-0'
+                            ? 'top-[15vh] text-left'
+                            : 'text-left' // Desktop alignment 
                 }`}
                 style={{
                     fontFamily: 'Be Vietnam Pro',
                     fontWeight: 700,
-                    fontSize: isMobile ? '23px' : isTablet ? '28px' : '36px',
+                    fontSize: isMobile ? '23px' : isTablet ? '28px' : isDesktop ? '36px' : isLarge ? '38px' : '42px',
                     lineHeight: '120%',
                     letterSpacing: '3%',
                     color: '#424294',
-                    marginTop: isMobile ? '200px' : isTablet ? '150px' : '0',
-                    marginRight: isMobile || isTablet ? '0' : '0',
-                    right: isMobile || isTablet ? 0 : 'auto',
-                    left: isMobile || isTablet ? 0 : 'auto',
-                    textAlign: isMobile || isTablet ? 'center' : 'left',
-                    width: isMobile || isTablet ? '100%' : 'auto',
-                    // Adjusted margins based on screen type
-                    marginLeft: isMobile || isTablet ? '0' :
-                        screenType === 'desktop' ? '35%' :
-                            screenType === 'large' ? '40%' : '45%',
+                    marginTop: isMobile ? '200px' : isTablet ? '210px' : '300px', // Push down for desktop
+                    right: isMobile ? 0 : 'auto',
+                    // REVISED DESKTOP POSITIONING - Now below the number on left side
+                    left: isMobile ? 0 : isTablet ? '50px' : isDesktop ? '10%' : isLarge ? '8%' : '5%',
+                    textAlign: isMobile ? 'center' : 'left',
+                    width: isMobile ? '100%' : 'auto',
                 }}
             >
                 Years of <br/> Orthopedic Excellence
             </div>
 
-            {/* Floating Cards - Desktop view remains untouched */}
+            {/* Floating Cards - REVISED for desktop views - Now positioned on right half */}
             {!isMobile && (
                 <div
                     ref={floatingCardsRef}
-                    className={`absolute ${isTablet ? 'right-0' : '-right-[80px]'} top-[50px] ${isTablet ? 'w-[80vw]' : 'w-[50vw]'} flex flex-col gap-6 pointer-events-none fade-mask`}
+                    className={`absolute ${
+                        isTablet ? 'right-0' : 'right-0'  // Always right aligned
+                    } top-[100px] flex flex-col gap-6 pointer-events-none`}
+                    style={{
+                        width: isTablet ? '50vw' : '45vw', // Consistent width for desktop
+                        maskImage: isTablet ? 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)' : 'none',
+                        WebkitMaskImage: isTablet ? 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)' : 'none',
+                    }}
                 >
                     {[0, 1, 2, 3].map((rowIndex) => (
                         <div
@@ -377,12 +339,14 @@ const AboutSection = () => {
                 </div>
             )}
 
-            {/* Cards Section - Moved higher up for mobile */}
+            {/* Cards Section - maintained at bottom of page */}
             <div
                 className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${
                     isMobile ? 'mt-[34vh]' :
                         isTablet ? 'mt-[40vh]' :
-                            'mt-96 sm:mt-96 md:mt-80'
+                            isDesktop ? 'mt-[65vh]' :
+                                isLarge ? 'mt-[65vh]' :
+                                    'mt-[70vh]'
                 } relative z-10 max-w-[1200px] mx-auto`}
             >
                 {[1, 2].map((_, idx) => (
@@ -434,7 +398,7 @@ const AboutSection = () => {
                 ))}
             </div>
 
-            {/* Fixed style element */}
+            {/* Fixed style element with animations */}
             <style jsx>{`
                 /* Improved infinite scroll for mobile */
                 @keyframes mobileInfiniteScroll {
@@ -451,40 +415,40 @@ const AboutSection = () => {
                     width: max-content;
                 }
 
-                /* Animation for desktop/tablet floating cards */
+                /* IMPROVED ANIMATIONS for desktop/tablet floating cards */
                 @keyframes animate-rowScroll0 {
                     0% {
-                        transform: translateX(100vw);
+                        transform: translateX(0);
                     }
                     100% {
-                        transform: translateX(-200vw);
+                        transform: translateX(-100%);
                     }
                 }
 
                 @keyframes animate-rowScroll1 {
                     0% {
-                        transform: translateX(100vw);
+                        transform: translateX(-20%);
                     }
                     100% {
-                        transform: translateX(-200vw);
+                        transform: translateX(-120%);
                     }
                 }
 
                 @keyframes animate-rowScroll2 {
                     0% {
-                        transform: translateX(100vw);
+                        transform: translateX(0);
                     }
                     100% {
-                        transform: translateX(-200vw);
+                        transform: translateX(-100%);
                     }
                 }
 
                 @keyframes animate-rowScroll3 {
                     0% {
-                        transform: translateX(100vw);
+                        transform: translateX(-20%);
                     }
                     100% {
-                        transform: translateX(-200vw);
+                        transform: translateX(-120%);
                     }
                 }
             `}</style>
