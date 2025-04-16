@@ -186,7 +186,7 @@ const WhyChooseSection = () => {
             {/* Section 1 */}
             <motion.div
                 ref={ref1}
-                className="min-h-[90vh] md:min-h-screen ml-[-5px] mt-[-60px] sm:mt-0 md:mt-[-120px] flex items-center justify-center py-10 md:py-20 relative"
+                className="min-h-[90vh] md:min-h-screen ml-[-15px] mt-[-60px] sm:mt-0 md:mt-[-120px] flex items-center justify-center py-10 md:py-20 relative"
                 initial={{ opacity: 0, y: 50 }}
                 animate={inView1 ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8 }}
@@ -243,7 +243,7 @@ const WhyChooseSection = () => {
                                 transition={{ duration: 0.8, delay: 0.4 }}
                             >
                                 <BlobSVG color="#6FCBCF" />
-                                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 lg:p-10 text-center">
+                                <div className="absolute inset-0 ml-[-17px] flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 lg:p-10 text-center">
                                     <h3 className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold text-white mb-2 md:mb-4 lg:mb-6 font-merriweather">
                                         Recognized for excellence in Ayushman Bharat & Rajiv
                                         Aarogyasri.
@@ -263,15 +263,23 @@ const WhyChooseSection = () => {
                             animate={inView1 ? { opacity: 1, x: 0 } : {}}
                             transition={{ duration: 0.8, delay: 0.5 }}
                         >
+                            {/* Preload critical hospital scene image */}
+
+
                             <img
                                 src="/images/certi_why.svg"
                                 alt="Certified Badge"
                                 className="absolute top-[-30px] md:top-[-60px] lg:top-[-80px] right-[-10px] md:right-[-40px] lg:right-[-60px] w-[120px] md:w-[250px] lg:w-[400px] h-[120px] md:h-[250px] lg:h-[400px] object-contain z-30"
+                                width="400"
+                                height="400"
+                                loading="lazy" // Lazy load non-critical badge
                             />
                             <img
                                 src="/images/why_image.svg"
                                 alt="Hospital Scene"
                                 className="w-full h-[200px] md:h-[350px] lg:h-[447px] object-cover rounded-2xl shadow-xl"
+                                width="1200"
+                                height="447"
                             />
                         </motion.div>
                     </div>
@@ -293,11 +301,16 @@ const WhyChooseSection = () => {
                                 src="/images/why5.svg"
                                 alt="Medical Team"
                                 className="w-full lg:w-[551px] h-[200px] md:h-[350px] lg:h-[447px] mx-auto lg:ml-[90px] object-cover rounded-[20px] shadow-xl"
+                                width="551"
+                                height="447"
                             />
                             <img
                                 src="/images/cert2.svg"
                                 alt="Certified Badge"
                                 className="absolute top-[-30px] md:top-[-60px] lg:top-[-80px] right-[-5px] w-[120px] md:w-[250px] lg:w-[450px] h-[120px] md:h-[250px] lg:h-[450px] object-contain z-10"
+                                width="450"
+                                height="450"
+                                loading="lazy" // Lazy load non-critical badge
                             />
                         </div>
                         <div className="w-full lg:w-1/2 relative mx-auto">
@@ -324,7 +337,7 @@ const WhyChooseSection = () => {
                                         transition={{ duration: 0.3, delay: 2.7 }}
                                     >
                                         <h3
-                                            className="font-[500] text-base sm:text-lg md:text-xl lg:text-2xl leading-[120%] tracking-[0.02em] text-white mb-2 md:mb-4 lg:mb-6"
+                                            className="font-[500] ml-[-16px] text-base sm:text-lg md:text-xl lg:text-2xl leading-[120%] tracking-[0.02em] text-white mb-2 md:mb-4 lg:mb-6"
                                             style={{ fontFamily: "Merriweather, serif" }}
                                         >
                                             Recognized for excellence in Ayushman Bharat & Rajiv

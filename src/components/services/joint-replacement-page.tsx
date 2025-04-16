@@ -22,7 +22,7 @@ const JointReplacementPage = () => {
                                       description,
                                       imageStatic,
                                       imageActive,
-                                      replacementCount
+                                      replacementCount,
                                   }: {
         title: string;
         description: string;
@@ -90,20 +90,20 @@ const JointReplacementPage = () => {
             <Navbar />
 
             <main className="flex-grow">
-                {/* Hero Section - Updated for better mobile display */}
+                {/* Hero Section - Further improved for mobile */}
                 <section
-                    className="relative w-full h-[80vh] md:h-[100vh] mt-[-5px] bg-no-repeat bg-[length:200%] md:bg-cover bg-[center_top_80px] md:bg-[center_bottom_-20px] flex flex-col justify-center items-center text-center md:mb-[-10px]"
+                    className="relative mt-5 w-full h-[50vh] md:h-[100vh] bg-no-repeat bg-[length:200%] md:bg-cover bg-[center_top_40px] md:bg-[center_bottom_-20px] flex flex-col justify-center items-center text-center"
                     style={{
                         backgroundImage: "url('/images/100_hero.svg')",
                     }}
                 >
                     {/* Top Text - Adjusted for mobile */}
-                    <div className="absolute top-[95px] md:top-[100px] left-1/2 transform -translate-x-1/2 text-white text-sm md:text-3xl font-semibold tracking-wide">
+                    <div className="absolute top-[60px] md:top-[100px] left-1/2 transform -translate-x-1/2 text-white text-sm md:text-3xl font-semibold tracking-wide">
                         Completed
                     </div>
 
-                    {/* Bottom Text - Adjusted for mobile */}
-                    <div className="absolute bottom-[140px] md:bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
+                    {/* Bottom Text - Fixed positioning for mobile */}
+                    <div className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
                         <div className="text-[14px] md:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
                             TOTAL HIP REPLACEMENT
                         </div>
@@ -113,14 +113,13 @@ const JointReplacementPage = () => {
                     </div>
                 </section>
 
-                {/* Cards Section - Adjusted vertical spacing for mobile */}
-                <section className="text-center mt-[-100px] md:mt-0 pt-2 md:pt-12 pb-12 bg-[#F9F9F9]">
-
+                {/* Cards Section - Improved mobile spacing */}
+                <section className="text-center bg-[#F9F9F9] pt-4 md:pt-12 pb-12">
                     <h2 className="text-[28px] md:text-[52px] text-black font-abhaya-libre font-semibold tracking-[1%] leading-[100%] text-center px-4">
                         Specialized Joint Replacement Care
                     </h2>
 
-                    <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-[12px] px-4 mt-8">
+                    <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-[12px] px-4 mt-6 md:mt-8">
                         <JointReplacementCard
                             title="Knee Replacement Surgery"
                             description="Expert knee replacements at Life Hospital: Advanced techniques, excellent outcomes."

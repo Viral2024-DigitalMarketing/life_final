@@ -1,9 +1,10 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const BreakthroughSection = () => {
     const sectionRef = useRef(null);
     const elements = useRef<HTMLDivElement[]>([]);
+    const [imagesLoaded, setImagesLoaded] = useState<boolean[]>(Array(5).fill(false));
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -41,6 +42,24 @@ const BreakthroughSection = () => {
         '/images/mul4.svg',
         '/images/mul5.svg',
     ];
+
+    // Preload images
+    useEffect(() => {
+        breakthroughImages.forEach((src, index) => {
+            const img = new Image();
+            img.src = src;
+            img.fetchPriority = "high";
+            img.onload = () => {
+                setImagesLoaded(prev => {
+                    const newState = [...prev];
+                    newState[index] = true;
+                    return newState;
+                });
+            };
+        });
+    }, []);
+
+    const imageLoadingPlaceholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E";
 
     return (
         <section
@@ -88,27 +107,67 @@ const BreakthroughSection = () => {
                 {/* Desktop Images (No Gap) */}
                 <div className="hidden md:flex mb-12">
                     {breakthroughImages.map((image, index) => (
-                        <img
-                            key={index}
-                            src={image}
-                            alt={`Breakthrough Case ${index + 1}`}
-                            className="w-[260px] h-[390px] object-cover"
-                            loading="lazy"
-                        />
+                        <div key={index} className="w-[260px] h-[390px] relative">
+                            <img
+                                src={imageLoadingPlaceholder}
+                                data-src={image}
+                                alt={`Breakthrough Case ${index + 1}`}
+                                className="w-full h-full object-cover absolute top-0 left-0"
+                                style={{
+                                    opacity: 0,
+                                    transition: 'opacity 0.3s ease-in-out'
+                                }}
+                            />
+                            <img
+                                src={image}
+                                alt={`Breakthrough Case ${index + 1}`}
+                                className="w-full h-full object-cover"
+                                fetchPriority="high"
+                                loading="eager"
+                                decoding="async"
+                                style={{
+                                    opacity: imagesLoaded[index] ? 1 : 0,
+                                    transition: 'opacity 0.3s ease-in-out'
+                                }}
+                                onLoad={(e) => {
+                                    e.currentTarget.style.opacity = '1';
+                                }}
+                            />
+                        </div>
                     ))}
                 </div>
 
                 {/* Mobile Scrollable Images (No Gap) */}
-                <div className="flex md:hidden overflow-x-auto mb-12">
+                <div className="flex md:hidden overflow-x-auto mb-12 scrollbar-hide">
                     {breakthroughImages.map((image, index) => (
-                        <img
-                            key={index}
-                            src={image}
-                            alt={`Breakthrough Case ${index + 1}`}
-                            className="min-w-[240px] h-[340px] object-cover  flex-shrink-0"
-                            loading="lazy"
-                            style={{ marginRight: 0 }}
-                        />
+                        <div key={index} className="min-w-[240px] h-[340px] relative flex-shrink-0">
+                            <img
+                                src={imageLoadingPlaceholder}
+                                data-src={image}
+                                alt={`Breakthrough Case ${index + 1}`}
+                                className="w-full h-full object-cover absolute top-0 left-0"
+                                style={{
+                                    opacity: 0,
+                                    transition: 'opacity 0.3s ease-in-out'
+                                }}
+                            />
+                            <img
+                                src={image}
+                                alt={`Breakthrough Case ${index + 1}`}
+                                className="w-full h-full object-cover"
+                                fetchPriority="high"
+                                loading="eager"
+                                decoding="async"
+                                style={{
+                                    opacity: imagesLoaded[index] ? 1 : 0,
+                                    transition: 'opacity 0.3s ease-in-out',
+                                    marginRight: 0
+                                }}
+                                onLoad={(e) => {
+                                    e.currentTarget.style.opacity = '1';
+                                }}
+                            />
+                        </div>
                     ))}
                 </div>
             </div>

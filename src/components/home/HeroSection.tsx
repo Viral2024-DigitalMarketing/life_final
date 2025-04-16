@@ -8,6 +8,7 @@ import EmergencyCardModal from '@/components/shared/EmergencyCardModal';
 const HeroSection = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [activeModal, setActiveModal] = useState<string | null>(null);
+    const [imageLoaded, setImageLoaded] = useState(false);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -42,6 +43,13 @@ const HeroSection = () => {
         setActiveModal(null);
     };
 
+    // Preload the image
+    useEffect(() => {
+        const img = new Image();
+        img.src = "/images/hero_section.svg";
+        img.onload = () => setImageLoaded(true);
+    }, []);
+
     return (
         <>
             <section ref={sectionRef} className="relative w-full h-screen opacity-0">
@@ -50,7 +58,12 @@ const HeroSection = () => {
                     <img
                         src="/images/hero_section.svg"
                         alt="Medical professional with patient"
-                        className="w-full h-full object-cover sm:translate-y-0 -translate-y-6"
+                        className="w-full h-full object-cover sm:object-cover sm:translate-y-0"
+                        loading="eager"
+                        style={{
+                            opacity: imageLoaded ? 1 : 0,
+                            transition: 'opacity 0.3s ease-in-out'
+                        }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent h-full"></div>
                 </div>

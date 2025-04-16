@@ -52,17 +52,12 @@ const Services = () => {
         }
     };
 
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
+    const handleOpenModal = () => setIsModalOpen(true);
+    const handleCloseModal = () => setIsModalOpen(false);
 
     return (
         <div className="flex flex-col min-h-screen relative">
-            {/* Hero Background Image - positioned behind the navbar */}
+            {/* Hero Background Image */}
             <div className="absolute inset-0 h-[120vh] z-0">
                 <img
                     src="/images/ser_hero.svg"
@@ -72,22 +67,19 @@ const Services = () => {
                 <div className="absolute inset-0 bg-black/50"></div>
             </div>
 
-            {/* Navbar */}
             <Navbar />
 
             <main className="flex-grow pt-24 relative z-10">
-                {/* Hero Section */}
                 {isMobile ? (
-                    // ✅ OPTIMIZED MOBILE LAYOUT
-                    <section
-                        className="relative w-full min-h-[100vh] flex flex-col justify-between text-white px-4 pt-6 pb-10">
+                    // ✅ MOBILE LAYOUT
+                    <section className="relative w-full min-h-[100vh] flex flex-col justify-between text-white px-4 pt-6 pb-10">
                         <div className="absolute inset-0 z-[-1]">
                             <img
                                 src="/images/ser_hero.svg"
                                 alt="Healthcare Services"
                                 className="w-full h-full object-cover"
                             />
-                            <div className="absolute inset-0 bg-black/60"/>
+                            <div className="absolute inset-0 bg-black/60" />
                         </div>
 
                         <div className="flex flex-col items-center mt-0 text-center">
@@ -102,30 +94,28 @@ const Services = () => {
                             <h2 className="text-[22px] font-semibold mt-[-5px] leading-tight tracking-tight text-yellow-500 font-[Abhaya Libre SemiBold] mb-2">
                                 Anthu Leni Vishvasam
                             </h2>
-
                         </div>
 
                         <div className="w-full flex flex-col items-center justify-center px-4">
                             <p className="text-sm font-normal text-white mb-4 font-[Be Vietnam Pro] text-center">
-                                9 Years of Excellence, 80% Growth:<br/>
+                                9 Years of Excellence, 80% Growth:<br />
                                 <span className="block">Your Trust is Our Foundation</span>
                             </p>
-
                             <button
                                 onClick={handleOpenModal}
                                 className="w-full max-w-xs px-4 py-2 text-sm sm:px-6 sm:py-3 sm:text-base bg-[#F0AD1C] text-black rounded-[30px] font-[Be Vietnam Pro] font-medium hover:bg-[#d98d14] active:scale-95"
                             >
                                 Request Appointment This Week
                             </button>
-
                         </div>
-
                     </section>
                 ) : (
-                    // ✅ DESKTOP LAYOUT (Untouched)
-                    <section id="services-hero"
-                             className="relative h-screen flex items-center justify-between text-white px-6 md:px-12 lg:px-24">
-                        {/* Left-side content */}
+                    // ✅ DESKTOP LAYOUT
+                    <section
+                        id="services-hero"
+                        className="relative h-screen flex items-center justify-between text-white px-6 md:px-12 lg:px-24"
+                    >
+                        {/* Left Logo */}
                         <div className="flex flex-col items-start mt-[-500px]">
                             <img
                                 src="/images/logos.svg"
@@ -134,12 +124,12 @@ const Services = () => {
                             />
                         </div>
 
-                        {/* Right-side text */}
+                        {/* Right Text */}
                         <div className="max-w-2xl text-left relative -mt-20 pr-6 mr-[-30px]">
-                            <h1 className="font-[Abhaya Libre SemiBold] font-semibold text-[58px] leading-[100%] tracking-[-2%] mb-[]-2 text-yellow-500">
+                            <h1 className="font-[Abhaya Libre SemiBold] font-semibold text-[58px] leading-[100%] tracking-[-2%] text-yellow-500">
                                 Uchita Vaidhyam
                             </h1>
-                            <h2 className="font-[Abhaya Libre SemiBold] font-semibold text-[43px] leading-[100%] tracking-[-2%] mb-12 text-yellow-500 ml-1.5">
+                            <h2 className="font-[Abhaya Libre SemiBold] font-semibold text-[43px] leading-[100%] tracking-[-2%] text-yellow-500 ml-1.5">
                                 Anthu Leni Vishvasam
                             </h2>
                             <p className="font-[Be Vietnam Pro] font-normal text-[16px] leading-[140%] tracking-[-2%] text-white mb-6 ml-2.5">
@@ -156,24 +146,19 @@ const Services = () => {
                     </section>
                 )}
 
-                {/* Services Grid */}
+                {/* Services Section */}
                 <section id="services-grid">
                     <ServicesGrid addToContentRefs={addToContentRefs} />
                 </section>
 
-                {/* Services CTA */}
                 <section id="services-cta">
                     <ServicesCTA addToContentRefs={addToContentRefs} />
                 </section>
 
-                {/* FAQ */}
                 <FaqSection />
             </main>
 
-            {/* Footer */}
             <Footer />
-
-            {/* Appointment Modal */}
             <AppointmentModal isOpen={isModalOpen} onClose={handleCloseModal} />
         </div>
     );
