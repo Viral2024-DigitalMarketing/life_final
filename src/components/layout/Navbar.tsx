@@ -7,7 +7,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Button } from "@/components/ui/button";
-import EmergencyCard from '@/components/shared/EmergencyCardModal';
+import EmergencyCardModal from '@/components/shared/EmergencyCardModal';
 import AppointmentModal from '@/components/shared/AppointmentModal';
 
 // Define proper interface for Navbar props
@@ -27,6 +27,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
+  const [showEmergencyModal, setShowEmergencyModal] = useState(false); // Add state for emergency modal
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -63,6 +64,11 @@ const Navbar: React.FC<NavbarProps> = () => {
   // Open appointment modal
   const openAppointmentModal = () => {
     setShowAppointmentModal(true);
+  };
+
+  // Open emergency modal
+  const openEmergencyModal = () => {
+    setShowEmergencyModal(true);
   };
 
   // Navigate to services and close menu
@@ -294,7 +300,6 @@ const Navbar: React.FC<NavbarProps> = () => {
 
 
                     {/* Appointment Booking */}
-                    {/* Appointment Booking */}
                     <div
                         className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100 cursor-default"
                         style={serviceCardStyle}
@@ -310,7 +315,6 @@ const Navbar: React.FC<NavbarProps> = () => {
 
                   {/* Right Column */}
                   <div className="flex flex-col justify-start space-y-6 ml-[-100px] col-span-1">
-                    {/* Emergency Services */}
                     {/* Emergency Services */}
                     <div
                         className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100 cursor-default"
@@ -391,9 +395,13 @@ const Navbar: React.FC<NavbarProps> = () => {
                 >
                   Request Appointment
                 </Button>
-                <a href="/emergency" className="flex items-center">
+                {/* Updated Siren button to trigger emergency modal */}
+                <button
+                    onClick={openEmergencyModal}
+                    className="flex items-center hover:opacity-80 transition-opacity"
+                >
                   <Siren size={25} color="red" />
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -541,7 +549,14 @@ const Navbar: React.FC<NavbarProps> = () => {
                   Request Appointment
                 </Button>
 
-                <Button className="w-full bg-red-600 hover:bg-red-700 text-white text-sm rounded-full flex items-center justify-center gap-2">
+                {/* Emergency button in mobile menu */}
+                <Button
+                    onClick={() => {
+                      setShowEmergencyModal(true);
+                      toggleMenu();
+                    }}
+                    className="w-full bg-red-600 hover:bg-red-700 text-white text-sm rounded-full flex items-center justify-center gap-2"
+                >
                   <Siren size={16} />
                   Emergency
                 </Button>
@@ -554,6 +569,12 @@ const Navbar: React.FC<NavbarProps> = () => {
         <AppointmentModal
             isOpen={showAppointmentModal}
             onClose={() => setShowAppointmentModal(false)}
+        />
+
+        {/* Emergency Card Modal */}
+        <EmergencyCardModal
+            isOpen={showEmergencyModal}
+            onClose={() => setShowEmergencyModal(false)}
         />
       </header>
   );

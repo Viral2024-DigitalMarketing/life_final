@@ -203,7 +203,7 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
                                 ref={addToContentRefs}
                                 className={`rounded-[32px] p-5 flex flex-col items-center justify-between transition-shadow duration-300 hover:shadow-md
                                     md:w-[592px] md:h-[317.33px] md:rounded-[40px] md:p-6 md:flex-row md:items-center
-                                    sm:w-full sm:min-h-[280px] sm:rounded-[24px] sm:flex-col sm:items-center`}
+                                    sm:w-full sm:min-h-[280px] sm:rounded-[24px] sm:flex-col sm:items-center relative`}
                                 style={{
                                     marginLeft: index % 2 === 0 ? '0' : 'auto',
                                     background: service.cardBackground || '#EDEDF6',
@@ -243,8 +243,8 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
                                             {service.tagline}
                                         </p>
                                     )}
-                                    <div className="flex justify-center mt-5 md:justify-start md:mt-auto md:absolute md:bottom-[40px] md:right-[50px] sm:ml-0 sm:mt-6 sm:static">
-                                        <div className="w-[32px] h-[32px] bg-[#28285A] rounded-full flex items-center justify-center md:w-[36px] md:h-[36px] sm:w-[32px] sm:h-[32px]">
+                                    <div className="flex justify-center mt-5 md:mt-8 sm:mt-6">
+                                        <div className="w-[32px] h-[32px] bg-[#28285A] rounded-full flex items-center justify-center md:w-[36px] md:h-[36px] md:absolute md:bottom-6 md:right-6 sm:w-[32px] sm:h-[32px]">
                                             <svg
                                                 width="12"
                                                 height="8"

@@ -88,10 +88,10 @@ const Services = () => {
                                 alt="Hero Logo"
                                 className="w-24 h-auto mb-4"
                             />
-                            <h1 className="text-[32px] font-semibold leading-tight tracking-tight text-yellow-500 font-[Abhaya Libre SemiBold] mb-1">
+                            <h1 className="text-[32px] font-semibold mt-[-5px] leading-tight tracking-tight text-yellow-500 font-[Abhaya Libre SemiBold] mb-1">
                                 Uchita Vaidhyam
                             </h1>
-                            <h2 className="text-[22px] font-semibold mt-[-5px] leading-tight tracking-tight text-yellow-500 font-[Abhaya Libre SemiBold] mb-2">
+                            <h2 className="text-[22px] font-semibold mt-[-10px] leading-tight tracking-tight text-yellow-500 font-[Abhaya Libre SemiBold] mb-2">
                                 Anthu Leni Vishvasam
                             </h2>
                         </div>
@@ -129,10 +129,10 @@ const Services = () => {
                             <h1 className="font-[Abhaya Libre SemiBold] font-semibold text-[58px] leading-[100%] tracking-[-2%] text-yellow-500">
                                 Uchita Vaidhyam
                             </h1>
-                            <h2 className="font-[Abhaya Libre SemiBold] font-semibold text-[43px] leading-[100%] tracking-[-2%] text-yellow-500 ml-1.5">
+                            <h2 className="font-[Abhaya Libre SemiBold] font-semibold text-[43px] mt-[-2px] leading-[100%] tracking-[-2%] text-yellow-500 ml-1.5">
                                 Anthu Leni Vishvasam
                             </h2>
-                            <p className="font-[Be Vietnam Pro] font-normal text-[16px] leading-[140%] tracking-[-2%] text-white mb-6 ml-2.5">
+                            <p className="font-[Be Vietnam Pro] mt-3 font-normal text-[16px] leading-[140%] tracking-[-2%] text-white mb-6 ml-2.5">
                                 9 Years of Excellence, 80% Growth:<br />
                                 <span className="block">Your Trust is Our Foundation</span>
                             </p>

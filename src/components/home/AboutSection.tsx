@@ -22,22 +22,30 @@ const AboutSection = () => {
         [
             { icon: "/images/gen_hel.svg", text: "World🌍-Class care🏥, zero financial burden!" },
             { icon: "/images/gen_heal.svg", text: "Exceptional treatment, affordable prices💰" },
-            { icon: "/images/nav1.svg", text: "Quality healthcare that won't break the bank💯" }
+            { icon: "/images/nav1.svg", text: "Quality healthcare that won't break the bank💯" },
+            { icon: "/images/gen_hel.svg", text: "Comprehensive care without compromise!" },
+            { icon: "/images/gen_heal.svg", text: "Top-tier medical services at fair rates✨" }
         ],
         [
             { icon: "/images/gen_hel.svg", text: "Healthcare made easy, just for you!✨" },
             { icon: "/images/gen_heal.svg", text: "Simple solutions for complex health needs🩺" },
-            { icon: "/images/nav1.svg", text: "Patient-friendly approach to medical care🙌" }
+            { icon: "/images/nav1.svg", text: "Patient-friendly approach to medical care🙌" },
+            { icon: "/images/gen_hel.svg", text: "Streamlined healthcare experience for all!" },
+            { icon: "/images/gen_heal.svg", text: "Easy access to expert medical advice🧠" }
         ],
         [
             { icon: "/images/gen_hel.svg", text: "Your health, our priority!💖" },
             { icon: "/images/gen_heal.svg", text: "We put patients first, always❤️" },
-            { icon: "/images/nav1.svg", text: "Dedicated to your wellbeing, 24/7⏰" }
+            { icon: "/images/nav1.svg", text: "Dedicated to your wellbeing, 24/7⏰" },
+            { icon: "/images/gen_hel.svg", text: "Committed to excellence in patient care!" },
+            { icon: "/images/gen_heal.svg", text: "Your health journey matters to us🛣️" }
         ],
         [
             { icon: "/images/gen_hel.svg", text: "Seamless care, anytime, anywhere!🌟" },
             { icon: "/images/gen_heal.svg", text: "Accessible healthcare without boundaries🔄" },
-            { icon: "/images/nav1.svg", text: "Medical excellence at your convenience📱" }
+            { icon: "/images/nav1.svg", text: "Medical excellence at your convenience📱" },
+            { icon: "/images/gen_hel.svg", text: "Healthcare that fits your busy schedule!" },
+            { icon: "/images/gen_heal.svg", text: "Reliable medical support when you need it⚡" }
         ]
     ];
 
@@ -194,20 +202,37 @@ const AboutSection = () => {
                     9
                   </span>
 
-                    {/* Circular image inside the "9" - adjusted position for all screens */}
                     <div
                         ref={imageRef}
                         className="absolute rounded-full overflow-hidden"
                         style={{
-                            width: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "600px" : isLarge ? "600px" : "700px",
-                            height: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "600px" : isLarge ? "600px" : "700px",
-                            top: isMobile ? "-350px" : isTablet ? "-100px" : isDesktop ? "330px" : isLarge ? "320px" : "380px",
-                            left: "70%",
-                            transform: "translateX(-50%)",
+                            width: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "500px" : isLarge ? "600px" : "700px",
+                            height: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "500px" : isLarge ? "600px" : "700px",
+                            top: isMobile
+                                ? "-350px"
+                                : isTablet
+                                    ? "-100px"
+                                    : isDesktop
+                                        ? "300px"
+                                        : isLarge
+                                            ? "320px"
+                                            : "380px",
+                            left: isMobile
+                                ? "50%"
+                                : isTablet
+                                    ? "50%"
+                                    : isDesktop
+                                        ? "calc(50% + 200px)" // fine-tune this offset
+                                        : isLarge
+                                            ? "calc(50% + 200px)"
+                                            : "calc(50% + 180px)",
+                            transform:
+                                isMobile || isTablet ? "translateX(-50%)" : "translateX(-50%)", // You can tweak/remove for desktop if needed
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-                            zIndex: 25, // Ensure the image always appears above everything
+                            zIndex: 25,
                         }}
                     >
+
                         <img
                             src="/images/hap.svg"
                             alt="Healthcare Image"
@@ -221,10 +246,10 @@ const AboutSection = () => {
             {!isMobile && (
                 <div
                     ref={floatingCardsRef}
-                    className="absolute left-0 right-0 top-[100px] w-full flex flex-col gap-6 pointer-events-none"
+                    className="absolute left-0 right-0 top-[130px] w-full flex flex-col gap-6 pointer-events-none"
                     style={{
-                        maskImage: isTablet ? 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)' : 'none',
-                        WebkitMaskImage: isTablet ? 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)' : 'none',
+                        maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0) 100%)',
+                        WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0) 100%)',
                     }}
                 >
                     {[0, 1, 2, 3].map((rowIndex) => (
@@ -239,8 +264,8 @@ const AboutSection = () => {
                                     width: "200%", // Ensure there's enough width for animation
                                 }}
                             >
-                                {/* Duplicated for seamless loop */}
-                                {[...cardsData[rowIndex], ...cardsData[rowIndex]].map((card, cardIndex) => (
+                                {/* Duplicated for seamless loop with different cards */}
+                                {[...cardsData[rowIndex], ...cardsData[rowIndex].reverse()].map((card, cardIndex) => (
                                     <div
                                         key={`${rowIndex}-${cardIndex}`}
                                         className={`floating-card card-${rowIndex}-${cardIndex} bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[318px] h-[40px] opacity-100 transition-opacity duration-300`}
@@ -265,13 +290,17 @@ const AboutSection = () => {
             {isMobile && (
                 <div
                     ref={floatingCardsRef}
-                    className="absolute left-0 top-0 w-full overflow-hidden pointer-events-none"
+                    className="absolute left-0 top-50 w-full overflow-hidden pointer-events-none"
+                    style={{
+                        maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0) 100%)',
+                        WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0) 100%)',
+                    }}
                 >
                     {/* Single row with proper infinite scroll */}
                     <div className="w-full mt-[-5px] overflow-hidden h-[50px] flex items-center">
                         <div className="mobile-scrolling-cards flex gap-4">
                             {/* We need to duplicate the cards multiple times to ensure continuous flow */}
-                            {[...cardsData[0], ...cardsData[0], ...cardsData[0]].map((card, cardIndex) => (
+                            {[...cardsData[0], ...cardsData[1], ...cardsData[2]].map((card, cardIndex) => (
                                 <div
                                     key={`mobile-row1-${cardIndex}`}
                                     className="mobile-card bg-white border-dashed border-[1px] border-[#353535] rounded-[16px] px-4 py-2 gap-[4px] flex items-center min-w-[250px] h-[40px] opacity-100"
@@ -378,7 +407,7 @@ const AboutSection = () => {
                 ))}
             </div>
 
-            {/* UPDATED Fixed style element with animations for z-index transition */}
+            {/* UPDATED Fixed style element with animations for z-index transition and left fade effect */}
             <style jsx>{`
                 /* Improved infinite scroll for mobile */
                 @keyframes mobileInfiniteScroll {
@@ -455,46 +484,59 @@ const AboutSection = () => {
                     }
                 }
 
-                /* Z-index animation for cards to move from behind to front */
+                /* Enhanced Z-index animation for cards to move from behind to front with stronger fade effect near left edge */
                 @keyframes cardZIndexAnimation {
                     0% {
                         z-index: 10; /* Start behind the number */
+                        opacity: 0.5; /* More pronounced fade at left edge */
+                    }
+                    10% {
+                        opacity: 1; /* Fade in as it moves away from left margin */
                     }
                     40% {
                         z-index: 10; /* Still behind */
+                        opacity: 1; /* Full opacity in middle */
                     }
                     48% {
                         z-index: 10; /* About to transition */
+                        opacity: 1; /* Still full opacity */
                     }
                     50% {
                         z-index: 23; /* Same level as number */
+                        opacity: 1; /* Full opacity when passing through */
                     }
                     52% {
                         z-index: 25; /* Above the number */
+                        opacity: 1; /* Still full opacity */
                     }
                     70% {
                         z-index: 25; /* Still above */
+                        opacity: 1; /* Full opacity */
+                    }
+                    90% {
+                        opacity: 0.5; /* Stronger fade as approaching left edge */
                     }
                     100% {
                         z-index: 10; /* Back behind */
+                        opacity: 0.5; /* More pronounced fade at left edge */
                     }
                 }
 
-                /* Apply animations to each row */
+                /* Apply animations to each row with different speeds */
                 .animate-rowScroll0 {
                     animation: animate-rowScroll0 60s linear infinite;
                 }
 
                 .animate-rowScroll1 {
-                    animation: animate-rowScroll1 70s linear infinite; /* Slightly different speeds */
+                    animation: animate-rowScroll1 75s linear infinite; /* Adjusted for more variety */
                 }
 
                 .animate-rowScroll2 {
-                    animation: animate-rowScroll2 65s linear infinite;
+                    animation: animate-rowScroll2 67s linear infinite; /* Adjusted for more variety */
                 }
 
                 .animate-rowScroll3 {
-                    animation: animate-rowScroll3 80s linear infinite;
+                    animation: animate-rowScroll3 82s linear infinite; /* Adjusted for more variety */
                 }
 
                 /* Apply z-index animation to each card */

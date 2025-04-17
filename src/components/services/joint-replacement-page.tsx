@@ -94,7 +94,7 @@ const JointReplacementPage = () => {
                 <section
                     className="relative mt-5 w-full h-[50vh] md:h-[100vh] bg-no-repeat bg-[length:200%] md:bg-cover bg-[center_top_40px] md:bg-[center_bottom_-20px] flex flex-col justify-center items-center text-center"
                     style={{
-                        backgroundImage: "url('/images/100_hero.svg')",
+                        backgroundImage: "url('/images/100_hero.webp')",
                     }}
                 >
                     {/* Top Text - Adjusted for mobile */}
