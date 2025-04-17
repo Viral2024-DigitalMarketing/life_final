@@ -1,14 +1,14 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import Index from './pages/Index';
-import About from './pages/About';
-import Services from './pages/Services';
-import ServiceDetail from './pages/ServiceDetail';
-import Contact from './pages/Contact';
-import Blog from './pages/Blog';
-import NotFound from './pages/NotFound';
-import ArticlePage from './pages/ArticlePage';
+import Index from '@/lib/pages/Index';
+import About from '@/lib/pages/About';
+import Services from '@/lib/pages/Services';
+import ServiceDetail from '@/lib/pages/ServiceDetail';
+import Contact from '@/lib/pages/Contact';
+import Blog from '@/lib/pages/Blog';
+import NotFound from '@/lib/pages/NotFound';
+import ArticlePage from '@/lib/pages/ArticlePage';
 
 // Scroll to top component
 function ScrollToTop() {

@@ -1,12 +1,12 @@
 "use client";
 import { useParams } from "react-router-dom";
 import React from "react";
-import JointReplacementPage from "@/components/services/joint-replacement-page";
-import OrthopedicPage from "@/components/services/orthopedic-page";
-import GeneralHealthPage from "@/components/services/general-health-page";
-import SpecializedServicesPage from "@/components/services/specialized-services-page";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import JointReplacementPage from "@/components/services/joint-replacement-page.tsx";
+import OrthopedicPage from "@/components/services/orthopedic-page.tsx";
+import GeneralHealthPage from "@/components/services/general-health-page.tsx";
+import SpecializedServicesPage from "@/components/services/specialized-services-page.tsx";
+import Navbar from "@/components/layout/Navbar.tsx";
+import Footer from "@/components/layout/Footer.tsx";
 
 const ServiceDetail = () => {
   const { serviceId } = useParams<{ serviceId: string }>();

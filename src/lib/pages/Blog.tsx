@@ -1,13 +1,14 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
+import Navbar from '@/components/layout/Navbar.tsx';
+import Footer from '@/components/layout/Footer.tsx';
 
 const Blog = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [activeCategory, setActiveCategory] = useState('All');
+    const articlesSectionRef = useRef(null);
 
     // All blog categories
     const categories = ['All', 'Bone Health', 'Joint Care', 'Nutrition', 'Fitness'];
@@ -78,7 +79,6 @@ const Blog = () => {
     // Handle newsletter subscription
     const handleSubscribe = (e) => {
         e.preventDefault();
-        // Here you would handle the subscription logic
         alert(`Thank you for subscribing with: ${email}`);
         setEmail('');
     };
@@ -86,7 +86,11 @@ const Blog = () => {
     // Filter articles by category
     const handleCategoryFilter = (category) => {
         setActiveCategory(category);
-        // You would implement actual filtering here
+    };
+
+    // Scroll to articles section
+    const handleScrollToArticles = () => {
+        articlesSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
 
     return (
@@ -121,6 +125,7 @@ const Blog = () => {
                                         </svg>
                                     </button>
                                     <button
+                                        onClick={handleScrollToArticles}
                                         className="border border-[#015B52] text-[#015B52] font-['Be Vietnam Pro'] font-medium text-sm rounded-[24px] px-6 py-3 hover:bg-[#015B52] hover:text-white transition-all duration-300"
                                     >
                                         Explore more articles
@@ -130,21 +135,17 @@ const Blog = () => {
                         </div>
                     </div>
 
-                    {/* Desktop Hero (Text left, image right) */}
-                    <div className="hidden sm:block relative h-[700px] lg:h-[800px]">
-                        {/* Right side image */}
-                        <div className="absolute top-0 right-0 w-1/2 h-full">
-                            <div className="w-full h-full bg-no-repeat bg-contain bg-right"
-                                 style={{ backgroundImage: "url('/images/legblog.svg')" }}>
-                            </div>
-                        </div>
-
-                        {/* Left side gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
+                    {/* Desktop Hero (Full background image) */}
+                    <div
+                        className="hidden sm:block relative h-[700px] lg:h-[800px] bg-no-repeat bg-cover bg-center"
+                        style={{ backgroundImage: "url('/images/legblog.svg')" }}
+                    >
+                        {/* Gradient overlay for smooth blending */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/50 to-transparent"></div>
 
                         {/* Text Content */}
                         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-                            <div className="max-w-xl lg:max-w-2xl text-left">
+                            <div className="max-w-xl lg:max-w-2xl text-left relative top-[50px]">
                                 <h1 className="font-['Be Vietnam Pro'] font-semibold text-4xl md:text-5xl lg:text-6xl leading-tight mb-6 text-gray-900 animate-fadeIn">
                                     Bone Health Mistakes You'll Regret
                                 </h1>
@@ -162,6 +163,7 @@ const Blog = () => {
                                         </svg>
                                     </button>
                                     <button
+                                        onClick={handleScrollToArticles}
                                         className="border border-[#015B52] text-[#015B52] font-['Be Vietnam Pro'] font-medium text-base rounded-[24px] px-8 py-4 hover:bg-[#015B52] hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
                                     >
                                         Explore more articles
@@ -172,10 +174,10 @@ const Blog = () => {
                     </div>
                 </section>
 
-                {/* Featured Article Section - Improved spacing and responsiveness */}
+                {/* Featured Article Section */}
                 <section className="py-16 md:py-24 bg-white">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="font-['Abhaya Libre SemiBold'] font-semibold text-3xl md:text-4xl lg:text-5xl text-center mb-12 md:mb-16">
+                        <h2 className="font-['Abhaya Libre SemiBold'] font-semibold text-3xl md:text-4xl lg:text-5xl text-center mb-8 md:mb-16">
                             Your Guide to a Healthier You
                         </h2>
                         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 max-w-6xl mx-auto">
@@ -210,34 +212,8 @@ const Blog = () => {
                     </div>
                 </section>
 
-                {/* Featured Topics - Enhanced with functionality */}
-                <section className="py-12 bg-gray-50">
-                    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex flex-col sm:flex-row items-center justify-between mb-10">
-                            <h2 className="font-['Abhaya Libre SemiBold'] font-semibold text-2xl md:text-3xl mb-4 sm:mb-0">
-                                Featured Topics
-                            </h2>
-                            <div className="flex flex-wrap justify-center gap-2">
-                                {categories.map((category) => (
-                                    <button
-                                        key={category}
-                                        onClick={() => handleCategoryFilter(category)}
-                                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                                            category === activeCategory
-                                                ? 'bg-[#015B52] text-white shadow-md'
-                                                : 'bg-white text-gray-700 hover:bg-gray-100'
-                                        }`}
-                                    >
-                                        {category}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Healthier Blogs Section - Enhanced card design and interaction */}
-                <section className="py-16 md:py-24 bg-gray-50">
+                {/* Healthier Blogs Section */}
+                <section ref={articlesSectionRef} className="py-16 md:py-24 bg-gray-50">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <h2 className="font-['Abhaya Libre SemiBold'] font-semibold text-3xl md:text-4xl text-center mb-12">
                             Latest Health Articles
@@ -285,59 +261,6 @@ const Blog = () => {
                                     </div>
                                 </div>
                             ))}
-                        </div>
-
-                        {/* Pagination */}
-                        <div className="flex justify-center mt-12">
-                            <div className="flex items-center space-x-2">
-                                <button className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 hover:bg-gray-100 transition-colors">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
-                                    </svg>
-                                </button>
-                                <button className="w-10 h-10 rounded-full flex items-center justify-center bg-[#015B52] text-white">1</button>
-                                <button className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 hover:bg-gray-100 transition-colors">2</button>
-                                <button className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 hover:bg-gray-100 transition-colors">3</button>
-                                <span className="px-2">...</span>
-                                <button className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 hover:bg-gray-100 transition-colors">8</button>
-                                <button className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-300 hover:bg-gray-100 transition-colors">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Newsletter Section - Enhanced with form functionality */}
-                <section className="py-16 bg-[#015B52] text-white">
-                    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="max-w-4xl mx-auto text-center">
-                            <h2 className="text-3xl md:text-4xl font-semibold mb-4">
-                                Subscribe to Our Health Newsletter
-                            </h2>
-                            <p className="text-lg opacity-90 mb-8">
-                                Get the latest health tips, articles, and updates delivered straight to your inbox
-                            </p>
-                            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-                                <input
-                                    type="email"
-                                    placeholder="Enter your email address"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                    className="flex-grow px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#06009E]"
-                                />
-                                <button
-                                    type="submit"
-                                    className="bg-[#06009E] hover:bg-[#04006e] text-white font-medium px-6 py-3 rounded-lg transition-colors">
-                                    Subscribe
-                                </button>
-                            </form>
-                            <p className="text-sm mt-4 opacity-80">
-                                We respect your privacy. Unsubscribe at any time.
-                            </p>
                         </div>
                     </div>
                 </section>

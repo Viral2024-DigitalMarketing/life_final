@@ -107,6 +107,7 @@ const FaqSection = () => {
                             src={openItem === index ? '/images/faq_op.svg' : '/images/faq_cl.svg'}
                             alt="Toggle FAQ"
                             className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
+                            loading="lazy"
                         />
                       </div>
                     </button>

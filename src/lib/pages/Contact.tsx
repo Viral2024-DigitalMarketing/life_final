@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
+import Navbar from '@/components/layout/Navbar.tsx';
+import Footer from '@/components/layout/Footer.tsx';
 import { MapPin, Phone, Mail, Clock, Send, Check } from 'lucide-react';
 
 const Contact = () => {
@@ -152,7 +152,6 @@ const Contact = () => {
                         </div>
                     </div>
                 </section>
-
                 {/* Map and Directions Section */}
                 <section
                     ref={addToRefs}
@@ -164,11 +163,11 @@ const Contact = () => {
                         </h2>
 
                         <div className="relative">
-                            {/* Show image and button on desktop */}
+                            {/* Desktop view: Image with Get Directions button */}
                             <div className="hidden md:block w-full h-[500px] rounded-xl overflow-hidden shadow-lg bg-white">
                                 <img
-                                    src="/images/map_img.svg" // Replace with an actual image placeholder
-                                    alt="Map Placeholder"
+                                    src="/images/maps.png" // Replace with an actual image placeholder
+                                    alt="Kamareddy Life Hospitals Map"
                                     className="w-full h-full object-cover"
                                 />
                                 <a
@@ -181,7 +180,7 @@ const Contact = () => {
                                 </a>
                             </div>
 
-                            {/* Show iframe on mobile */}
+                            {/* Mobile view: Google Maps iframe */}
                             <div className="md:hidden w-full h-[300px] sm:h-[400px] rounded-xl overflow-hidden shadow-lg bg-white">
                                 <iframe
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.344085618749!2d78.156674!3d17.228254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9c42c88f8031%3A0x12fc29e0b7f3eae2!2sKamareddy%20Life%20Hospitals!5e0!3m2!1sen!2sin!4v1679429307751!5m2!1sen!2sin"

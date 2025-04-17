@@ -98,12 +98,12 @@ const JointReplacementPage = () => {
                     }}
                 >
                     {/* Top Text - Adjusted for mobile */}
-                    <div className="absolute top-[60px] md:top-[100px] left-1/2 transform -translate-x-1/2 text-white text-sm md:text-3xl font-semibold tracking-wide">
+                    <div className="absolute top-[60px] md:top-[90px] left-1/2 transform -translate-x-1/2 text-white text-sm md:text-3xl font-semibold tracking-wide">
                         Completed
                     </div>
 
                     {/* Bottom Text - Fixed positioning for mobile */}
-                    <div className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
+                    <div className="absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
                         <div className="text-[14px] md:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
                             TOTAL HIP REPLACEMENT
                         </div>

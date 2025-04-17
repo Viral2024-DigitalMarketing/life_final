@@ -38,6 +38,7 @@ const ServicesCTA: React.FC<ServicesCTAProps> = ({ className = '', addToContentR
                                 src="/images/logos.svg"
                                 alt="Arogyasri Logo"
                                 className="w-[100px] h-[40px] md:w-[120px] md:h-[50px] lg:w-[140px] lg:h-[60px] ml-0 md:ml-4"
+                                loading="lazy"
                             />
                         </div>
                         <p className="font-['Be Vietnam Pro'] font-normal text-sm md:text-[16px] leading-snug md:leading-[150%] tracking-[6%] text-white w-full md:w-[532px]">
@@ -62,6 +63,7 @@ const ServicesCTA: React.FC<ServicesCTAProps> = ({ className = '', addToContentR
                                 src="/images/logo4.svg"
                                 alt="Small Icon"
                                 className="w-[24px] h-[24px] md:w-[28px] md:h-[28px] lg:w-[32px] lg:h-[32px] ml-0 md:ml-4"
+                                loading="lazy"
                             />
                         </div>
                         <p className="font-['Be Vietnam Pro'] font-normal text-sm md:text-[16px] leading-snug md:leading-[150%] tracking-[6%] text-white w-full md:w-[532px]">

@@ -4,106 +4,107 @@ import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
-// Add proper type for image error handling
-interface ImageEventTarget extends EventTarget {
-    src?: string;
-}
-
 const ArticlePage = () => {
     const { id } = useParams();
-    const [articleData, setArticleData] = useState({
-        title: "Article",
-        category: "Health",
-        publishDate: "April 15, 2025",
-        readTime: "8 min read",
-        author: "Dr. Sarah Johnson",
-        authorRole: "Orthopedic Specialist",
-        content: `Orthopedic surgery is a medical specialty that focuses on the musculoskeletal system. Orthopedic surgeons treat a wide range of conditions, from sports injuries to degenerative diseases. One of the most common orthopedic procedures is joint replacement surgery, which involves replacing a damaged joint with an artificial one.`
-    });
+    const [loading, setLoading] = useState(true);
+    const [articleData, setArticleData] = useState(null);
 
-    // Dynamically set article data based on ID
-    useEffect(() => {
-        const articleMapping = {
-            'joint-replacement': {
-                title: 'The Future of Joint Replacement',
-                category: 'Orthopedics',
-                publishDate: "April 12, 2025",
-                readTime: "10 min read",
-                author: "Dr. Michael Chen",
-                authorRole: "Orthopedic Surgeon",
-                content: `Joint replacement surgery has evolved significantly over the past few decades. Modern techniques allow for faster recovery and better outcomes. Patients can now expect to return to many of their normal activities within weeks of surgery.`
-            },
-            'bone-health': {
-                title: 'Bone Health Mistakes You\'ll Regret',
-                category: 'Wellness',
-                publishDate: "April 15, 2025",
-                readTime: "8 min read",
-                author: "Dr. Sarah Johnson",
-                authorRole: "Orthopedic Specialist",
-                content: `Many people overlook the importance of bone health until problems arise. Common mistakes include inadequate calcium intake, vitamin D deficiency, and insufficient weight-bearing exercise. Addressing these issues early can prevent serious complications later in life.`
-            },
-            'rural-communities': {
-                title: 'Empowering Rural Communities',
-                category: 'Healthcare Access',
-                publishDate: "April 10, 2025",
-                readTime: "5 min read",
-                author: "Emma Rodriguez",
-                authorRole: "Community Health Director",
-                content: `Access to quality healthcare remains a challenge for many rural communities. Innovative solutions such as telehealth, mobile clinics, and community health workers are helping bridge this gap and improve health outcomes in these underserved areas.`
-            },
-            'elderly-care': {
-                title: 'Focusing on Elderly Care',
-                category: 'Senior Health',
-                publishDate: "April 8, 2025",
-                readTime: "7 min read",
-                author: "Dr. Robert Williams",
-                authorRole: "Geriatric Specialist",
-                content: `As our population ages, specialized care for seniors becomes increasingly important. Comprehensive geriatric assessments, medication management, and fall prevention strategies are essential components of effective elderly care programs.`
-            },
-            'mental-wellness': {
-                title: 'The Importance of Mental Wellness',
-                category: 'Mental Health',
-                publishDate: "April 5, 2025",
-                readTime: "6 min read",
-                author: "Dr. Lisa Thompson",
-                authorRole: "Psychiatrist",
-                content: `Mental health is as important as physical health but often receives less attention. Regular mental health check-ins, stress management techniques, and destigmatizing mental health conditions are crucial steps toward overall wellness.`
-            },
-            'child-health': {
-                title: 'Investing in Child Health',
-                category: 'Pediatric Care',
-                publishDate: "April 3, 2025",
-                readTime: "4 min read",
-                author: "Dr. James Wilson",
-                authorRole: "Pediatrician",
-                content: `Childhood is a critical period for establishing lifelong health habits. Proper nutrition, regular physical activity, and preventive care set the foundation for healthy development and reduce the risk of chronic diseases later in life.`
-            },
-            'preventive-care': {
-                title: 'The Power of Preventive Care',
-                category: 'Wellness',
-                publishDate: "March 30, 2025",
-                readTime: "8 min read",
-                author: "Dr. Emily Chen",
-                authorRole: "Primary Care Physician",
-                content: `Preventive care is more cost-effective and less disruptive than treating established diseases. Regular screenings, immunizations, and healthy lifestyle choices can significantly reduce your risk of serious health conditions.`
-            },
-            'healthcare-tech': {
-                title: 'Embracing Technology in Healthcare',
-                category: 'Innovation',
-                publishDate: "March 25, 2025",
-                readTime: "5 min read",
-                author: "Dr. David Kim",
-                authorRole: "Health Technology Director",
-                content: `Technology is transforming healthcare delivery in numerous ways. Artificial intelligence, wearable devices, and electronic health records are improving diagnosis accuracy, patient monitoring, and care coordination across healthcare systems.`
-            }
-        };
-
-        if (id && articleMapping[id]) {
-            setArticleData(articleMapping[id]);
+    // Define article mapping
+    const articleMapping = {
+        'joint-replacement': {
+            title: 'The Future of Joint Replacement',
+            category: 'Orthopedics',
+            publishDate: "April 12, 2025",
+            readTime: "10 min read",
+            author: "Dr. Michael Chen",
+            authorRole: "Orthopedic Surgeon",
+            content: `Joint replacement surgery has evolved significantly over the past few decades. Modern techniques allow for faster recovery and better outcomes. Patients can now expect to return to many of their normal activities within weeks of surgery.`
+        },
+        'bone-health': {
+            title: 'Bone Health Mistakes You\'ll Regret',
+            category: 'Wellness',
+            publishDate: "April 15, 2025",
+            readTime: "8 min read",
+            author: "Dr. Sarah Johnson",
+            authorRole: "Orthopedic Specialist",
+            content: `Many people overlook the importance of bone health until problems arise. Common mistakes include inadequate calcium intake, vitamin D deficiency, and insufficient weight-bearing exercise. Addressing these issues early can prevent serious complications later in life.`
+        },
+        'rural-communities': {
+            title: 'Empowering Rural Communities',
+            category: 'Healthcare Access',
+            publishDate: "April 10, 2025",
+            readTime: "5 min read",
+            author: "Emma Rodriguez",
+            authorRole: "Community Health Director",
+            content: `Access to quality healthcare remains a challenge for many rural communities. Innovative solutions such as telehealth, mobile clinics, and community health workers are helping bridge this gap and improve health outcomes in these underserved areas.`
+        },
+        'elderly-care': {
+            title: 'Focusing on Elderly Care',
+            category: 'Senior Health',
+            publishDate: "April 8, 2025",
+            readTime: "7 min read",
+            author: "Dr. Robert Williams",
+            authorRole: "Geriatric Specialist",
+            content: `As our population ages, specialized care for seniors becomes increasingly important. Comprehensive geriatric assessments, medication management, and fall prevention strategies are essential components of effective elderly care programs.`
+        },
+        'mental-wellness': {
+            title: 'The Importance of Mental Wellness',
+            category: 'Mental Health',
+            publishDate: "April 5, 2025",
+            readTime: "6 min read",
+            author: "Dr. Lisa Thompson",
+            authorRole: "Psychiatrist",
+            content: `Mental health is as important as physical health but often receives less attention. Regular mental health check-ins, stress management techniques, and destigmatizing mental health conditions are crucial steps toward overall wellness.`
+        },
+        'child-health': {
+            title: 'Investing in Child Health',
+            category: 'Pediatric Care',
+            publishDate: "April 3, 2025",
+            readTime: "4 min read",
+            author: "Dr. James Wilson",
+            authorRole: "Pediatrician",
+            content: `Childhood is a critical period for establishing lifelong health habits. Proper nutrition, regular physical activity, and preventive care set the foundation for healthy development and reduce the risk of chronic diseases later in life.`
+        },
+        'preventive-care': {
+            title: 'The Power of Preventive Care',
+            category: 'Wellness',
+            publishDate: "March 30, 2025",
+            readTime: "8 min read",
+            author: "Dr. Emily Chen",
+            authorRole: "Primary Care Physician",
+            content: `Preventive care is more cost-effective and less disruptive than treating established diseases. Regular screenings, immunizations, and healthy lifestyle choices can significantly reduce your risk of serious health conditions.`
+        },
+        'healthcare-tech': {
+            title: 'Embracing Technology in Healthcare',
+            category: 'Innovation',
+            publishDate: "March 25, 2025",
+            readTime: "5 min read",
+            author: "Dr. David Kim",
+            authorRole: "Health Technology Director",
+            content: `Technology is transforming healthcare delivery in numerous ways. Artificial intelligence, wearable devices, and electronic health records are improving diagnosis accuracy, patient monitoring, and care coordination across healthcare systems.`
         }
+    };
+
+    // Default article data
+    const defaultArticle = {
+        title: "Article Not Found",
+        category: "General",
+        publishDate: "N/A",
+        readTime: "N/A",
+        author: "Unknown",
+        authorRole: "N/A",
+        content: `The article you are looking for could not be found. Please check the URL or explore other articles.`
+    };
+
+    // Fetch article data based on ID
+    useEffect(() => {
+        setLoading(true);
+        const article = id && articleMapping[id] ? articleMapping[id] : defaultArticle;
+        setArticleData(article);
+        setLoading(false);
     }, [id]);
 
-    // Related articles - dynamic based on current article
+    // Related articles
     const getRelatedArticles = () => {
         const allArticles = [
             {
@@ -137,29 +138,52 @@ const ArticlePage = () => {
                 category: 'Mental Health'
             }
         ];
-
-        // Filter out current article and return 3 related ones
         return allArticles.filter(article => article.id !== id).slice(0, 3);
     };
 
-    // Handler for image error events with proper type casting
-    const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-        const target = e.target as HTMLImageElement;
-        if (target) {
-            target.src = "/images/default-article.svg";
+    // Handle image errors
+    const handleImageError = (e) => {
+        if (e && e.target) {
+            e.target.src = "/images/default-article.svg";
+            e.target.onerror = null;
         }
     };
 
+    // Get article image with category-based fallback
+    const getArticleImage = () => {
+        const defaultCategoryImages = {
+            'Orthopedics': '/images/blog1.svg',
+            'Wellness': '/images/legblog.svg',
+            'Healthcare Access': '/images/blog2.svg',
+            'Senior Health': '/images/blog3.svg',
+            'Mental Health': '/images/blog5.svg',
+            'Pediatric Care': '/images/blog6.svg',
+            'Innovation': '/images/blog8.svg',
+            'General': '/images/default-article.svg'
+        };
+        return defaultCategoryImages[articleData?.category] || '/images/default-article.svg';
+    };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex flex-col bg-gray-50">
+                <div className="sticky top-0 z-50">
+                    <Navbar />
+                </div>
+                <div className="flex-grow flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#015B52]"></div>
+                </div>
+                <Footer />
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen flex flex-col bg-gray-50">
-            {/* Fixed position navbar */}
             <div className="sticky top-0 z-50">
                 <Navbar />
             </div>
-
-            {/* Main content with proper spacing to prevent navbar overlap */}
             <main className="flex-grow pt-24 pb-16">
-                {/* Breadcrumbs */}
                 <div className="container mx-auto px-4 mb-6">
                     <nav className="flex" aria-label="Breadcrumb">
                         <ol className="inline-flex items-center space-x-1 md:space-x-3">
@@ -191,22 +215,15 @@ const ArticlePage = () => {
                         </ol>
                     </nav>
                 </div>
-
-                {/* Article Content with fixed width container */}
                 <article className="container mx-auto px-4 max-w-4xl bg-white rounded-lg shadow-sm p-6">
-                    {/* Category Badge */}
                     <div className="flex items-center mb-4">
                         <span className="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">
                             {articleData.category}
                         </span>
                     </div>
-
-                    {/* Main Heading */}
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-['Abhaya Libre SemiBold'] mb-6 leading-tight">
                         {articleData.title}
                     </h1>
-
-                    {/* Article Meta */}
                     <div className="flex flex-wrap items-center text-gray-600 mb-8">
                         <div className="flex items-center mr-6 mb-2 sm:mb-0">
                             <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -221,8 +238,6 @@ const ArticlePage = () => {
                             <span>{articleData.readTime}</span>
                         </div>
                     </div>
-
-                    {/* Author Info */}
                     <div className="flex items-center mb-8">
                         <div className="w-12 h-12 bg-gray-300 rounded-full mr-4 flex items-center justify-center overflow-hidden">
                             <span className="text-gray-600 font-semibold text-xl">
@@ -241,7 +256,9 @@ const ArticlePage = () => {
                             </button>
                             <button className="p-2 text-gray-500 hover:text-blue-400">
                                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.056 10.056 0 01-3.127 1.184 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.16a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.056 10.056 0 01-3.127 1.184 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.16a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.ISupport
+
+System: .085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
                                 </svg>
                             </button>
                             <button className="p-2 text-gray-500 hover:text-blue-500">
@@ -251,50 +268,38 @@ const ArticlePage = () => {
                             </button>
                         </div>
                     </div>
-
-                    {/* Article Featured Image */}
                     <div className="mb-8">
                         <img
-                            src={`/images/${id}.svg`}
+                            src={getArticleImage()}
                             alt={articleData.title}
                             className="w-full h-auto rounded-lg shadow-lg object-cover"
                             onError={handleImageError}
                         />
                     </div>
-
-                    {/* Article Body */}
                     <div className="prose prose-lg max-w-none mb-12">
                         <p className="text-lg leading-relaxed mb-6">
                             {articleData.content}
                         </p>
-
-                        {/* For demonstration - additional paragraphs with expanded content */}
                         <h2 className="text-2xl font-semibold mb-4 mt-8">Key Considerations</h2>
                         <p className="mb-6">
                             When it comes to {articleData.category.toLowerCase()} care, there are several important factors to consider. Early intervention and proper diagnosis are crucial for achieving optimal outcomes. Healthcare providers should work closely with patients to develop personalized treatment plans.
                         </p>
-
                         <h2 className="text-2xl font-semibold mb-4 mt-8">Latest Developments</h2>
                         <p className="mb-6">
                             Recent advances in medical technology have revolutionized how we approach {articleData.category.toLowerCase()} care. From minimally invasive procedures to AI-assisted diagnostics, these innovations are improving patient experiences and outcomes across the board.
                         </p>
-
                         <h2 className="text-2xl font-semibold mb-4 mt-8">Patient Experience</h2>
                         <p className="mb-6">
                             The patient experience remains central to effective healthcare delivery. By focusing on patient comfort, clear communication, and comprehensive follow-up care, healthcare providers can ensure better compliance with treatment protocols and improved satisfaction.
                         </p>
-
                         <blockquote className="border-l-4 border-[#015B52] pl-4 italic my-8">
                             "The future of healthcare depends on our ability to combine cutting-edge technology with compassionate, patient-centered care."
                         </blockquote>
-
                         <h2 className="text-2xl font-semibold mb-4 mt-8">Conclusion</h2>
                         <p className="mb-6">
                             As we continue to advance in our understanding of {articleData.category.toLowerCase()}, it's essential that we maintain a holistic approach to patient care. By integrating the latest research findings with proven clinical practices, we can provide patients with the best possible care and outcomes.
                         </p>
                     </div>
-
-                    {/* Tags */}
                     <div className="flex flex-wrap gap-2 mb-12">
                         <span className="bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full">
                             {articleData.category}
@@ -309,8 +314,6 @@ const ArticlePage = () => {
                             Medical Research
                         </span>
                     </div>
-
-                    {/* Author Bio */}
                     <div className="bg-gray-100 p-6 rounded-lg mb-12">
                         <div className="flex items-center mb-4">
                             <div className="w-16 h-16 bg-gray-300 rounded-full mr-4 flex items-center justify-center overflow-hidden">
@@ -327,15 +330,13 @@ const ArticlePage = () => {
                             {articleData.author} is a respected expert in the field of {articleData.category.toLowerCase()} with over 15 years of experience. They have published numerous research papers and are dedicated to improving patient outcomes through innovative approaches to healthcare.
                         </p>
                     </div>
-
-                    {/* Related Articles Section */}
                     <div className="mb-12">
                         <h2 className="text-2xl font-semibold mb-6">Related Articles</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {getRelatedArticles().map((article) => (
                                 <Link
                                     to={`/blog/${article.id}`}
-                                    key={article.id}
+                                    key={`related-${article.id}`}
                                     className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:shadow-lg hover:-translate-y-1"
                                 >
                                     <div className="h-48 overflow-hidden">
@@ -365,31 +366,8 @@ const ArticlePage = () => {
                         </div>
                     </div>
 
-                    {/* Newsletter Signup */}
-                    <div className="bg-[#015B52] text-white p-8 rounded-lg mb-6">
-                        <div className="text-center mb-6">
-                            <h3 className="text-2xl font-semibold mb-2">Stay Updated</h3>
-                            <p className="text-gray-200">Subscribe to our newsletter for the latest health insights and articles</p>
-                        </div>
-                        <form className="flex flex-col sm:flex-row gap-4">
-                            <input
-                                type="email"
-                                placeholder="Your email address"
-                                className="flex-grow px-4 py-3 rounded-md text-gray-800 focus:outline-none"
-                                required
-                            />
-                            <button
-                                type="submit"
-                                className="bg-white text-[#015B52] px-6 py-3 rounded-md font-medium hover:bg-gray-100 transition-colors"
-                            >
-                                Subscribe
-                            </button>
-                        </form>
-                    </div>
                 </article>
             </main>
-
-            {/* Footer */}
             <Footer />
         </div>
     );

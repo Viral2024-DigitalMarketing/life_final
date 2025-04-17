@@ -111,7 +111,7 @@ const HeroSection = () => {
                                     marginRight: '-35px',
                                 }}
                             >
-                                Total Hip Replacement Surgeries
+                                Total Knee /  Hip Replacement Surgeries
                             </span>
                         </h1>
                     </div>

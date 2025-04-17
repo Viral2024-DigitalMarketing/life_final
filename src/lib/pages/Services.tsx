@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
+import Navbar from '@/components/layout/Navbar.tsx';
+import Footer from '@/components/layout/Footer.tsx';
 import ServicesGrid from "@/components/services/ServiceCard.tsx";
 import ServicesCTA from "@/components/services/ServicesCTA.tsx";
 import FaqSection from "@/components/home/FaqSection.tsx";
-import AppointmentModal from "@/components/shared/AppointmentModal";
+import AppointmentModal from "@/components/shared/AppointmentModal.tsx";
 
 const Services = () => {
     const contentRefs = useRef<HTMLDivElement[]>([]);
@@ -60,7 +60,7 @@ const Services = () => {
             {/* Hero Background Image */}
             <div className="absolute inset-0 h-[120vh] z-0">
                 <img
-                    src="/images/ser_hero.svg"
+                    src="/images/ser_hero.webp"
                     alt="Healthcare Services"
                     className="w-full h-full object-cover"
                 />
@@ -75,7 +75,7 @@ const Services = () => {
                     <section className="relative w-full min-h-[100vh] flex flex-col justify-between text-white px-4 pt-6 pb-10">
                         <div className="absolute inset-0 z-[-1]">
                             <img
-                                src="/images/ser_hero.svg"
+                                src="/images/ser_hero.webp"
                                 alt="Healthcare Services"
                                 className="w-full h-full object-cover"
                             />
@@ -121,7 +121,9 @@ const Services = () => {
                                 src="/images/logos.svg"
                                 alt="Hero Logo"
                                 className="w-[180px] h-[50px] object-contain"
+                                loading="lazy"
                             />
+
                         </div>
 
                         {/* Right Text */}

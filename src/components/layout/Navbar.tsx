@@ -34,9 +34,11 @@ const Navbar: React.FC<NavbarProps> = () => {
   // Determine if hero background should be visible
   const shouldShowHero = () => {
     if (location.pathname === '/') return true;
-    if (location.pathname === '/about') return true;
     if (location.pathname === '/services') return true;
-    if (location.pathname.includes('/blog')) return false; // Blog page should not show hero styles
+    // Removed the about page from hero styles to match blog page behavior
+    if (location.pathname.includes('/blog')) return false;
+    if (location.pathname === '/about') return false; // About page should not show hero styles, like blog
+    if (location.pathname === '/contact') return false; // Contact page should not show hero styles
     return false;
   };
 

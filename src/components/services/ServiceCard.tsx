@@ -213,6 +213,7 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
                                     src={service.image}
                                     alt={service.title}
                                     className="w-[100px] h-[100px] object-contain mb-4 sm:w-[120px] sm:h-[120px] sm:mb-4 md:w-[200px] md:h-[200px] md:mb-0"
+                                    loading="lazy"
                                 />
                                 <div className="flex flex-col justify-start text-center w-full px-2 md:text-left md:max-w-[262px] md:ml-2 md:mt-[-80px] md:flex-grow md:px-0 sm:text-center sm:max-w-full sm:mt-0">
                                     <h3
@@ -222,7 +223,7 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
                                             fontWeight: service.titleStyle?.fontWeight,
                                             lineHeight: service.titleStyle?.lineHeight,
                                             letterSpacing: service.titleStyle?.letterSpacing,
-                                            textTransform: service.titleStyle?.textTransform as any,
+                                            textTransform: service.titleStyle?.textTransform,
                                             color: service.titleStyle?.color,
                                         }}
                                     >
@@ -235,7 +236,7 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
                                                 fontFamily: service.taglineStyle?.fontFamily,
                                                 fontWeight: service.taglineStyle?.fontWeight,
                                                 letterSpacing: service.taglineStyle?.letterSpacing,
-                                                textTransform: service.taglineStyle?.textTransform as any,
+                                                textTransform: service.taglineStyle?.textTransform,
                                                 color: service.taglineStyle?.color,
                                                 marginTop: service.taglineStyle?.marginTop,
                                             }}

@@ -290,7 +290,7 @@ const AboutSection = () => {
             {isMobile && (
                 <div
                     ref={floatingCardsRef}
-                    className="absolute left-0 top-50 w-full overflow-hidden pointer-events-none"
+                    className="absolute left-0 top-1 w-full overflow-hidden pointer-events-none"
                     style={{
                         maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0) 100%)',
                         WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0) 100%)',

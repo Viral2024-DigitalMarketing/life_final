@@ -1,8 +1,8 @@
 
 import React from 'react';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
-import BlogDetail from '@/components/blog/BlogDetail';
+import Navbar from '@/components/layout/Navbar.tsx';
+import Footer from '@/components/layout/Footer.tsx';
+import BlogDetail from '@/components/blog/BlogDetail.tsx';
 
 const BlogPost = () => {
   return (
