@@ -131,7 +131,7 @@ const HeroSection = () => {
                         Completed <br />
                         <span style={{ fontSize: '64px', fontWeight: 900 }}>100+</span>
                         <br />
-                        Total Hip Replacement Surgeries
+                        Total Knee /  Hip Replacement Surgeries
                     </h1>
                 </div>
 
