@@ -20,9 +20,7 @@ const ServicesCTA: React.FC<ServicesCTAProps> = ({ className = '', addToContentR
         >
             <div className="container mx-auto flex flex-col items-center text-center">
                 {/* Centered Tagline */}
-                <p className="font-['Be Vietnam Pro'] font-medium text-base md:text-[20px] leading-tight md:leading-[100%] tracking-[1%] text-gray-700 mb-2 md:mb-4">
-                    Patient Support Programs.
-                </p>
+
                 <h2 className="font-abhaya-libre font-semibold text-3xl md:text-[40px] lg:text-[52px] leading-tight md:leading-[100%] tracking-[1%] text-[#000000] mb-6 md:mb-12">
                     Orthopedic Wellness
                 </h2>

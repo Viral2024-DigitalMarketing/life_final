@@ -81,7 +81,7 @@ const FaqSection = () => {
                 Frequently Asked Questions
               </h2>
               <p className="text-gray-700 text-sm sm:text-base md:text-base">
-                Find answers to common questions about our services, policies, and patient care.
+                Find answers to common questions about our services, policies and patient care.
               </p>
             </div>
 

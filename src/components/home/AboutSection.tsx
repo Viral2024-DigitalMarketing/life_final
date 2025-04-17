@@ -160,6 +160,170 @@ const AboutSection = () => {
         };
     }, [screenType]);
 
+    // Animation styles as a string to be injected in the head
+    useEffect(() => {
+        // Create a style element
+        const styleElement = document.createElement('style');
+        styleElement.type = 'text/css';
+
+        // Animation CSS as string
+        styleElement.innerHTML = `
+            /* Improved infinite scroll for mobile */
+            @keyframes mobileInfiniteScroll {
+                0% {
+                    transform: translateX(0);
+                    z-index: 10; /* Start behind the number */
+                }
+                25% {
+                    z-index: 10; /* Still behind */
+                }
+                45% {
+                    z-index: 10; /* About to pass through */
+                }
+                50% {
+                    z-index: 25; /* Passing through the number - higher than number */
+                }
+                55% {
+                    z-index: 25; /* Still passing through */
+                }
+                75% {
+                    z-index: 25; /* In front of the number */
+                }
+                100% {
+                    transform: translateX(-100%);
+                    z-index: 10; /* Back behind as it loops */
+                }
+            }
+
+            .mobile-scrolling-cards {
+                animation: mobileInfiniteScroll 60s linear infinite;
+                width: max-content;
+            }
+
+            .mobile-card {
+                position: relative;
+                animation: cardZIndexAnimation 60s linear infinite;
+                animation-delay: inherit; /* Inherit delay from parent */
+            }
+
+            /* UPDATED ANIMATIONS - Now all rows move in the same direction/sequence */
+            @keyframes animate-rowScroll0 {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(-50%); /* Only move half way since we duplicated the content */
+                }
+            }
+
+            @keyframes animate-rowScroll1 {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+
+            @keyframes animate-rowScroll2 {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+
+            @keyframes animate-rowScroll3 {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+
+            /* Enhanced Z-index animation for cards with improved fade effect at edges */
+            @keyframes cardZIndexAnimation {
+                0% {
+                    z-index: 10; /* Start behind the number */
+                    opacity: 0.7; /* Partially visible at start */
+                }
+                5% {
+                    opacity: 1; /* Quickly fade in as it moves right */
+                }
+                40% {
+                    z-index: 10; /* Still behind */
+                }
+                48% {
+                    z-index: 10; /* About to transition */
+                }
+                50% {
+                    z-index: 23; /* Same level as number */
+                }
+                52% {
+                    z-index: 25; /* Above the number */
+                }
+                80% {
+                    z-index: 25; /* Still above */
+                    opacity: 1; /* Full opacity */
+                }
+                95% {
+                    opacity: 0.7; /* Fade out as approaching left edge */
+                }
+                100% {
+                    z-index: 10; /* Back behind */
+                    opacity: 0.7; /* Partially visible at end/start */
+                }
+            }
+
+            /* Apply animations to each row with different speeds */
+            .animate-rowScroll0 {
+                animation: animate-rowScroll0 60s linear infinite;
+            }
+
+            .animate-rowScroll1 {
+                animation: animate-rowScroll1 75s linear infinite; /* Adjusted for more variety */
+            }
+
+            .animate-rowScroll2 {
+                animation: animate-rowScroll2 67s linear infinite; /* Adjusted for more variety */
+            }
+
+            .animate-rowScroll3 {
+                animation: animate-rowScroll3 82s linear infinite; /* Adjusted for more variety */
+            }
+
+            /* Apply z-index animation to each card */
+            .floating-card {
+                position: relative;
+                animation: cardZIndexAnimation 60s linear infinite;
+            }
+
+            /* Stagger the z-index animations for different rows */
+            .card-0-0, .card-0-1, .card-0-2, .card-0-3, .card-0-4, .card-0-5, .card-0-6, .card-0-7, .card-0-8, .card-0-9 {
+                animation-delay: 0s;
+            }
+            .card-1-0, .card-1-1, .card-1-2, .card-1-3, .card-1-4, .card-1-5, .card-1-6, .card-1-7, .card-1-8, .card-1-9 {
+                animation-delay: 15s;
+            }
+            .card-2-0, .card-2-1, .card-2-2, .card-2-3, .card-2-4, .card-2-5, .card-2-6, .card-2-7, .card-2-8, .card-2-9 {
+                animation-delay: 30s;
+            }
+            .card-3-0, .card-3-1, .card-3-2, .card-3-3, .card-3-4, .card-3-5, .card-3-6, .card-3-7, .card-3-8, .card-3-9 {
+                animation-delay: 45s;
+            }
+        `;
+
+        // Add the style element to the document head
+        document.head.appendChild(styleElement);
+
+        // Clean up function to remove the style element when component unmounts
+        return () => {
+            document.head.removeChild(styleElement);
+        };
+    }, []); // Empty dependency array ensures this runs only once
+
     const isMobile = screenType === 'mobile';
     const isTablet = screenType === 'tablet';
     const isDesktop = screenType === 'desktop';
@@ -406,159 +570,6 @@ const AboutSection = () => {
                     </div>
                 ))}
             </div>
-
-            {/* UPDATED Fixed style element with animations for z-index transition and left fade effect */}
-            <style jsx>{`
-                /* Improved infinite scroll for mobile */
-                @keyframes mobileInfiniteScroll {
-                    0% {
-                        transform: translateX(0);
-                        z-index: 10; /* Start behind the number */
-                    }
-                    25% {
-                        z-index: 10; /* Still behind */
-                    }
-                    45% {
-                        z-index: 10; /* About to pass through */
-                    }
-                    50% {
-                        z-index: 25; /* Passing through the number - higher than number */
-                    }
-                    55% {
-                        z-index: 25; /* Still passing through */
-                    }
-                    75% {
-                        z-index: 25; /* In front of the number */
-                    }
-                    100% {
-                        transform: translateX(-100%);
-                        z-index: 10; /* Back behind as it loops */
-                    }
-                }
-
-                .mobile-scrolling-cards {
-                    animation: mobileInfiniteScroll 60s linear infinite;
-                    width: max-content;
-                }
-
-                .mobile-card {
-                    position: relative;
-                    animation: cardZIndexAnimation 60s linear infinite;
-                    animation-delay: inherit; /* Inherit delay from parent */
-                }
-
-                /* IMPROVED ANIMATIONS with z-index transitions */
-                @keyframes animate-rowScroll0 {
-                    0% {
-                        transform: translateX(0);
-                    }
-                    100% {
-                        transform: translateX(-50%); /* Only move half way since we duplicated the content */
-                    }
-                }
-
-                @keyframes animate-rowScroll1 {
-                    0% {
-                        transform: translateX(-10%);
-                    }
-                    100% {
-                        transform: translateX(-60%);
-                    }
-                }
-
-                @keyframes animate-rowScroll2 {
-                    0% {
-                        transform: translateX(-5%);
-                    }
-                    100% {
-                        transform: translateX(-55%);
-                    }
-                }
-
-                @keyframes animate-rowScroll3 {
-                    0% {
-                        transform: translateX(-15%);
-                    }
-                    100% {
-                        transform: translateX(-65%);
-                    }
-                }
-
-                /* Enhanced Z-index animation for cards to move from behind to front with stronger fade effect near left edge */
-                @keyframes cardZIndexAnimation {
-                    0% {
-                        z-index: 10; /* Start behind the number */
-                        opacity: 0.5; /* More pronounced fade at left edge */
-                    }
-                    10% {
-                        opacity: 1; /* Fade in as it moves away from left margin */
-                    }
-                    40% {
-                        z-index: 10; /* Still behind */
-                        opacity: 1; /* Full opacity in middle */
-                    }
-                    48% {
-                        z-index: 10; /* About to transition */
-                        opacity: 1; /* Still full opacity */
-                    }
-                    50% {
-                        z-index: 23; /* Same level as number */
-                        opacity: 1; /* Full opacity when passing through */
-                    }
-                    52% {
-                        z-index: 25; /* Above the number */
-                        opacity: 1; /* Still full opacity */
-                    }
-                    70% {
-                        z-index: 25; /* Still above */
-                        opacity: 1; /* Full opacity */
-                    }
-                    90% {
-                        opacity: 0.5; /* Stronger fade as approaching left edge */
-                    }
-                    100% {
-                        z-index: 10; /* Back behind */
-                        opacity: 0.5; /* More pronounced fade at left edge */
-                    }
-                }
-
-                /* Apply animations to each row with different speeds */
-                .animate-rowScroll0 {
-                    animation: animate-rowScroll0 60s linear infinite;
-                }
-
-                .animate-rowScroll1 {
-                    animation: animate-rowScroll1 75s linear infinite; /* Adjusted for more variety */
-                }
-
-                .animate-rowScroll2 {
-                    animation: animate-rowScroll2 67s linear infinite; /* Adjusted for more variety */
-                }
-
-                .animate-rowScroll3 {
-                    animation: animate-rowScroll3 82s linear infinite; /* Adjusted for more variety */
-                }
-
-                /* Apply z-index animation to each card */
-                .floating-card {
-                    position: relative;
-                    animation: cardZIndexAnimation 60s linear infinite;
-                }
-
-                /* Stagger the z-index animations for different rows */
-                .card-0-0, .card-0-1, .card-0-2, .card-0-3, .card-0-4, .card-0-5 {
-                    animation-delay: 0s;
-                }
-                .card-1-0, .card-1-1, .card-1-2, .card-1-3, .card-1-4, .card-1-5 {
-                    animation-delay: 15s;
-                }
-                .card-2-0, .card-2-1, .card-2-2, .card-2-3, .card-2-4, .card-2-5 {
-                    animation-delay: 30s;
-                }
-                .card-3-0, .card-3-1, .card-3-2, .card-3-3, .card-3-4, .card-3-5 {
-                    animation-delay: 45s;
-                }
-            `}</style>
 
             {/* Appointment Modal */}
             <AppointmentModal

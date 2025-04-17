@@ -90,19 +90,21 @@ const JointReplacementPage = () => {
             <Navbar />
 
             <main className="flex-grow">
-                {/* Hero Section - Further improved for mobile */}
+                {/* Hero Section - Updated for consistent text styling */}
                 <section
                     className="relative mt-5 w-full h-[50vh] md:h-[100vh] bg-no-repeat bg-[length:200%] md:bg-cover bg-[center_top_40px] md:bg-[center_bottom_-20px] flex flex-col justify-center items-center text-center"
                     style={{
                         backgroundImage: "url('/images/100_hero.webp')",
                     }}
                 >
-                    {/* Top Text - Adjusted for mobile */}
-                    <div className="absolute top-[60px] md:top-[90px] left-1/2 transform -translate-x-1/2 text-white text-sm md:text-3xl font-semibold tracking-wide">
-                        Completed
+                    {/* Top Text - Aligned with bottom text styling */}
+                    <div className="absolute top-[60px] md:top-[90px] left-1/2 transform -translate-x-1/2 text-white text-center px-4">
+                        <div className="text-[14px] md:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
+                            Completed
+                        </div>
                     </div>
 
-                    {/* Bottom Text - Fixed positioning for mobile */}
+                    {/* Bottom Text - Unchanged */}
                     <div className="absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
                         <div className="text-[14px] md:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
                             TOTAL HIP REPLACEMENT
@@ -113,7 +115,7 @@ const JointReplacementPage = () => {
                     </div>
                 </section>
 
-                {/* Cards Section - Improved mobile spacing */}
+                {/* Cards Section - Unchanged */}
                 <section className="text-center bg-[#F9F9F9] pt-4 md:pt-12 pb-12">
                     <h2 className="text-[28px] md:text-[52px] text-black font-abhaya-libre font-semibold tracking-[1%] leading-[100%] text-center px-4">
                         Specialized Joint Replacement Care
@@ -151,7 +153,7 @@ const JointReplacementPage = () => {
                     </div>
                 </section>
 
-                {/* CTA */}
+                {/* CTA - Unchanged */}
                 <section className="mt-12">
                     <ServicesCTA addToContentRefs={addToContentRefs} />
                 </section>
@@ -159,7 +161,7 @@ const JointReplacementPage = () => {
 
             <Footer />
 
-            {/* Appointment Modal */}
+            {/* Appointment Modal - Unchanged */}
             <AppointmentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
     );

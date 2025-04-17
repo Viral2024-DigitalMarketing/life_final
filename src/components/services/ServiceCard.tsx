@@ -33,8 +33,8 @@ const servicesData: Service[] = [
             fontFamily: 'Be Vietnam Pro',
             fontWeight: 400,
             fontSize: '16px',
-            lineHeight: '100%',
-            letterSpacing: '-0.02em',
+            lineHeight: '140%',
+            letterSpacing: '0.02em',
             textTransform: 'capitalize',
             color: '#999999',
         },
@@ -55,11 +55,12 @@ const servicesData: Service[] = [
             color: '#333374',
         },
         taglineStyle: {
+            marginTop: "12px",
             fontFamily: 'Be Vietnam Pro',
             fontWeight: 400,
             fontSize: '16px',
-            lineHeight: '100%',
-            letterSpacing: '-0.02em',
+            lineHeight: '140%',
+            letterSpacing: '0.02em',
             textTransform: 'capitalize',
             color: '#999999',
         },
@@ -84,8 +85,8 @@ const servicesData: Service[] = [
             fontFamily: 'Be Vietnam Pro',
             fontWeight: 400,
             fontSize: '16px',
-            lineHeight: '100%',
-            letterSpacing: '-0.02em',
+            lineHeight: '140%',
+            letterSpacing: '0.02em',
             textTransform: 'capitalize',
             color: '#999999',
         },
@@ -110,8 +111,8 @@ const servicesData: Service[] = [
             fontFamily: 'Be Vietnam Pro',
             fontWeight: 400,
             fontSize: '16px',
-            lineHeight: '100%',
-            letterSpacing: '-0.02em',
+            lineHeight: '140%',
+            letterSpacing: '0.02em',
             textTransform: 'capitalize',
             color: '#999999',
         },
@@ -136,8 +137,8 @@ const servicesData: Service[] = [
             fontFamily: 'Be Vietnam Pro',
             fontWeight: 400,
             fontSize: '16px',
-            lineHeight: '100%',
-            letterSpacing: '-0.02em',
+            lineHeight: '140%',
+            letterSpacing: '0.02em',
             textTransform: 'capitalize',
             color: '#999999',
         },
@@ -158,11 +159,12 @@ const servicesData: Service[] = [
             color: '#333374',
         },
         taglineStyle: {
+            marginTop: "12px",
             fontFamily: 'Be Vietnam Pro',
             fontWeight: 400,
             fontSize: '16px',
-            lineHeight: '100%',
-            letterSpacing: '-0.02em',
+            lineHeight: '140%',
+            letterSpacing: '0.02em',
             textTransform: 'capitalize',
             color: '#999999',
         },
@@ -201,7 +203,7 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
                         >
                             <div
                                 ref={addToContentRefs}
-                                className={`rounded-[32px] p-5 flex flex-col items-center justify-between transition-shadow duration-300 hover:shadow-md
+                                className={`rounded-[32px] p-5 flex flex-col items-center justify-between transition-all duration-300 hover:shadow-lg hover:scale-[1.02]
                                     md:w-[592px] md:h-[317.33px] md:rounded-[40px] md:p-6 md:flex-row md:items-center
                                     sm:w-full sm:min-h-[280px] sm:rounded-[24px] sm:flex-col sm:items-center relative`}
                                 style={{
@@ -231,11 +233,13 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
                                     </h3>
                                     {service.tagline && (
                                         <p
-                                            className="mt-2 text-sm leading-tight md:text-base md:leading-none"
+                                            className="mt-2 text-sm leading-tight md:text-base md:leading-relaxed"
                                             style={{
                                                 fontFamily: service.taglineStyle?.fontFamily,
                                                 fontWeight: service.taglineStyle?.fontWeight,
-                                                letterSpacing: service.taglineStyle?.letterSpacing,
+                                                fontSize: service.taglineStyle?.fontSize,
+                                                lineHeight: window.innerWidth >= 768 ? '150%' : '140%',
+                                                letterSpacing: window.innerWidth >= 768 ? '0.03em' : '0.02em',
                                                 textTransform: service.taglineStyle?.textTransform,
                                                 color: service.taglineStyle?.color,
                                                 marginTop: service.taglineStyle?.marginTop,

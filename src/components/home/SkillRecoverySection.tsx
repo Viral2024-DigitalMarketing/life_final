@@ -33,7 +33,7 @@ const cardData = [
 ];
 
 const SkillRecoverySection = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -59,60 +59,59 @@ const SkillRecoverySection = () => {
   }, []);
 
   return (
-      <div ref={containerRef} className="w-full">
-        {/* ⬇️ Heading Section */}
-        <div className="w-full px-4 md:px-[80px] pt-[60px] pb-[40px] bg-white">
-          <h2
-              className="text-3xl sm:text-4xl md:text-5xl leading-[100%] tracking-[1%] font-semibold text-left font-['Abhaya_Libre'] text-[#000000]"
-          >
+      <div className="relative w-full">
+        {/* Sticky Heading Section */}
+        <div className="sticky top-0 w-full px-4 md:px-20 pt-12 pb-8 bg-white z-50 shadow-md">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl leading-tight tracking-wide font-semibold text-left font-['Abhaya_Libre'] text-black">
             Our Skill, Your Recovery.
           </h2>
-          <p
-              className="text-sm sm:text-base md:text-lg leading-[140%] font-normal tracking-[0%] text-left font-['Be_Vietnam_Pro'] text-[#1E1E1ECC] mt-[16px] max-w-[900px]"
-          >
+          <p className="text-sm sm:text-base md:text-lg leading-relaxed font-normal text-left font-['Be_Vietnam_Pro'] text-gray-800 mt-4 max-w-3xl">
             Life Hospital's orthopedic department offers comprehensive care for a wide range of musculoskeletal conditions, from joint replacements to sports injuries.
           </p>
         </div>
 
-        {/* ⬇️ Cards Section */}
-        {cardData.map((card, index) => (
-            <div
-                key={index}
-                className="card-section h-screen w-full sticky top-0 flex items-center justify-center px-4 sm:px-6"
-                style={{
-                  backgroundImage: `url(${card.bgImage})`,
-                  backgroundSize: 'cover',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'center',
-                  zIndex: index,
-                }}
-            >
-              <div className="w-full max-w-[1000px] bg-white rounded-[20px] shadow-2xl p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-[29.38px]">
-                <div className="text-gray-900 w-full md:w-1/2 mt-[75px] text-center md:text-left">
-              <span
-                  className="text-[40px] md:text-[65.59px] font-bold leading-[100%] tracking-[1%] font-['Be_Vietnam_Pro'] block transition-all duration-500"
+        {/* Card Container */}
+        <div ref={containerRef} className="w-full mt-12">
+          {/* Cards Section */}
+          {cardData.map((card, index) => (
+              <div
+                  key={index}
+                  className="card-section h-screen w-full sticky top-32 flex items-center justify-center px-4 sm:px-6"
                   style={{
-                    color: activeIndex === index ? '#000000' : 'transparent',
-                    WebkitTextStroke: activeIndex === index ? '0px #000000' : '1px #000000',
+                    backgroundImage: `url(${card.bgImage})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    zIndex: index,
                   }}
               >
-                {card.number}
-              </span>
-                  <h2 className="text-[20px] md:text-[27.33px] font-[600] mt-2 md:mt-4 leading-[100%] tracking-[1%] font-['Be_Vietnam_Pro'] text-[#000000]">
-                    {card.title}
-                  </h2>
-                  <p className="text-[12px] md:text-[13px] font-medium leading-[140%] tracking-[0.5%] font-['Be_Vietnam_Pro'] text-[#4A4A4A] mt-2">
-                    {card.description}
-                  </p>
+                <div className="w-full max-w-4xl bg-white rounded-2xl shadow-2xl p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-7">
+                  <div className="text-gray-900 w-full md:w-1/2 mt-16 md:mt-20 text-center md:text-left">
+                <span
+                    className="text-4xl md:text-6xl font-bold leading-none tracking-wide font-['Be_Vietnam_Pro'] block transition-all duration-500"
+                    style={{
+                      color: activeIndex === index ? '#000000' : 'transparent',
+                      WebkitTextStroke: activeIndex === index ? '0px #000000' : '1px #000000',
+                    }}
+                >
+                  {card.number}
+                </span>
+                    <h2 className="text-xl md:text-2xl font-semibold mt-2 md:mt-4 leading-tight tracking-wide font-['Be_Vietnam_Pro'] text-black">
+                      {card.title}
+                    </h2>
+                    <p className="text-xs md:text-sm font-medium leading-relaxed tracking-wide font-['Be_Vietnam_Pro'] text-gray-700 mt-2">
+                      {card.description}
+                    </p>
+                  </div>
+                  <img
+                      src={card.image}
+                      alt={card.title}
+                      className="w-60 h-60 object-contain md:w-96 md:h-72"
+                  />
                 </div>
-                <img
-                    src={card.image}
-                    alt={card.title}
-                    className="w-[250px] h-[250px] object-contain md:w-[472px] md:h-[302px]"
-                />
               </div>
-            </div>
-        ))}
+          ))}
+        </div>
       </div>
   );
 };
