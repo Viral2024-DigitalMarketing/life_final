@@ -370,8 +370,8 @@ const AboutSection = () => {
                         ref={imageRef}
                         className="absolute rounded-full overflow-hidden"
                         style={{
-                            width: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "500px" : isLarge ? "600px" : "700px",
-                            height: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "500px" : isLarge ? "600px" : "700px",
+                            width: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "500px" : isLarge ? "600px" : "610px",
+                            height: isMobile ? "150px" : isTablet ? "300px" : isDesktop ? "500px" : isLarge ? "600px" : "610px",
                             top: isMobile
                                 ? "-350px"
                                 : isTablet
@@ -380,7 +380,7 @@ const AboutSection = () => {
                                         ? "300px"
                                         : isLarge
                                             ? "320px"
-                                            : "380px",
+                                            : "401px",
                             left: isMobile
                                 ? "50%"
                                 : isTablet
@@ -389,7 +389,7 @@ const AboutSection = () => {
                                         ? "calc(50% + 200px)" // fine-tune this offset
                                         : isLarge
                                             ? "calc(50% + 200px)"
-                                            : "calc(50% + 180px)",
+                                            : "calc(50% + 190px)",
                             transform:
                                 isMobile || isTablet ? "translateX(-50%)" : "translateX(-50%)", // You can tweak/remove for desktop if needed
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",

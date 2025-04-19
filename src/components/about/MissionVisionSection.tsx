@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-const FounderDescriptionSection = () => {
+const  FounderDescriptionSection = () => {
     return (
         <section
             className="w-full min-h-[958px] bg-white px-6 pt-[120px] pb-16 relative lg:px-[101.33px] lg:pt-[180px] lg:pb-20 xl:px-[120px] 2xl:px-[150px]">
@@ -11,7 +11,7 @@ const FounderDescriptionSection = () => {
             <img
                 src="/images/pin_ab.png"
                 alt="Pin Icon"
-                className="absolute top-[80px] left-[50px] w-[60px] h-[70px] object-contain z-20 sm:w-[50px] sm:h-[60px] sm:top-[50px] sm:left-[-15px] md:w-[80px] md:h-[90px] md:top-[50px] md:left-[-25px] lg:w-[108px] lg:h-[122px] lg:top-[90px] lg:left-[40px] xl:w-[108px] xl:h-[122px] xl:top-[100px] xl:left-[210px] 2xl:w-[120px] 2xl:h-[135px] 2xl:top-[-40px] 2xl:left-[-40px]"
+                className="absolute top-[80px] left-[50px] w-[60px] h-[70px] object-contain z-20 sm:w-[50px] sm:h-[60px] sm:top-[50px] sm:left-[-15px] md:w-[80px] md:h-[90px] md:top-[50px] md:left-[-25px] lg:w-[108px] lg:h-[122px] lg:top-[90px] lg:left-[40px] xl:w-[108px] xl:h-[122px] xl:top-[100px] xl:left-[210px] 2xl:w-[120px] 2xl:h-[135px] 2xl:top-[90px] 2xl:left-[150px]"
             />
 
             {/* Main Card (Purple) */}
