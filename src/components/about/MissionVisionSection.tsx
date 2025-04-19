@@ -42,7 +42,7 @@ const  FounderDescriptionSection = () => {
                 <img
                     src="/images/foun.svg"
                     alt="Dr. Mujeeb"
-                    className="w-[250px] h-[250px] object-contain mx-auto mt-4 sm:w-[200px] sm:h-[200px] sm:mt-6 md:w-[280px] md:h-[280px] md:absolute md:top-[-20px] md:right-[20px] lg:w-[340px] lg:h-[340px] lg:top-[-30px] lg:right-[20px] xl:w-[380px] xl:h-[380px] xl:top-[-15px] xl:right-[30px] 2xl:w-[420px] 2xl:h-[420px] 2xl:top-[-10px] 2xl:right-[40px]"
+                    className="w-[250px] h-[250px] object-contain mx-auto mt-4 sm:w-[200px] sm:h-[200px] sm:mt-6 md:w-[280px] md:h-[280px] md:absolute md:top-[-20px] md:right-[20px] lg:w-[340px] lg:h-[340px] lg:top-[-30px] lg:right-[20px] xl:w-[380px] xl:h-[380px] xl:top-[-15px] xl:right-[30px] 2xl:w-[420px] 2xl:h-[420px] 2xl:top-[-33px] 2xl:right-[40px]"
                 />
 
                 {/* Doctor Name & Title */}

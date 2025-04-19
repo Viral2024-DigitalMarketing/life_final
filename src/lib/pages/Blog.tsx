@@ -148,8 +148,8 @@ const Blog = () => {
                         style={{ backgroundImage: "url('/images/legblog.svg')" }}
                     >
 
-                        {/* Gradient overlay for smooth blending */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/50 to-transparent"></div>
+                        {/*/!* Gradient overlay for smooth blending *!/*/}
+                        {/*<div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/50 to-transparent"></div>*/}
 
                         {/* Text Content */}
                         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
