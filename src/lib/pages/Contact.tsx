@@ -38,7 +38,6 @@ const Contact = () => {
         };
     }, []);
 
-    // Add element to refs array
     const addToRefs = (el: HTMLDivElement) => {
         if (el && !sectionRefs.current.includes(el)) {
             sectionRefs.current.push(el);
@@ -54,7 +53,6 @@ const Contact = () => {
         e.preventDefault();
         console.log("Form submitted with data:", formData);
         setFormSubmitted(true);
-        // In a real application, you would send the data to a server here
     };
 
     return (
@@ -152,6 +150,7 @@ const Contact = () => {
                         </div>
                     </div>
                 </section>
+
                 {/* Map and Directions Section */}
                 <section
                     ref={addToRefs}
@@ -166,7 +165,7 @@ const Contact = () => {
                             {/* Desktop view: Image with Get Directions button */}
                             <div className="hidden md:block w-full h-[500px] rounded-xl overflow-hidden shadow-lg bg-white">
                                 <img
-                                    src="/images/maps.png" // Replace with an actual image placeholder
+                                    src="/images/maps.png"
                                     alt="Kamareddy Life Hospitals Map"
                                     className="w-full h-full object-cover"
                                 />
@@ -180,18 +179,31 @@ const Contact = () => {
                                 </a>
                             </div>
 
-                            {/* Mobile view: Google Maps iframe */}
-                            <div className="md:hidden w-full h-[300px] sm:h-[400px] rounded-xl overflow-hidden shadow-lg bg-white">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.344085618749!2d78.156674!3d17.228254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9c42c88f8031%3A0x12fc29e0b7f3eae2!2sKamareddy%20Life%20Hospitals!5e0!3m2!1sen!2sin!4v1679429307751!5m2!1sen!2sin"
-                                    width="100%"
-                                    height="100%"
-                                    style={{ border: 0 }}
-                                    allowFullScreen
-                                    loading="lazy"
-                                    title="Kamareddy Life Hospitals Location"
-                                ></iframe>
+                            {/* Mobile view: Google Maps iframe with button */}
+                            <div className="md:hidden w-full rounded-xl overflow-hidden shadow-lg bg-white">
+                                <div className="w-full h-[300px] sm:h-[400px]">
+                                    <iframe
+                                        src="/images/map2.png"
+                                        width="100%"
+                                        height="100%"
+                                        style={{ border: 0 }}
+                                        allowFullScreen
+                                        loading="lazy"
+                                        title="Kamareddy Life Hospitals Location"
+                                    ></iframe>
+                                </div>
+                                <div className="mt-3 flex justify-center">
+                                    <a
+                                        href="https://www.google.com/maps/dir/?api=1&destination=Kamareddy+Life+Hospitals"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="bg-blue-600 mb-5 text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-blue-700 transition-all"
+                                    >
+                                        Get Directions
+                                    </a>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </section>
