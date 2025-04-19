@@ -54,7 +54,7 @@ const OrthopedicPage = () => {
                                 <div className="flex flex-wrap gap-2 mt-4 sm:mt-8 mb-4 sm:mb-5">
                                     {["Bones", "Joints", "Ligaments", "Tendons", "Muscles", "Nerves"].map((item, i) => (
                                         <div key={i} className="px-2 sm:px-3 py-1 border border-[#129539] rounded flex items-center text-xs sm:text-[14px]">
-                                            <img src="/images/heart_g.svg" alt="icon" className="w-3 sm:w-4 h-3 sm:h-4 mr-1" />
+                                            <img src="/images/heart_g.svg" alt="icon" className="w-3 sm:w-4 h-3 sm:h-4 mr-1" loading="lazy" />
                                             {item}
                                         </div>
                                     ))}
@@ -79,7 +79,7 @@ const OrthopedicPage = () => {
 
                         {/* Right Image */}
                         <div className="mt-6 sm:mt-10 lg:mt-0 w-full lg:w-[614px] h-auto max-h-[350px] sm:max-h-[510px] rounded-[12px] sm:rounded-[20px] overflow-hidden">
-                            <img src="/images/ortho1.svg" alt="Orthopedic" className="w-full h-full object-cover" />
+                            <img src="/images/ortho1.svg" alt="Orthopedic" className="w-full h-full object-cover" loading="lazy" />
                         </div>
                     </div>
 
@@ -87,7 +87,7 @@ const OrthopedicPage = () => {
                     <div className="w-full lg:w-[1280px] mx-auto p-4 sm:p-6 lg:p-9 flex flex-col-reverse lg:flex-row justify-between bg-[#E7EEEA] border-[1px] border-[#2B63A4] rounded-[16px] sm:rounded-[24px]">
                         {/* Left Image - Order changed for mobile */}
                         <div className="w-full lg:w-[614px] h-auto max-h-[350px] sm:max-h-[510px] rounded-[12px] sm:rounded-[20px] overflow-hidden mt-6 sm:mt-10 lg:mt-0">
-                            <img src="/images/orth1.svg" alt="Arthroscopic" className="w-full h-full object-cover" />
+                            <img src="/images/orth1.svg" alt="Arthroscopic" className="w-full h-full object-cover" loading="lazy" />
                         </div>
 
                         {/* Right Content */}
@@ -108,7 +108,7 @@ const OrthopedicPage = () => {
                                 <div className="flex flex-wrap gap-2 mt-4 sm:mt-8 mb-4 sm:mb-5">
                                     {["Knee", "Shoulder", "Elbow", "Ankle", "Hip", "Wrist"].map((item, i) => (
                                         <div key={i} className="px-2 sm:px-3 py-1 border border-[#2B63A4] rounded flex items-center text-xs sm:text-[14px]">
-                                            <img src="/images/heart_bl.svg" alt="icon" className="w-3 sm:w-4 h-3 sm:h-4 mr-1" />
+                                            <img src="/images/heart_bl.svg" alt="icon" className="w-3 sm:w-4 h-3 sm:h-4 mr-1" loading="lazy" />
                                             {item}
                                         </div>
                                     ))}

@@ -27,7 +27,7 @@ const GeneralHealthPage = () => {
             key={text}
             className={`px-2 sm:px-3 py-1 border ${borderColor} rounded flex items-center justify-center`}
         >
-            <img src={iconPath} alt="Icon" className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+            <img src={iconPath} alt="Icon" className="w-3 h-3 sm:w-4 sm:h-4 mr-1" loading="lazy" />
             <span className={`text-xs sm:text-[14px] font-normal capitalize ${textColor}`}>{text}</span>
         </div>
     );
@@ -121,7 +121,7 @@ const GeneralHealthPage = () => {
                                 </div>
                             </div>
                             <div className="w-full lg:w-[614px] h-[220px] sm:h-[300px] md:h-[400px] lg:h-[510px] rounded-[12px] sm:rounded-[20px] overflow-hidden mt-3 sm:mt-0">
-                                <img src={section.imageSrc} alt={section.imageAlt} className="w-full h-full object-cover" />
+                                <img src={section.imageSrc} alt={section.imageAlt} className="w-full h-full object-cover" loading="lazy" />
                             </div>
                         </div>
                     ))}

@@ -56,6 +56,7 @@ const JointReplacementPage = () => {
                             src={isHovered ? imageActive : imageStatic}
                             alt={title}
                             className="transition duration-500 object-contain w-[220px] h-[220px] md:w-[280px] md:h-[280px]"
+                            loading="lazy"
                         />
                     </div>
 

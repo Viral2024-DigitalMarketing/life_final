@@ -103,16 +103,21 @@ const Blog = () => {
                 <section className="relative bg-white overflow-hidden">
                     {/* Mobile Hero (Image on top, text below) */}
                     <div className="block sm:hidden">
-                        <div className="h-[400px] w-full bg-no-repeat bg-center bg-cover"
-                             style={{ backgroundImage: "url('/images/legblog.svg')" }}>
-                        </div>
+                        <img
+                            src="/images/legblog.svg"
+                            className="h-[400px] w-full object-cover object-center"
+                            loading="lazy"
+                            alt="Blog visual"
+                        />
+
                         <div className="container mx-auto px-4 py-10">
                             <div className="text-left">
                                 <h1 className="font-['Be Vietnam Pro'] font-semibold text-3xl leading-tight mb-4 text-gray-900 animate-fadeIn">
                                     Bone Health Mistakes You'll Regret
                                 </h1>
                                 <p className="font-['Be Vietnam Pro'] font-normal text-base leading-relaxed mb-6 text-gray-700 animate-fadeIn">
-                                    Ignoring early symptoms results in severe joint deterioration and expensive treatments. Learn how to protect your bone health today.
+                                    Ignoring early symptoms results in severe joint deterioration and expensive
+                                    treatments. Learn how to protect your bone health today.
                                 </p>
                                 <div className="flex flex-wrap gap-4 animate-fadeIn">
                                     <button
@@ -120,8 +125,10 @@ const Blog = () => {
                                         className="bg-[#015B52] text-white font-['Be Vietnam Pro'] font-medium text-sm rounded-[24px] px-6 py-3 border border-[#015B52] hover:bg-[#01473c] transition-all duration-300 shadow-md hover:shadow-lg flex items-center"
                                     >
                                         <span>Read full article</span>
-                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor"
+                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                                  d="M9 5l7 7-7 7"></path>
                                         </svg>
                                     </button>
                                     <button
@@ -140,6 +147,7 @@ const Blog = () => {
                         className="hidden sm:block relative h-[700px] lg:h-[800px] bg-no-repeat bg-cover bg-center"
                         style={{ backgroundImage: "url('/images/legblog.svg')" }}
                     >
+
                         {/* Gradient overlay for smooth blending */}
                         <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/50 to-transparent"></div>
 
@@ -186,6 +194,7 @@ const Blog = () => {
                                     src="/images/blog1.svg"
                                     alt="Future of Joint Replacement"
                                     className="w-full h-[300px] sm:h-[400px] object-cover"
+                                    loading="lazy"
                                 />
                             </div>
                             <div className="w-full lg:w-1/2 mt-8 lg:mt-0 px-4">
@@ -230,6 +239,7 @@ const Blog = () => {
                                             src={article.img}
                                             alt={article.title}
                                             className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                                            loading="lazy"
                                         />
                                         <div className="absolute top-4 left-4 bg-white/80 backdrop-blur-sm text-[#015B52] font-medium text-xs rounded-full px-3 py-1">
                                             {article.category}

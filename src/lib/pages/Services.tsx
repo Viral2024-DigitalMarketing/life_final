@@ -63,6 +63,7 @@ const Services = () => {
                     src="/images/ser_hero.webp"
                     alt="Healthcare Services"
                     className="w-full h-full object-cover"
+                    loading="lazy"
                 />
                 <div className="absolute inset-0 bg-black/50"></div>
             </div>
@@ -78,6 +79,7 @@ const Services = () => {
                                 src="/images/ser_hero.webp"
                                 alt="Healthcare Services"
                                 className="w-full h-full object-cover"
+                                loading="lazy"
                             />
                             <div className="absolute inset-0 bg-black/60" />
                         </div>
@@ -87,6 +89,7 @@ const Services = () => {
                                 src="/images/logos.svg"
                                 alt="Hero Logo"
                                 className="w-24 h-auto mb-4"
+                                loading="lazy"
                             />
                             <h1 className="text-[32px] font-semibold mt-[-5px] leading-tight tracking-tight text-yellow-500 font-[Abhaya Libre SemiBold] mb-1">
                                 Uchita Vaidhyam
@@ -105,7 +108,7 @@ const Services = () => {
                                 onClick={handleOpenModal}
                                 className="w-full max-w-xs px-4 py-2 text-sm sm:px-6 sm:py-3 sm:text-base bg-[#F0AD1C] text-black rounded-[30px] font-[Be Vietnam Pro] font-medium hover:bg-[#d98d14] active:scale-95"
                             >
-                                Request Appointment This Week
+                                Request Appointment
                             </button>
                         </div>
                     </section>
@@ -142,7 +145,7 @@ const Services = () => {
                                 onClick={handleOpenModal}
                                 className="px-6 py-3 bg-[#F0AD1C] text-black rounded-[30px] font-[Be Vietnam Pro] font-medium text-[16px] leading-[100%] tracking-[0%] transition-all duration-300 hover:bg-[#d98d14] active:scale-95 ml-2"
                             >
-                                Request Appointment This Week
+                                Request Appointment
                             </button>
                         </div>
                     </section>

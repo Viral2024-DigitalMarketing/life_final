@@ -5,6 +5,7 @@ const BreakthroughSection = () => {
     const sectionRef = useRef(null);
     const elements = useRef<HTMLDivElement[]>([]);
     const [imagesLoaded, setImagesLoaded] = useState<boolean[]>(Array(5).fill(false));
+    const [bgLoaded, setBgLoaded] = useState(false);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -45,18 +46,43 @@ const BreakthroughSection = () => {
 
     // Preload images
     useEffect(() => {
-        breakthroughImages.forEach((src, index) => {
-            const img = new Image();
-            img.src = src;
-            img.fetchPriority = "high";
-            img.onload = () => {
-                setImagesLoaded(prev => {
-                    const newState = [...prev];
-                    newState[index] = true;
-                    return newState;
-                });
-            };
-        });
+        // Lazy load background image
+        const bgImg = new Image();
+        bgImg.src = '/images/breat_bg.svg';
+        bgImg.onload = () => {
+            setBgLoaded(true);
+        };
+
+        // Lazy load content images when section comes into view
+        const sectionObserver = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    breakthroughImages.forEach((src, index) => {
+                        const img = new Image();
+                        img.src = src;
+                        img.onload = () => {
+                            setImagesLoaded(prev => {
+                                const newState = [...prev];
+                                newState[index] = true;
+                                return newState;
+                            });
+                        };
+                    });
+                    sectionObserver.unobserve(entries[0].target);
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (sectionRef.current) {
+            sectionObserver.observe(sectionRef.current);
+        }
+
+        return () => {
+            if (sectionRef.current) {
+                sectionObserver.unobserve(sectionRef.current);
+            }
+        };
     }, []);
 
     const imageLoadingPlaceholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E";
@@ -66,7 +92,9 @@ const BreakthroughSection = () => {
             ref={sectionRef}
             className="relative bg-cover bg-center bg-no-repeat py-24 px-6 md:px-12 lg:px-24"
             style={{
-                backgroundImage: "url('/images/breat_bg.svg')",
+                backgroundImage: bgLoaded ? "url('/images/breat_bg.svg')" : "none",
+                backgroundColor: bgLoaded ? "transparent" : "#f5f5f5", // Fallback color before bg loads
+                transition: "background-image 0.3s ease-in-out"
             }}
         >
             <div className="container mx-auto">
@@ -122,8 +150,7 @@ const BreakthroughSection = () => {
                                 src={image}
                                 alt={`Breakthrough Case ${index + 1}`}
                                 className="w-full h-full object-cover"
-                                fetchPriority="high"
-                                loading="eager"
+                                loading="lazy"
                                 decoding="async"
                                 style={{
                                     opacity: imagesLoaded[index] ? 1 : 0,
@@ -155,8 +182,7 @@ const BreakthroughSection = () => {
                                 src={image}
                                 alt={`Breakthrough Case ${index + 1}`}
                                 className="w-full h-full object-cover"
-                                fetchPriority="high"
-                                loading="eager"
+                                loading="lazy"
                                 decoding="async"
                                 style={{
                                     opacity: imagesLoaded[index] ? 1 : 0,

@@ -17,6 +17,10 @@ const TestimonialsSection = () => {
     let upperRowAnimation: number;
     let lowerRowAnimation: number;
 
+    // Initialize the positions properly
+    upperRow.scrollLeft = 0; // Upper row starts from left
+    lowerRow.scrollLeft = lowerRow.scrollWidth / 2; // Lower row starts from right
+
     // Function to handle upper row animation (left to right)
     const animateUpperRow = () => {
       if (!upperRow) return;
@@ -35,7 +39,7 @@ const TestimonialsSection = () => {
     const animateLowerRow = () => {
       if (!lowerRow) return;
 
-      lowerRow.scrollLeft -= ANIMATION_SPEED;
+      lowerRow.scrollLeft -= ANIMATION_SPEED; // Move from right to left
 
       // Reset when reaching the beginning
       if (lowerRow.scrollLeft <= 0) {

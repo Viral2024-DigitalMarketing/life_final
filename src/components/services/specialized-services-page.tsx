@@ -59,7 +59,7 @@ const SpecializedServicesPage = () => {
             key={text}
             className={`px-2 py-1 sm:px-3 border ${borderColor} rounded flex items-center justify-center`}
         >
-            <img src={icon} alt="Tag Icon" className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+            <img src={icon} alt="Tag Icon" className="w-3 h-3 sm:w-4 sm:h-4 mr-1" loading="lazy" />
             <span className={`text-xs sm:text-[14px] font-normal capitalize ${textColor}`}>
                 {text}
             </span>
@@ -140,6 +140,7 @@ const SpecializedServicesPage = () => {
                                         src={section.imageSrc}
                                         alt={section.imageAlt}
                                         className="w-full h-full object-contain"
+                                        loading="lazy"
                                     />
                                 </div>
                             </div>
