@@ -99,7 +99,7 @@ const JointReplacementPage = () => {
                     }}
                 >
                     {/* Top Text - Aligned with bottom text styling */}
-                    <div className="absolute top-[50px] md:top-[90px] left-1/2 transform -translate-x-1/2 text-white text-center px-4">
+                    <div className="absolute top-[60px] md:top-[90px] left-1/2 transform -translate-x-1/2 text-white text-center px-4">
                         <div className="text-[14px] md:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
                             Completed
                         </div>
