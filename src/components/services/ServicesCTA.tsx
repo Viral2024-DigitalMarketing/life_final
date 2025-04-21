@@ -33,7 +33,7 @@ const ServicesCTA: React.FC<ServicesCTAProps> = ({ className = '', addToContentR
                                 Arogyasri Scheme
                             </h3>
                             <img
-                                src="/images/logos.svg"
+                                src="/images/threelogo.svg"
                                 alt="Arogyasri Logo"
                                 className="w-[100px] h-[40px] md:w-[120px] md:h-[50px] lg:w-[140px] lg:h-[60px] ml-0 md:ml-4"
                                 loading="lazy"
@@ -60,7 +60,7 @@ const ServicesCTA: React.FC<ServicesCTAProps> = ({ className = '', addToContentR
                             <img
                                 src="/images/logo4.svg"
                                 alt="Small Icon"
-                                className="w-[24px] h-[24px] md:w-[28px] md:h-[28px] lg:w-[32px] lg:h-[32px] ml-0 md:ml-4"
+                                className="w-[24px] h-[24px] md:w-[28px] md:h-[28px] lg:w-[52px] lg:h-[42px] ml-0 md:ml-4"
                                 loading="lazy"
                             />
                         </div>

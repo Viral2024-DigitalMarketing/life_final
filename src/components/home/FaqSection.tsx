@@ -53,7 +53,7 @@ const FaqSection = () => {
     },
     {
       id: 3,
-      question: 'What insurance plans does Life Hospital accept, and how do I know if my plan is covered?',
+      question: 'What insurance plans does Life Hospital accept and how do I know if my plan is covered?',
       answer:
           'Life Hospital accepts most major insurance plans including leading national and regional providers. To verify if your specific insurance is accepted, you can: 1) Contact our billing department at +91 7763545463 with your policy details for immediate verification, 2) Check our website\'s insurance information page where we maintain an updated list of accepted providers, 3) Call your insurance provider directly and ask if Life Hospital is in-network, or 4) Visit our administrative office with your insurance card for in-person verification. We also offer financial counseling services to help navigate coverage questions and payment options.',
     },
@@ -65,9 +65,9 @@ const FaqSection = () => {
     },
     {
       id: 5,
-      question: 'Is Life Hospital open 24/7, and what about emergency services?',
+      question: 'Is Life Hospital open 24/7 and what about emergency services?',
       answer:
-          'Yes, Life Hospital operates 24 hours a day, 7 days a week, including holidays. Our emergency department is fully staffed around the clock with board-certified emergency physicians, specialized nurses, and support staff ready to handle any medical crisis. Critical care specialists are always on call for complex emergencies. For non-emergency situations, our outpatient departments operate from 8:00 AM to 8:00 PM on weekdays and 9:00 AM to 5:00 PM on weekends. Certain specialized clinics may have specific timings, which are clearly displayed at the reception and on our website. Our pharmacy and diagnostic services also maintain 24/7 availability to support emergency care needs.',
+          'Yes, Life Hospital operates 24 hours a day 7 days a week, including holidays. Our emergency department is fully staffed around the clock with board-certified emergency physicians, specialized nurses, and support staff ready to handle any medical crisis. Critical care specialists are always on call for complex emergencies. For non-emergency situations, our outpatient departments operate from 8:00 AM to 8:00 PM on weekdays and 9:00 AM to 5:00 PM on weekends. Certain specialized clinics may have specific timings, which are clearly displayed at the reception and on our website. Our pharmacy and diagnostic services also maintain 24/7 availability to support emergency care needs.',
     },
   ];
 

@@ -55,7 +55,7 @@ const MultiSpecialtySection = () => {
     {
       id: 1,
       title: "Orthopedic Care",
-      tagline: "Bone, joint, and muscle health and repair.",
+      tagline: "Bone, joint and muscle health and repair.",
       image: "/images/vec2.svg",
     },
     {
@@ -67,7 +67,7 @@ const MultiSpecialtySection = () => {
     {
       id: 3,
       title: "ENT",
-      tagline: "Ear, nose, and throat care.",
+      tagline: "Ear, Nose, and Throat care.",
       image: "/images/vec3.svg",
     },
     {

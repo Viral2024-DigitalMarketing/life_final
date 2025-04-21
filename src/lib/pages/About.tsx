@@ -81,14 +81,4 @@ const About = () => {
     );
 };
 
-// Add this CSS variable to your global styles or component
-// :root {
-//   --mobile-offset: 30px;
-// }
-// @media (min-width: 640px) {
-//   :root {
-//     --mobile-offset: 0px;
-//   }
-// }
-
 export default About;

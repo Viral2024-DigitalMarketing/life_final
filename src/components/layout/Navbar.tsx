@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import EmergencyCardModal from '@/components/shared/EmergencyCardModal';
 import AppointmentModal from '@/components/shared/AppointmentModal';
+import HeroSection from "@/components/home/HeroSection.tsx";
 
 // Define proper interface for Navbar props
 interface NavbarProps {
@@ -79,6 +80,20 @@ const Navbar: React.FC<NavbarProps> = () => {
     toggleMenu();
   };
 
+  // Logo click handler - New function
+  const handleLogoClick = (e) => {
+    // If already on homepage, scroll to top
+    if (location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Navigate to homepage
+      navigate('/');
+      // After navigation, ensure we're at the top
+      setTimeout(() => window.scrollTo({ top: 0, behavior: 'auto' }), 100);
+    }
+  };
+
   const navLinkClass = `${isScrolled || !isHeroVisible ? 'text-gray-800' : 'text-white'} nav-link`;
 
   const navLinkActiveClass = 'active';
@@ -144,8 +159,8 @@ const Navbar: React.FC<NavbarProps> = () => {
           }`}
       >
         <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center z-10 mt-4">
+          {/* Logo - Updated with click handler */}
+          <Link to="/" className="flex items-center z-10 mt-4" onClick={handleLogoClick}>
             <img
                 src="/images/logo.svg"
                 alt="LIFE Hospital Logo"
@@ -438,7 +453,14 @@ const Navbar: React.FC<NavbarProps> = () => {
               </div>
 
               <nav className="flex flex-col gap-4">
-                <Link to="/" className="text-gray-800 text-base font-medium" onClick={toggleMenu}>Home</Link>
+                <Link to="/"
+                      className="text-gray-800 text-base font-medium"
+                      onClick={(e) => {
+                        toggleMenu();
+                        handleLogoClick(e);
+                      }}>
+                  Home
+                </Link>
 
                 {/* Services as a clickable link aligned left like Home */}
                 <Link

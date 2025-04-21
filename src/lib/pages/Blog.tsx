@@ -110,7 +110,7 @@ const Blog = () => {
                             alt="Blog visual"
                         />
 
-                        <div className="container mx-auto px-4 py-10">
+                        <div className="container mx-auto px-4 mt-30           py-10">
                             <div className="text-left">
                                 <h1 className="font-['Be Vietnam Pro'] font-semibold text-3xl leading-tight mb-4 text-gray-900 animate-fadeIn">
                                     Bone Health Mistakes You'll Regret

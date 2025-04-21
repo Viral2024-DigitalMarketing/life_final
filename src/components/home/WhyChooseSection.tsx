@@ -336,28 +336,22 @@ const WhyChooseSection = () => {
                                         animate={inView2 ? { opacity: 1 } : { opacity: 0 }}
                                         transition={{ duration: 0.3, delay: 2.7 }}
                                     >
-                                        <h3
-                                            className="font-[500] ml-[-16px] text-base sm:text-lg md:text-xl lg:text-2xl leading-[120%] tracking-[0.02em] text-white mb-2 md:mb-4 lg:mb-6"
-                                            style={{ fontFamily: "Merriweather, serif" }}
-                                        >
+                                        <h3 className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold text-white mb-2 md:mb-4 lg:mb-6 font-merriweather">
                                             Recognized for excellence in Ayushman Bharat & Rajiv
                                             Aarogyasri.
                                         </h3>
-                                        <p
-                                            className="font-[400] text-[10px] sm:text-xs md:text-sm lg:text-lg leading-[140%] tracking-[0.02em] text-white max-w-[90%] sm:max-w-xs md:max-w-xl"
-                                            style={{ fontFamily: "Merriweather, serif" }}
-                                        >
-                                            This Certificate Is Awarded To Life Hospital, Kamareddy For
-                                            Exemplary Performance Under Ayushman Bharat Pradhan Mantri
-                                            Jan Arogya Yojana (AB PM-JAY)-Rajiv Aarogyasri In The State
-                                            Of Telangana On 26 January 2024
+                                        <p className="text-[10px] sm:text-xs md:text-sm lg:text-base text-white max-w-[90%] sm:max-w-xs md:max-w-md">
+                                            This certificate is awarded to Life Hospital, Kamareddy for
+                                            exemplary performance under Ayushman Bharat Pradhan Mantri Jan
+                                            Arogya Yojana (AB PM-JAY)-Rajiv Aarogyasri in the State of
+                                            Telangana on 26 January 2024
                                         </p>
                                     </motion.div>
                                 </motion.div>
                                 {/* Yellow Blob */}
                                 <motion.div
                                     className="absolute w-full h-full z-20 top-[5px] md:top-[-10px] lg:top-[-20px] left-[5px] md:left-[10px] lg:left-[20px]"
-                                    initial={{ opacity: 0, y: -400, scale: 0.8 }}
+                                    initial={{opacity: 0, y: -400, scale: 0.8}}
                                     animate={
                                         inView2
                                             ? {
