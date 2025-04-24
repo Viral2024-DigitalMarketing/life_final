@@ -25,7 +25,6 @@ const servicesData: Service[] = [
             fontSize: '30px',
             lineHeight: '100%',
             letterSpacing: '-0.02em',
-            // textTransform: 'capitalize',
             color: '#333374',
         },
         taglineStyle: {
@@ -35,7 +34,6 @@ const servicesData: Service[] = [
             fontSize: '16px',
             lineHeight: '140%',
             letterSpacing: '0.02em',
-            // textTransform: 'capitalize',
             color: '#999999',
         },
     },
@@ -61,7 +59,6 @@ const servicesData: Service[] = [
             fontSize: '16px',
             lineHeight: '140%',
             letterSpacing: '0.02em',
-            // textTransform: 'capitalize',
             color: '#999999',
         },
     },
@@ -87,7 +84,6 @@ const servicesData: Service[] = [
             fontSize: '16px',
             lineHeight: '140%',
             letterSpacing: '0.02em',
-            // textTransform: 'capitalize',
             color: '#999999',
         },
     },
@@ -113,7 +109,6 @@ const servicesData: Service[] = [
             fontSize: '16px',
             lineHeight: '140%',
             letterSpacing: '0.02em',
-            // textTransform: 'capitalize',
             color: '#999999',
         },
     },
@@ -139,7 +134,6 @@ const servicesData: Service[] = [
             fontSize: '16px',
             lineHeight: '140%',
             letterSpacing: '0.02em',
-            // textTransform: 'capitalize',
             color: '#999999',
         },
     },
@@ -165,7 +159,6 @@ const servicesData: Service[] = [
             fontSize: '16px',
             lineHeight: '140%',
             letterSpacing: '0.02em',
-            // textTransform: 'capitalize',
             color: '#999999',
         },
     },
@@ -194,7 +187,7 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
     return (
         <section className={`py-24 px-4 md:px-12 lg:px-24 bg-white ${className}`}>
             <div className="container mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
                     {servicesData.map((service, index) => (
                         <div
                             key={service.id}
@@ -203,11 +196,10 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
                         >
                             <div
                                 ref={addToContentRefs}
-                                className={`rounded-[32px] p-5 flex flex-col items-center justify-between transition-all duration-300 hover:shadow-lg hover:scale-[1.02]
-                                    md:w-[592px] md:h-[317.33px] md:rounded-[40px] md:p-6 md:flex-row md:items-center
+                                className={`rounded-[32px] p accl-5 flex flex-col items-center justify-between transition-all duration-300 hover:shadow-lg hover:scale-[1.02]
+                                    md:w-full md:max-w-[540px] md:h-[317.33px] md:rounded-[40px] md:p-6 md:flex-row md:items-center
                                     sm:w-full sm:min-h-[280px] sm:rounded-[24px] sm:flex-col sm:items-center relative`}
                                 style={{
-                                    marginLeft: index % 2 === 0 ? '0' : 'auto',
                                     background: service.cardBackground || '#EDEDF6',
                                 }}
                             >

@@ -415,7 +415,7 @@ const WhyChooseSection = () => {
                                             Aarogyasri.
                                         </h3>
                                         <p
-                                            className="font-[400] text-[9px] sm:text-xs md:text-sm lg:text-lg leading-[140%] tracking-[0.02em] text-white max-w-[85%] sm:max-w-[85%] md:max-w-md lg:max-w-xl"
+                                            className="font-[400] text-[9px] sm:text-xs md:text-sm lg:text-lg leading-[140%] tracking-[0.02em] text-white max-w-[85%] sm:max-w-[85%]  md:max-w-md lg:max-w-xl"
                                             style={{ fontFamily: "Merriweather, serif" }}
                                         >
                                             This Certificate Is Awarded To Life Hospital, Kamareddy For
@@ -434,7 +434,7 @@ const WhyChooseSection = () => {
             {/* Section 3 - Desktop Appointment Button */}
             <div
                 ref={ref3}
-                className="min-h-[100px] md:min-h-[150px] lg:min-h-[200px] mt-[-40px] md:mt-[-60px] lg:mt-[-100px] flex items-center justify-center py-6 md:py-8 lg:py-12 relative hidden md:block"
+                className="min-h-[100px]  md:min-h-[150px] lg:min-h-[200px] mt-[-10px] md:mt-[-70px] lg:mt-[-130px] flex items-center justify-center py-6 md:py-8 lg:py-12 relative hidden md:block"
             >
                 <div className="container mx-auto px-4">
                     <motion.div

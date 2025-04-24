@@ -93,29 +93,33 @@ const JointReplacementPage = () => {
             <main className="flex-grow">
                 {/* Hero Section - Updated for consistent text styling */}
                 <section
-                    className="relative mt-5 w-full h-[50vh] md:h-[100vh] bg-no-repeat bg-[length:200%] md:bg-cover bg-[center_top_40px] md:bg-[center_bottom_-20px] flex flex-col justify-center items-center text-center"
+                    className="relative mt-5 w-full h-[50vh] md:h-[100vh] bg-no-repeat bg-cover bg-center flex flex-col justify-center items-center text-center"
                     style={{
                         backgroundImage: "url('/images/100_hero.webp')",
                     }}
                 >
-                    {/* Top Text - Aligned with bottom text styling */}
-                    <div className="absolute top-[60px] md:top-[90px] left-1/2 transform -translate-x-1/2 text-white text-center px-4">
-                        <div className="text-[14px] md:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
+                    {/* Top Text */}
+                    <div
+                        className="absolute top-4 sm:top-6 md:top-8 lg:top-10 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
+                        <div
+                            className="text-[12px] sm:text-[16px] md:text-[24px]  mt-7 lg:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
                             Completed
                         </div>
                     </div>
 
-                    {/* Bottom Text - Unchanged */}
-                    <div className="absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
-                        <div className="text-[14px] md:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
+                    {/* Bottom Text */}
+                    <div
+                        className="absolute bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
+                        <div
+                            className="text-[12px] sm:text-[16px] md:text-[24px] lg:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
                             TOTAL HIP REPLACEMENT
                         </div>
-                        <div className="text-[10px] md:text-2xl font-semibold mt-1 uppercase tracking-[0.25em] font-vietnam-pro">
+                        <div
+                            className="text-[8px] sm:text-[10px] md:text-[16px] lg:text-2xl font-semibold mt-1 uppercase tracking-[0.25em] font-vietnam-pro">
                             SURGERIES
                         </div>
                     </div>
                 </section>
-
                 {/* Cards Section - Unchanged */}
                 <section className="text-center bg-[#F9F9F9] pt-4 md:pt-12 pb-12">
                     <h2 className="text-[28px] md:text-[52px] text-black font-abhaya-libre font-semibold tracking-[1%] leading-[100%] text-center px-4">
@@ -156,14 +160,14 @@ const JointReplacementPage = () => {
 
                 {/* CTA - Unchanged */}
                 <section className="mt-12">
-                    <ServicesCTA addToContentRefs={addToContentRefs} />
+                    <ServicesCTA addToContentRefs={addToContentRefs}/>
                 </section>
             </main>
 
-            <Footer />
+            <Footer/>
 
             {/* Appointment Modal - Unchanged */}
-            <AppointmentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <AppointmentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}/>
         </div>
     );
 };

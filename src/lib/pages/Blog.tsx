@@ -147,13 +147,9 @@ const Blog = () => {
                         className="hidden sm:block relative h-[700px] lg:h-[800px] bg-no-repeat bg-cover bg-center"
                         style={{ backgroundImage: "url('/images/legblog.svg')" }}
                     >
-
-                        {/*/!* Gradient overlay for smooth blending *!/*/}
-                        {/*<div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/50 to-transparent"></div>*/}
-
                         {/* Text Content */}
                         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-                            <div className="max-w-xl lg:max-w-2xl text-left relative top-[50px]">
+                            <div className="max-w-xl lg:max-w-2xl text-left relative top-[130px]"> {/* Changed from top-[50px] to top-[60px] */}
                                 <h1 className="font-['Be Vietnam Pro'] font-semibold text-4xl md:text-5xl lg:text-6xl leading-tight mb-6 text-gray-900 animate-fadeIn">
                                     Bone Health Mistakes You'll Regret
                                 </h1>

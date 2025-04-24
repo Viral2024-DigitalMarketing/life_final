@@ -314,7 +314,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </Link>
               </HoverCardTrigger>
               <HoverCardContent className="shadow-md overflow-auto" style={hoverCardContentStyle}>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+                <div className="grid ml-40 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                   {/* Left Column */}
                   <div className="flex flex-col justify-start space-y-4 lg:space-y-6 lg:ml-[-60px] col-span-1">
                     {/* General Enquiry */}
