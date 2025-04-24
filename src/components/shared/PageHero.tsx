@@ -15,7 +15,7 @@ const PageHero: React.FC<PageHeroProps> = ({
                                                backgroundImage = '/src/assets/hero-bg.jpg',
                                                customContent,
                                                height = 'h-[100vh]',
-                                               backgroundPositionY = '-10%' // ✅ Shift the image slightly upward
+                                               backgroundPositionY = '-10%'
                                            }) => {
     return (
         <div className={`relative w-full ${height} flex items-center justify-center`}>

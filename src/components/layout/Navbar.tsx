@@ -45,6 +45,19 @@ const Navbar: React.FC<NavbarProps> = () => {
 
   const isHeroVisible = shouldShowHero();
 
+  // Handle screen resize to prevent layout issues
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024 && isMenuOpen) {
+        setIsMenuOpen(false);
+        document.body.style.overflow = '';
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMenuOpen]);
+
   // Handle scroll event to make navbar sticky
   useEffect(() => {
     const handleScroll = () => {
@@ -62,6 +75,13 @@ const Navbar: React.FC<NavbarProps> = () => {
   // Toggle mobile menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+
+    // Prevent body scroll when menu is open
+    if (!isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   };
 
   // Open appointment modal
@@ -98,27 +118,27 @@ const Navbar: React.FC<NavbarProps> = () => {
 
   const navLinkActiveClass = 'active';
 
+  // Responsive styles for hover card content
   const hoverCardContentStyle = {
-    marginLeft: '100px',
-    marginTop: '12px',
-    width: '1200px',
-    height: '404.90606689453125px',
+    width: 'calc(100vw - 40px)',
+    maxWidth: '1200px',
+    height: 'auto',
+    maxHeight: '85vh',
+    overflow: 'auto',
     justifyContent: 'space-between',
-    padding: '36px 100px',
+    padding: '24px',
     borderBottomRightRadius: '16px',
     borderBottomLeftRadius: '16px',
     backgroundColor: '#FFFFFF',
   };
 
+  // Responsive styles for service card
   const serviceCardStyle = {
-    width: '380px',
+    width: '100%',
     padding: '20px',
     backgroundColor: '#F9FAFB',
     borderRadius: '8px',
     transition: 'background-color 0.3s ease',
-    '&:hover': {
-      backgroundColor: '#F3F4F6',
-    },
   };
 
   const serviceHeadingStyle = {
@@ -131,7 +151,6 @@ const Navbar: React.FC<NavbarProps> = () => {
     marginBottom: '10px',
     cursor: 'pointer',
     transition: 'color 0.3s ease',
-    '&:hover': { color: '#306EB6' },
   };
 
   const subHeadingStyle = {
@@ -147,7 +166,6 @@ const Navbar: React.FC<NavbarProps> = () => {
     marginBottom: '6px',
     cursor: 'pointer',
     transition: 'background-color 0.3s ease, color 0.3s ease',
-    '&:hover': { backgroundColor: '#E6F3FF', color: '#306EB6' },
   };
 
   return (
@@ -160,41 +178,41 @@ const Navbar: React.FC<NavbarProps> = () => {
       >
         <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between">
           {/* Logo - Updated with click handler */}
-          <Link to="/" className="flex items-center z-10 mt-4" onClick={handleLogoClick}>
+          <Link to="/" className="flex items-center z-10 mt-0 sm:mt-2 md:mt-4" onClick={handleLogoClick}>
             <img
                 src="/images/logo.svg"
                 alt="LIFE Hospital Logo"
-                className={`h-10 md:h-12 object-contain ${
+                className={`h-8 sm:h-10 md:h-12 object-contain ${
                     isScrolled || !isHeroVisible ? 'filter-hospital-blue' : 'filter-white'
                 }`}
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className={`hidden lg:flex mt-6 ml-[-550px] items-center gap-8 ${
+          <nav className={`hidden lg:flex mt-0 ml-0 xl:ml-[-550px] items-center gap-6 xl:gap-8 ${
               isScrolled || !isHeroVisible ? 'text-gray-800' : 'text-white'
           }`}>
             {/* Services Dropdown Hover Card */}
             <HoverCard openDelay={200} closeDelay={100} placement="bottom-end" offset={40}>
               <HoverCardTrigger asChild>
-                <Link to="/services" className={`${navLinkClass} ${location.pathname === '/services' || location.pathname.includes('/services/') ? navLinkActiveClass : ''}`}>
+                <Link to="/services" className={`${navLinkClass} ${location.pathname === '/services' || location.pathname.includes('/services/') ? navLinkActiveClass : ''} relative hover:text-hospital-blue transition-colors`}>
                   Services
                 </Link>
               </HoverCardTrigger>
-              <HoverCardContent className="shadow-md" style={hoverCardContentStyle}>
-                <div className="grid grid-cols-3 gap-x-4 gap-y-6 items-start">
+              <HoverCardContent className="shadow-md overflow-auto" style={hoverCardContentStyle}>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                   {/* Left Column */}
-                  <div className="flex flex-col justify-start space-y-6 ml-[-60px] col-span-1">
+                  <div className="flex flex-col justify-start space-y-4 lg:space-y-6 lg:ml-[-60px] col-span-1">
                     {/* Joint Replacement */}
                     <Link
                         to="/services/joint-replacement"
                         className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100"
                         style={serviceCardStyle}
                     >
-                      <h3 style={serviceHeadingStyle}>Joint Replacement</h3>
+                      <h3 style={serviceHeadingStyle} className="hover:text-hospital-blue">Joint Replacement</h3>
                       <div className="mt-2 space-y-1">
-                        <Link to="/services/joint-replacement#knee" className="block" style={subHeadingStyle}>Knee Replacement</Link>
-                        <Link to="/services/joint-replacement#hip" className="block" style={subHeadingStyle}>Hip Replacement</Link>
+                        <Link to="/services/joint-replacement#knee" className="block hover:bg-blue-50 hover:text-hospital-blue" style={subHeadingStyle}>Knee Replacement</Link>
+                        <Link to="/services/joint-replacement#hip" className="block hover:bg-blue-50 hover:text-hospital-blue" style={subHeadingStyle}>Hip Replacement</Link>
                       </div>
                     </Link>
 
@@ -204,27 +222,27 @@ const Navbar: React.FC<NavbarProps> = () => {
                         className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100"
                         style={serviceCardStyle}
                     >
-                      <h3 style={serviceHeadingStyle}>General Health</h3>
+                      <h3 style={serviceHeadingStyle} className="hover:text-hospital-blue">General Health</h3>
                       <div className="mt-2 space-y-1">
-                        <Link to="/services/general-health#medicine" className="block" style={subHeadingStyle}>General Medicine</Link>
-                        <Link to="/services/general-health#surgery" className="block" style={subHeadingStyle}>General Surgery</Link>
-                        <Link to="/services/general-health#dental" className="block" style={subHeadingStyle}>Dental Surgery</Link>
+                        <Link to="/services/general-health#medicine" className="block hover:bg-blue-50 hover:text-hospital-blue" style={subHeadingStyle}>General Medicine</Link>
+                        <Link to="/services/general-health#surgery" className="block hover:bg-blue-50 hover:text-hospital-blue" style={subHeadingStyle}>General Surgery</Link>
+                        <Link to="/services/general-health#dental" className="block hover:bg-blue-50 hover:text-hospital-blue" style={subHeadingStyle}>Dental Surgery</Link>
                       </div>
                     </Link>
                   </div>
 
                   {/* Right Column */}
-                  <div className="flex flex-col justify-start space-y-6 ml-[-100px] col-span-1">
+                  <div className="flex flex-col justify-start space-y-4 lg:space-y-6 lg:ml-[-100px] col-span-1">
                     {/* Orthopedics & Muscle Care */}
                     <Link
                         to="/services/orthopedic"
                         className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100"
                         style={serviceCardStyle}
                     >
-                      <h3 style={serviceHeadingStyle}>Orthopedics & Muscle Care</h3>
+                      <h3 style={serviceHeadingStyle} className="hover:text-hospital-blue">Orthopedics & Muscle Care</h3>
                       <div className="mt-2 space-y-1">
-                        <Link to="/services/orthopedic#orthopedic" className="block" style={subHeadingStyle}>Orthopedic</Link>
-                        <Link to="/services/orthopedic#arthroscopy" className="block" style={subHeadingStyle}>Arthroscopy</Link>
+                        <Link to="/services/orthopedic#orthopedic" className="block hover:bg-blue-50 hover:text-hospital-blue" style={subHeadingStyle}>Orthopedic</Link>
+                        <Link to="/services/orthopedic#arthroscopy" className="block hover:bg-blue-50 hover:text-hospital-blue" style={subHeadingStyle}>Arthroscopy</Link>
                       </div>
                     </Link>
 
@@ -234,16 +252,16 @@ const Navbar: React.FC<NavbarProps> = () => {
                         className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100"
                         style={serviceCardStyle}
                     >
-                      <h3 style={serviceHeadingStyle}>Specialized Services</h3>
+                      <h3 style={serviceHeadingStyle} className="hover:text-hospital-blue">Specialized Services</h3>
                       <div className="mt-2 space-y-1">
-                        <Link to="/services/specialized-services#plastic" className="block" style={subHeadingStyle}>Plastic Surgery</Link>
-                        <Link to="/services/specialized-services#ent" className="block" style={subHeadingStyle}>ENT</Link>
+                        <Link to="/services/specialized-services#plastic" className="block hover:bg-blue-50 hover:text-hospital-blue" style={subHeadingStyle}>Plastic Surgery</Link>
+                        <Link to="/services/specialized-services#ent" className="block hover:bg-blue-50 hover:text-hospital-blue" style={subHeadingStyle}>ENT</Link>
                       </div>
                     </Link>
                   </div>
 
                   {/* Image Column */}
-                  <div className="flex flex-col justify-start space-y-4 col-span-1">
+                  <div className="hidden lg:flex flex-col justify-start space-y-4 col-span-1">
                     <div className="mt-4">
                       <img
                           src="/images/nav1.svg"
@@ -263,7 +281,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </div>
                 </div>
                 {/* Social Links */}
-                <div className="absolute bottom-6 left-550 flex ml-[930px] gap-6">
+                <div className="mt-4 lg:mt-0 lg:absolute lg:bottom-6 flex justify-end lg:ml-[930px] gap-6">
                   <Link
                       to="https://www.instagram.com/"
                       target="_blank"
@@ -284,25 +302,21 @@ const Navbar: React.FC<NavbarProps> = () => {
               </HoverCardContent>
             </HoverCard>
 
-            <Link to="/about" className={`${navLinkClass} ${location.pathname === '/about' ? navLinkActiveClass : ''}`}>
+            <Link to="/about" className={`${navLinkClass} ${location.pathname === '/about' ? navLinkActiveClass : ''} hover:text-hospital-blue transition-colors`}>
               About Us
             </Link>
 
             {/* Contact Us Link with Hover Card */}
             <HoverCard openDelay={200} closeDelay={100} placement="bottom-end" offset={40}>
               <HoverCardTrigger asChild>
-                <Link to="/contact" className={`${navLinkClass} ${location.pathname === '/contact' ? navLinkActiveClass : ''} relative`}>
+                <Link to="/contact" className={`${navLinkClass} ${location.pathname === '/contact' ? navLinkActiveClass : ''} relative hover:text-hospital-blue transition-colors`}>
                   Contact Us
-                  <div className="absolute top-1/2 right-[-20px] transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-
-                  </div>
                 </Link>
-
               </HoverCardTrigger>
-              <HoverCardContent className="shadow-md" style={hoverCardContentStyle}>
-                <div className="grid grid-cols-3 gap-x-4 gap-y-6 items-start">
+              <HoverCardContent className="shadow-md overflow-auto" style={hoverCardContentStyle}>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                   {/* Left Column */}
-                  <div className="flex flex-col justify-start space-y-6 ml-[-60px] col-span-1">
+                  <div className="flex flex-col justify-start space-y-4 lg:space-y-6 lg:ml-[-60px] col-span-1">
                     {/* General Enquiry */}
                     <div
                         className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100 cursor-default"
@@ -315,7 +329,6 @@ const Navbar: React.FC<NavbarProps> = () => {
                       </div>
                     </div>
 
-
                     {/* Appointment Booking */}
                     <div
                         className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100 cursor-default"
@@ -327,27 +340,25 @@ const Navbar: React.FC<NavbarProps> = () => {
                         <p style={subHeadingStyle}>+91 8597002535</p>
                       </div>
                     </div>
-
                   </div>
 
                   {/* Right Column */}
-                  <div className="flex flex-col justify-start space-y-6 ml-[-100px] col-span-1">
+                  <div className="flex flex-col justify-start space-y-4 lg:space-y-6 lg:ml-[-100px] col-span-1">
                     {/* Emergency Services */}
                     <div
                         className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100 cursor-default"
                         style={serviceCardStyle}
                     >
-                      <h3 style={serviceHeadingStyle}>Emergency Services</h3>
+                      <h3 style={serviceHeadingStyle} className="text-red-600">Emergency Services</h3>
                       <div className="mt-2 space-y-1">
                         <p style={subHeadingStyle}>+91 7002585724</p>
                         <p style={subHeadingStyle}>+91 7002585724</p>
                       </div>
                     </div>
-
                   </div>
 
                   {/* Image Column */}
-                  <div className="flex flex-col justify-start space-y-4 col-span-1">
+                  <div className="hidden lg:flex flex-col justify-start space-y-4 col-span-1">
                     <div className="mt-4">
                       <img
                           src="/images/nav_con.svg"
@@ -367,7 +378,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </div>
                 </div>
                 {/* Social Links */}
-                <div className="absolute bottom-6 left-550 flex ml-[930px] gap-6">
+                <div className="mt-4 lg:mt-0 lg:absolute lg:bottom-6 flex justify-end lg:ml-[930px] gap-6">
                   <Link
                       to="https://www.instagram.com/"
                       target="_blank"
@@ -387,7 +398,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </div>
               </HoverCardContent>
             </HoverCard>
-            <Link to="/blog" className={`${navLinkClass} ${location.pathname.includes('/blog') ? navLinkActiveClass : ''}`}>
+            <Link to="/blog" className={`${navLinkClass} ${location.pathname.includes('/blog') ? navLinkActiveClass : ''} hover:text-hospital-blue transition-colors`}>
               Blog
             </Link>
           </nav>
@@ -402,12 +413,12 @@ const Navbar: React.FC<NavbarProps> = () => {
                   }`}
               >
                 <Headset size={18} />
-                <span className="font-medium">+91 7002585724</span>
+                <span className="font-medium text-sm mr-4 xl:mr-[70px]">+91 7002585724</span>
               </a>
-              <div className="flex items-center gap-6 mt-2">
+              <div className="flex items-center gap-4 xl:gap-6 mt-2">
                 <Button
                     onClick={openAppointmentModal}
-                    className="bg-hospital-blue hover:bg-blue-800 text-white"
+                    className="bg-hospital-blue hover:bg-blue-800 text-white text-xs xl:text-sm px-3 py-1 xl:px-4 xl:py-2 whitespace-nowrap"
                     style={{ borderRadius: '30px' }}
                 >
                   Request Appointment
@@ -416,8 +427,9 @@ const Navbar: React.FC<NavbarProps> = () => {
                 <button
                     onClick={openEmergencyModal}
                     className="flex items-center hover:opacity-80 transition-opacity"
+                    aria-label="Emergency"
                 >
-                  <Siren size={25} color="red" />
+                  <Siren size={20} className="xl:w-6 xl:h-6" color="red" />
                 </button>
               </div>
             </div>
@@ -429,7 +441,8 @@ const Navbar: React.FC<NavbarProps> = () => {
                 variant="ghost"
                 size="icon"
                 onClick={toggleMenu}
-                className={`${isScrolled || !isHeroVisible ? 'text-gray-800' : 'text-white'}`}
+                className={`p-1 ${isScrolled || !isHeroVisible ? 'text-gray-800' : 'text-white'}`}
+                aria-label="Toggle menu"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </Button>
@@ -437,24 +450,34 @@ const Navbar: React.FC<NavbarProps> = () => {
 
           {/* Mobile Navigation Overlay */}
           {isMenuOpen && (
-              <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={toggleMenu}></div>
+              <div
+                  className="fixed inset-0 z-40 bg-black bg-opacity-50"
+                  onClick={toggleMenu}
+                  aria-hidden="true"
+              ></div>
           )}
 
           {/* Mobile Navigation Menu with max-width to prevent horizontal scroll */}
-          <div className={`fixed top-0 right-0 h-full w-full max-w-xs bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 overflow-y-auto overflow-x-hidden ${
+          <div className={`fixed top-0 right-0 h-full w-full max-w-[280px] sm:max-w-xs bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 overflow-y-auto overflow-x-hidden ${
               isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}>
             <div className="p-5">
               <div className="flex justify-between items-center mb-8">
                 <h1 className="text-xl font-bold text-hospital-blue">LIFE Hospital</h1>
-                <Button variant="ghost" size="icon" onClick={toggleMenu}>
-                  <X size={24} />
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={toggleMenu}
+                    className="p-1"
+                    aria-label="Close menu"
+                >
+                  <X size={20} />
                 </Button>
               </div>
 
               <nav className="flex flex-col gap-4">
                 <Link to="/"
-                      className="text-gray-800 text-base font-medium"
+                      className="text-gray-800 text-base font-medium hover:text-hospital-blue transition-colors"
                       onClick={(e) => {
                         toggleMenu();
                         handleLogoClick(e);
@@ -465,102 +488,62 @@ const Navbar: React.FC<NavbarProps> = () => {
                 {/* Services as a clickable link aligned left like Home */}
                 <Link
                     to="/services"
-                    className="text-gray-800 text-base font-medium"
+                    className="text-gray-800 text-base font-medium hover:text-hospital-blue transition-colors"
                     onClick={toggleMenu}
                 >
                   Services
                 </Link>
 
                 <div className="ml-4 space-y-2">
-                  <Link to="/services/joint-replacement" className="block text-gray-700 text-sm hover:text-hospital-blue" onClick={toggleMenu}>Joint Replacement</Link>
-                  <Link to="/services/orthopedic" className="block text-gray-700 text-sm hover:text-hospital-blue" onClick={toggleMenu}>Orthopedics & Muscle Care</Link>
-                  <Link to="/services/general-health" className="block text-gray-700 text-sm hover:text-hospital-blue" onClick={toggleMenu}>General Health</Link>
-                  <Link to="/services/specialized-services" className="block text-gray-700 text-sm hover:text-hospital-blue" onClick={toggleMenu}>Specialized Services</Link>
+                  <Link to="/services/joint-replacement" className="block text-gray-700 text-sm hover:text-hospital-blue transition-colors" onClick={toggleMenu}>Joint Replacement</Link>
+                  <Link to="/services/orthopedic" className="block text-gray-700 text-sm hover:text-hospital-blue transition-colors" onClick={toggleMenu}>Orthopedics & Muscle Care</Link>
+                  <Link to="/services/general-health" className="block text-gray-700 text-sm hover:text-hospital-blue transition-colors" onClick={toggleMenu}>General Health</Link>
+                  <Link to="/services/specialized-services" className="block text-gray-700 text-sm hover:text-hospital-blue transition-colors" onClick={toggleMenu}>Specialized Services</Link>
                 </div>
 
-                <Link to="/about" className="text-gray-800 text-base font-medium" onClick={toggleMenu}>About Us</Link>
+                <Link to="/about" className="text-gray-800 text-base font-medium hover:text-hospital-blue transition-colors" onClick={toggleMenu}>About Us</Link>
 
                 {/* Contact Us with hover card-like content in mobile */}
                 <div className="space-y-3">
-                  <Link to="/contact" className="text-gray-800 text-base font-medium" onClick={toggleMenu}>Contact Us</Link>
+                  <Link to="/contact" className="text-gray-800 text-base font-medium hover:text-hospital-blue transition-colors" onClick={toggleMenu}>Contact Us</Link>
 
                   {/* Contact info styled like hover card */}
-                  <div className="ml-4 bg-gray-50 rounded-lg p-4">
+                  <div className="ml-4 bg-gray-50 rounded-lg p-3 sm:p-4">
                     {/* General Enquiry */}
                     <div className="mb-3">
-                      <h3 style={{
-                        fontFamily: 'Ranade',
-                        fontWeight: 500,
-                        fontSize: '16px',
-                        lineHeight: '100%',
-                        letterSpacing: '1%',
-                        color: '#000000',
-                      }}>General Enquiry</h3>
+                      <h3 className="font-medium text-sm sm:text-base text-gray-900">General Enquiry</h3>
                       <div className="mt-1">
-                        <a href="tel:+918592859585" style={{
-                          fontFamily: 'Be Vietnam Pro',
-                          fontWeight: 400,
-                          fontSize: '14px',
-                          lineHeight: '100%',
-                          letterSpacing: '0%',
-                          color: '#2C2C2CF2',
-                        }}>+91 8592859585</a>
+                        <a href="tel:+918592859585" className="block text-xs sm:text-sm text-gray-700 hover:text-hospital-blue transition-colors">+91 8592859585</a>
                       </div>
                     </div>
 
                     {/* Emergency Services */}
                     <div className="mb-3">
-                      <h3 style={{
-                        fontFamily: 'Ranade',
-                        fontWeight: 500,
-                        fontSize: '16px',
-                        lineHeight: '100%',
-                        letterSpacing: '1%',
-                        color: '#D61A1A',
-                      }}>Emergency Services</h3>
+                      <h3 className="font-medium text-sm sm:text-base text-red-600">Emergency Services</h3>
                       <div className="mt-1">
-                        <a href="tel:+917002585724" style={{
-                          fontFamily: 'Be Vietnam Pro',
-                          fontWeight: 400,
-                          fontSize: '14px',
-                          lineHeight: '100%',
-                          letterSpacing: '0%',
-                          color: '#2C2C2CF2',
-                        }}>+91 7002585724</a>
+                        <a href="tel:+917002585724" className="block text-xs sm:text-sm text-gray-700 hover:text-red-600 transition-colors">+91 7002585724</a>
                       </div>
                     </div>
 
                     {/* Appointment Booking */}
                     <div>
-                      <h3 style={{
-                        fontFamily: 'Ranade',
-                        fontWeight: 500,
-                        fontSize: '16px',
-                        lineHeight: '100%',
-                        letterSpacing: '1%',
-                        color: '#000000',
-                      }}>Appointment Booking</h3>
+                      <h3 className="font-medium text-sm sm:text-base text-gray-900">Appointment Booking</h3>
                       <div className="mt-1">
-                        <a href="tel:+918597002535" style={{
-                          fontFamily: 'Be Vietnam Pro',
-                          fontWeight: 400,
-                          fontSize: '14px',
-                          lineHeight: '100%',
-                          letterSpacing: '0%',
-                          color: '#2C2C2CF2',
-                        }}>+91 8597002535</a>
+                        <a href="tel:+918597002535" className="block text-xs sm:text-sm text-gray-700 hover:text-hospital-blue transition-colors">+91 8597002535</a>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <Link to="/blog" className="text-gray-800 text-base font-medium" onClick={toggleMenu}>Blog</Link>
+                <Link to="/blog" className="text-gray-800 text-base font-medium hover:text-hospital-blue transition-colors" onClick={toggleMenu}>Blog</Link>
               </nav>
 
               <div className="mt-6 space-y-4">
                 <div className="flex items-center justify-center gap-2">
-                  <Phone size={16} />
-                  <span className="text-sm">+91 7002585724</span>
+                  <Phone size={16} className="text-hospital-blue" />
+                  <a href="tel:+917002585724" className="text-sm hover:text-hospital-blue transition-colors">
+                    +91 7002585724
+                  </a>
                 </div>
 
                 <Button

@@ -102,31 +102,20 @@ const AboutSection = () => {
 
         // Different animations based on screen type
         if (screenType === 'mobile') {
-            // Mobile animation: Keep the number centered while scaling down
+            // Mobile animation: Keep the number perfectly centered while scaling down
             tl.to(containerRef.current, {
                 scale: 0.5,
-                x: "0", // Keep centered horizontally
+                x: "0%", // Ensure it's centered horizontally
                 y: "-20vh", // Move up vertically
                 transformOrigin: "center center", // This ensures scaling happens from the center
                 duration: 1.8,
                 ease: "power3.inOut",
             });
-        } else if (screenType === 'tablet') {
-            // Tablet animation: Smaller movement to keep number in view
-            tl.to(containerRef.current, {
-                scale: 0.3,
-                x: "-25vw", // Less movement to the left
-                y: "-25vh",
-                transformOrigin: "center center", // Center scaling for tablets
-                duration: 1.8,
-                ease: "power3.inOut",
-            });
         } else {
-            // Unified desktop, large, and xlarge layout
-            // Consistent positioning with 180px margin from left (increased by 150px total)
+            // Tablet, Desktop, and larger screens - all use the same animation style now
             tl.to(containerRef.current, {
-                scale: screenType === 'desktop' ? 0.3 : screenType === 'large' ? 0.25 : 0.2,
-                x: "calc(-50% + 180px)", // Increased from original 30px to 180px (added 150px total)
+                scale: screenType === 'tablet' ? 0.3 : screenType === 'desktop' ? 0.3 : screenType === 'large' ? 0.25 : 0.2,
+                x: "calc(-50% + 180px)", // Unified positioning for tablet and above
                 y: "-25vh",
                 transformOrigin: "left center", // Scale from left side
                 duration: 1.8,
@@ -168,7 +157,7 @@ const AboutSection = () => {
 
         // Animation CSS as string
         styleElement.innerHTML = `
-            /* Improved infinite scroll for mobile */
+            /* Fast, smooth infinite scroll for mobile */
             @keyframes mobileInfiniteScroll {
                 0% {
                     transform: translateX(0);
@@ -196,13 +185,13 @@ const AboutSection = () => {
             }
 
             .mobile-scrolling-cards {
-                animation: mobileInfiniteScroll 60s linear infinite;
+                animation: mobileInfiniteScroll 40s linear infinite; /* Faster animation for smoother look */
                 width: max-content;
             }
 
             .mobile-card {
                 position: relative;
-                animation: cardZIndexAnimation 60s linear infinite;
+                animation: cardZIndexAnimation 40s linear infinite;
                 animation-delay: inherit; /* Inherit delay from parent */
             }
 
@@ -332,6 +321,33 @@ const AboutSection = () => {
     const isLargeOrAbove = isLarge || isXLarge;
     const isDesktopOrAbove = isDesktop || isLarge || isXLarge;
 
+    // Calculate consistent text distance from number across all screen sizes
+    // Moved up 2px for mobile as requested
+    const getTextDistanceFromNumber = () => {
+        if (isMobile) {
+            return '220px'; // 240px - 2px (moved up 2px for mobile)
+        } else if (isTablet) {
+            return '240px'; // Consistent distance for tablet
+        } else {
+            return '300px'; // Consistent distance for desktop and larger
+        }
+    };
+
+    // Calculate the vertical margin for cards to prevent overlap
+    const getCardsMarginTop = () => {
+        if (isMobile) {
+            return '40vh'; // Increased margin to prevent overlap
+        } else if (isTablet) {
+            return '45vh'; // Increased margin for tablet
+        } else if (isDesktop) {
+            return '68vh'; // Increased margin for desktop
+        } else if (isLarge) {
+            return '68vh'; // Increased margin for large screens
+        } else {
+            return '75vh'; // Increased margin for xlarge screens
+        }
+    };
+
     return (
         <section
             ref={sectionRef}
@@ -360,7 +376,7 @@ const AboutSection = () => {
                           fontFamily: "Plus Jakarta Sans",
                           position: "relative",
                           marginTop: isMobile ? "-450px" : isTablet ? "-300px" : "0px",
-                          left: isMobile || isTablet ? "0px" : "200px", // Increased from 50px to 200px (added 150px)
+                          left: isMobile ? "0px" : isTablet ? "0px" : "200px", // Center for mobile and tablet, 200px left for desktop+
                       }}
                   >
                     9
@@ -391,12 +407,11 @@ const AboutSection = () => {
                                             ? "calc(50% + 200px)"
                                             : "calc(50% + 190px)",
                             transform:
-                                isMobile || isTablet ? "translateX(-50%)" : "translateX(-50%)", // You can tweak/remove for desktop if needed
+                                isMobile || isTablet ? "translateX(-50%)" : "translateX(-50%)", // Center for mobile and tablet
                             boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
                             zIndex: 25,
                         }}
                     >
-
                         <img
                             src="/images/hap.svg"
                             alt="Healthcare Image"
@@ -450,7 +465,7 @@ const AboutSection = () => {
                 </div>
             )}
 
-            {/* Mobile Floating Cards - With z-index animation */}
+            {/* Mobile Floating Cards - With z-index animation - Single row for all mobile views */}
             {isMobile && (
                 <div
                     ref={floatingCardsRef}
@@ -501,9 +516,9 @@ const AboutSection = () => {
                     lineHeight: '120%',
                     letterSpacing: '3%',
                     color: '#424294',
-                    marginTop: isMobile ? '200px' : isTablet ? '210px' : '300px',
+                    marginTop: getTextDistanceFromNumber(), // Consistent distance from number across all screen sizes
                     right: isMobile ? 0 : 'auto',
-                    left: isMobile ? 0 : isTablet ? '50px' : '230px', // Increased from 80px to 230px (added 150px)
+                    left: isMobile ? 0 : isTablet ? '50px' : '230px', // Center for mobile, offset for tablet/desktop
                     textAlign: isMobile ? 'center' : 'left',
                     width: isMobile ? '100%' : 'auto',
                     zIndex: 30, // Higher z-index to ensure text appears above everything
@@ -512,15 +527,12 @@ const AboutSection = () => {
                 Years of <br/> Orthopedic Excellence
             </div>
 
-            {/* Cards Section - maintained at bottom of page with consistent positioning and higher z-index */}
+            {/* Cards Section - with adjusted vertical margins to prevent overlap with text */}
             <div
-                className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 ${
-                    isMobile ? 'mt-[34vh]' :
-                        isTablet ? 'mt-[40vh]' :
-                            isDesktop ? 'mt-[65vh]' :
-                                isLarge ? 'mt-[65vh]' :
-                                    'mt-[70vh]'
-                } relative z-40 max-w-[1200px] mx-auto`} // Higher z-index to ensure cards appear above everything
+                className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 relative z-40 max-w-[1200px] mx-auto`} // Higher z-index to ensure cards appear above everything
+                style={{
+                    marginTop: getCardsMarginTop() // Dynamic margin based on screen size to prevent overlap
+                }}
             >
                 {[1, 2].map((_, idx) => (
                     <div
@@ -529,7 +541,7 @@ const AboutSection = () => {
                     >
                         <img
                             src={`/images/about_sec${idx === 0 ? "" : "2"}.svg`}
-                            className="w-full h-[200px] sm:h-[220px] sm:w-[551px] sm:h-[385px] object-con mb-3 sm:mb-4 rounded-lg"
+                            className="w-full h-[200px] sm:h-[220px] md:w-[551px] md:h-[385px] object-cover mb-3 sm:mb-4 rounded-lg"
                             alt={idx === 0 ? "Best Healthcare" : "Trusted Specialists"}
                         />
                         <p className="text-xs sm:text-sm text-gray-600">#1 in Kamareddy</p>
