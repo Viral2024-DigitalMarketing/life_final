@@ -105,11 +105,11 @@ const AboutSection = () => {
             // Mobile animation: Keep the number perfectly centered while scaling down
             tl.to(containerRef.current, {
                 scale: 0.5,
-                x: "0%", // Ensure it's centered horizontally
+                x: "0%", // Ensure it's centered horizontally for ALL mobile screens
                 y: "-20vh", // Move up vertically
                 transformOrigin: "center center", // This ensures scaling happens from the center
-                duration: 1.8,
-                ease: "power3.inOut",
+                duration: 1.5, // Slightly faster for smoother animation
+                ease: "power2.inOut", // Changed to power2 for smoother animation
             });
         } else {
             // Tablet, Desktop, and larger screens - all use the same animation style now
@@ -118,8 +118,8 @@ const AboutSection = () => {
                 x: "calc(-50% + 180px)", // Unified positioning for tablet and above
                 y: "-25vh",
                 transformOrigin: "left center", // Scale from left side
-                duration: 1.8,
-                ease: "power3.inOut",
+                duration: 1.5, // Slightly faster for smoother animation
+                ease: "power2.inOut", // Changed to power2 for smoother animation
             });
         }
 
@@ -128,7 +128,7 @@ const AboutSection = () => {
             textContainerRef.current,
             {
                 opacity: 1,
-                duration: 0.8,
+                duration: 0.6, // Slightly faster fade in
                 ease: "power2.out",
             },
             "-=0.3"
@@ -138,7 +138,7 @@ const AboutSection = () => {
             floatingCardsRef.current,
             {
                 opacity: 1,
-                duration: 0.8,
+                duration: 0.6, // Slightly faster fade in
                 ease: "power2.out",
             },
             "-=0.3"
@@ -149,15 +149,15 @@ const AboutSection = () => {
         };
     }, [screenType]);
 
-    // Animation styles as a string to be injected in the head
+    // Animation styles as a string to be injected in the head - optimized for performance
     useEffect(() => {
         // Create a style element
         const styleElement = document.createElement('style');
         styleElement.type = 'text/css';
 
-        // Animation CSS as string
+        // Animation CSS as string - optimized for performance
         styleElement.innerHTML = `
-            /* Fast, smooth infinite scroll for mobile */
+            /* Fast, smooth infinite scroll for mobile - optimized for performance */
             @keyframes mobileInfiniteScroll {
                 0% {
                     transform: translateX(0);
@@ -187,15 +187,17 @@ const AboutSection = () => {
             .mobile-scrolling-cards {
                 animation: mobileInfiniteScroll 40s linear infinite; /* Faster animation for smoother look */
                 width: max-content;
+                will-change: transform; /* Optimize for animation performance */
             }
 
             .mobile-card {
                 position: relative;
                 animation: cardZIndexAnimation 40s linear infinite;
                 animation-delay: inherit; /* Inherit delay from parent */
+                will-change: transform, opacity, z-index; /* Optimize for animation performance */
             }
 
-            /* UPDATED ANIMATIONS - Now all rows move in the same direction/sequence */
+            /* OPTIMIZED ANIMATIONS - With will-change for better performance */
             @keyframes animate-rowScroll0 {
                 0% {
                     transform: translateX(0);
@@ -269,24 +271,29 @@ const AboutSection = () => {
             /* Apply animations to each row with different speeds */
             .animate-rowScroll0 {
                 animation: animate-rowScroll0 60s linear infinite;
+                will-change: transform; /* Optimize for animation performance */
             }
 
             .animate-rowScroll1 {
                 animation: animate-rowScroll1 75s linear infinite; /* Adjusted for more variety */
+                will-change: transform; /* Optimize for animation performance */
             }
 
             .animate-rowScroll2 {
                 animation: animate-rowScroll2 67s linear infinite; /* Adjusted for more variety */
+                will-change: transform; /* Optimize for animation performance */
             }
 
             .animate-rowScroll3 {
                 animation: animate-rowScroll3 82s linear infinite; /* Adjusted for more variety */
+                will-change: transform; /* Optimize for animation performance */
             }
 
             /* Apply z-index animation to each card */
             .floating-card {
                 position: relative;
                 animation: cardZIndexAnimation 60s linear infinite;
+                will-change: transform, opacity, z-index; /* Optimize for animation performance */
             }
 
             /* Stagger the z-index animations for different rows */
@@ -322,10 +329,9 @@ const AboutSection = () => {
     const isDesktopOrAbove = isDesktop || isLarge || isXLarge;
 
     // Calculate consistent text distance from number across all screen sizes
-    // Moved up 2px for mobile as requested
     const getTextDistanceFromNumber = () => {
         if (isMobile) {
-            return '220px'; // 240px - 2px (moved up 2px for mobile)
+            return '215px'; // Adjusted for mobile (moved up 5px)
         } else if (isTablet) {
             return '240px'; // Consistent distance for tablet
         } else {
@@ -333,18 +339,18 @@ const AboutSection = () => {
         }
     };
 
-    // Calculate the vertical margin for cards to prevent overlap
+    // Calculate the vertical margin for cards to prevent overlap - reduced for mobile
     const getCardsMarginTop = () => {
         if (isMobile) {
-            return '40vh'; // Increased margin to prevent overlap
+            return '35vh'; // Reduced margin to move cards up on mobile
         } else if (isTablet) {
-            return '45vh'; // Increased margin for tablet
+            return '45vh'; // Margin for tablet
         } else if (isDesktop) {
-            return '68vh'; // Increased margin for desktop
+            return '68vh'; // Margin for desktop
         } else if (isLarge) {
-            return '68vh'; // Increased margin for large screens
+            return '68vh'; // Margin for large screens
         } else {
-            return '75vh'; // Increased margin for xlarge screens
+            return '75vh'; // Margin for xlarge screens
         }
     };
 
@@ -356,7 +362,7 @@ const AboutSection = () => {
             {/* Initial container position with the number "9" - Middle z-index */}
             <div
                 ref={containerRef}
-                className={`absolute ${isMobile || isTablet ? 'top-1/5 left-1/2 transform -translate-x-1/2' : 'top-1/5 left-[180px]'} -translate-y-1/4 w-full h-[80vh] flex items-center ${isMobile || isTablet ? 'justify-center' : 'justify-start'}`}
+                className={`absolute ${isMobile ? 'top-1/5 left-1/2 transform -translate-x-1/2' : isTablet ? 'top-1/5 left-1/2 transform -translate-x-1/2' : 'top-1/5 left-[180px]'} -translate-y-1/4 w-full h-[80vh] flex items-center ${isMobile || isTablet ? 'justify-center' : 'justify-start'}`}
                 style={{
                     overflow: 'visible',
                     zIndex: 20, // Middle z-index (cards will go from below to above this)
@@ -376,7 +382,7 @@ const AboutSection = () => {
                           fontFamily: "Plus Jakarta Sans",
                           position: "relative",
                           marginTop: isMobile ? "-450px" : isTablet ? "-300px" : "0px",
-                          left: isMobile ? "0px" : isTablet ? "0px" : "200px", // Center for mobile and tablet, 200px left for desktop+
+                          left: isMobile ? "0px" : isTablet ? "0px" : "200px", // Center for ALL mobile screens and tablet, 200px left for desktop+
                       }}
                   >
                     9
@@ -402,7 +408,7 @@ const AboutSection = () => {
                                 : isTablet
                                     ? "50%"
                                     : isDesktop
-                                        ? "calc(50% + 200px)" // fine-tune this offset
+                                        ? "calc(50% + 200px)"
                                         : isLarge
                                             ? "calc(50% + 200px)"
                                             : "calc(50% + 190px)",
@@ -539,12 +545,15 @@ const AboutSection = () => {
                         key={idx}
                         className="border-[2px] sm:border-[3px] md:border-[5px] border-solid border-light-blue-400 w-full max-w-full h-auto sm:max-w-[600px] sm:h-[605px] flex flex-col items-start p-3 sm:p-4 md:p-6 rounded-xl bg-white shadow-lg"
                     >
-                        <img
-                            src={`/images/about_sec${idx === 0 ? "" : "2"}.svg`}
-                            className="w-full h-[200px] sm:h-[220px] md:w-[551px] md:h-[385px] object-cover mb-3 sm:mb-4 rounded-lg"
-                            alt={idx === 0 ? "Best Healthcare" : "Trusted Specialists"}
-                        />
-                        <p className="text-xs sm:text-sm text-gray-600">#1 in Kamareddy</p>
+                        <div className="w-full h-[200px] sm:h-[220px] md:h-[385px] overflow-hidden rounded-lg">
+                            <img
+                                src={`/images/about_sec${idx === 0 ? "" : "2"}.svg`}
+                                className="w-full h-full object-contain md:object-cover mb-3 sm:mb-4"
+                                alt={idx === 0 ? "Best Healthcare" : "Trusted Specialists"}
+                                style={{ objectPosition: "center top" }} // This ensures the image starts from the top without cutting off heads
+                            />
+                        </div>
+                        <p className="text-xs sm:text-sm text-gray-600 mt-3">#1 in Kamareddy</p>
                         <h3 className="text-base sm:text-lg md:text-2xl font-bold text-black mt-1">
                             {idx === 0 ? "Best Healthcare" : "Trusted Specialists"}
                         </h3>
