@@ -12,6 +12,14 @@ const Services = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
     const [isMobile, setIsMobile] = useState(false);
+    const [heroImageLoaded, setHeroImageLoaded] = useState(false);
+
+    // Preload hero image as soon as component mounts
+    useEffect(() => {
+        const heroImage = new Image();
+        heroImage.src = '/images/ser_hero.webp';
+        heroImage.onload = () => setHeroImageLoaded(true);
+    }, []);
 
     useEffect(() => {
         const handleResize = () => {
@@ -57,14 +65,17 @@ const Services = () => {
 
     return (
         <div className="flex flex-col min-h-screen relative">
-            {/* Hero Background Image */}
-            <div className="absolute inset-0 h-[120vh] z-0">
-                <img
-                    src="/images/ser_hero.webp"
-                    alt="Healthcare Services"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                />
+            {/* Preloaded Hero Background */}
+            <div
+                className="absolute inset-0 h-[120vh] z-0"
+                style={{
+                    backgroundImage: heroImageLoaded ? "url('/images/ser_hero.webp')" : "none",
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundColor: '#1a1a1a', // Fallback dark color
+                }}
+            >
+                {/* Overlay */}
                 <div className="absolute inset-0 bg-black/50"></div>
             </div>
 
@@ -72,24 +83,17 @@ const Services = () => {
 
             <main className="flex-grow pt-24 relative z-10">
                 {isMobile ? (
-                    // ✅ MOBILE LAYOUT
-                    <section className="relative w-full min-h-[100vh] flex flex-col justify-between text-white px-4 pt-6 pb-10">
-                        <div className="absolute inset-0 z-[-1]">
-                            <img
-                                src="/images/ser_hero.webp"
-                                alt="Healthcare Services"
-                                className="w-full h-full object-cover"
-                                loading="lazy"
-                            />
-                            <div className="absolute inset-0 bg-black/60" />
-                        </div>
-
-                        <div className="flex flex-col items-center mt-0 text-center">
+                    // MOBILE LAYOUT
+                    <section className="relative w-full min-h-[100vh] flex flex-col justify-between text-white px-4 pt-0 pb-10">
+                        {/* Moved up by 6px by adjusting pt-6 to pt-0 above and adding -mt-6 below */}
+                        <div className="flex flex-col items-center -mt-6 text-center">
                             <img
                                 src="/images/logos.svg"
                                 alt="Hero Logo"
                                 className="w-24 h-auto mb-4"
-                                loading="lazy"
+                                width="96"
+                                height="28"
+                                fetchPriority="high"
                             />
                             <h1 className="text-[32px] font-semibold mt-[-5px] leading-tight tracking-tight text-yellow-500 font-[Abhaya Libre SemiBold] mb-1">
                                 Uchita Vaidhyam
@@ -113,7 +117,7 @@ const Services = () => {
                         </div>
                     </section>
                 ) : (
-                    // ✅ DESKTOP LAYOUT
+                    // DESKTOP LAYOUT
                     <section
                         id="services-hero"
                         className="relative h-screen flex items-center justify-between text-white px-6 md:px-12 lg:px-24"
@@ -124,9 +128,10 @@ const Services = () => {
                                 src="/images/logos.svg"
                                 alt="Hero Logo"
                                 className="w-[180px] h-[50px] object-contain"
-                                loading="lazy"
+                                width="180"
+                                height="50"
+                                fetchPriority="high"
                             />
-
                         </div>
 
                         {/* Right Text */}
@@ -151,7 +156,7 @@ const Services = () => {
                     </section>
                 )}
 
-                {/* Services Section */}
+                {/* Services Section with lazy loading */}
                 <section id="services-grid">
                     <ServicesGrid addToContentRefs={addToContentRefs} />
                 </section>

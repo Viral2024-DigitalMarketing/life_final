@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -8,10 +8,10 @@ import ServicesCTA from "@/components/services/ServicesCTA";
 import AppointmentModal from "@/components/shared/AppointmentModal";
 
 const JointReplacementPage = () => {
-    const contentRefs = useRef<HTMLDivElement[]>([]);
+    const contentRefs = useRef([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const addToContentRefs = (el: HTMLDivElement | null) => {
+    const addToContentRefs = (el) => {
         if (el && !contentRefs.current.includes(el)) {
             contentRefs.current.push(el);
         }
@@ -23,14 +23,18 @@ const JointReplacementPage = () => {
                                       imageStatic,
                                       imageActive,
                                       replacementCount,
-                                  }: {
-        title: string;
-        description: string;
-        imageStatic: string;
-        imageActive: string;
-        replacementCount: number;
-    }) => {
+                                  }) => {
         const [isHovered, setIsHovered] = useState(false);
+        const [activeImageLoaded, setActiveImageLoaded] = useState(false);
+        const staticImageRef = useRef(null);
+        const activeImageRef = useRef(null);
+
+        // Preload the active image when component mounts
+        useEffect(() => {
+            const img = new Image();
+            img.src = imageActive;
+            img.onload = () => setActiveImageLoaded(true);
+        }, [imageActive]);
 
         return (
             <div
@@ -50,14 +54,36 @@ const JointReplacementPage = () => {
                         {replacementCount} Replaced in last year
                     </div>
 
-                    {/* Image */}
-                    <div className="flex justify-center items-center mb-4 mt-8">
-                        <img
-                            src={isHovered ? imageActive : imageStatic}
-                            alt={title}
-                            className="transition duration-500 object-contain w-[220px] h-[220px] md:w-[280px] md:h-[280px]"
-                            loading="lazy"
-                        />
+                    {/* Image Container */}
+                    <div className="flex justify-center items-center mb-4 mt-8 relative h-[220px] md:h-[280px]">
+                        <div className="relative w-[220px] h-[220px] md:w-[280px] md:h-[280px]">
+                            {/* Static image */}
+                            <img
+                                ref={staticImageRef}
+                                src={imageStatic}
+                                alt={`${title} illustration`}
+                                loading="eager"
+                                className={`absolute w-full h-full object-contain transition-opacity duration-300 ${
+                                    isHovered ? 'opacity-0' : 'opacity-100'
+                                }`}
+                                style={{
+                                    willChange: 'opacity'
+                                }}
+                            />
+
+                            {/* Active image - preloaded but only visible on hover */}
+                            <img
+                                ref={activeImageRef}
+                                src={imageActive}
+                                alt={`${title} with pain points highlighted`}
+                                className={`absolute w-full h-full object-contain transition-opacity duration-300 ${
+                                    isHovered && activeImageLoaded ? 'opacity-100' : 'opacity-0'
+                                }`}
+                                style={{
+                                    willChange: 'opacity'
+                                }}
+                            />
+                        </div>
                     </div>
 
                     {/* Title */}
@@ -86,41 +112,66 @@ const JointReplacementPage = () => {
         );
     };
 
+    // Preload all card images when the page loads
+    useEffect(() => {
+        // Define all image paths
+        const imagePaths = [
+            '/images/knee.svg',
+            '/images/knee_pain.svg',
+            '/images/hip.svg',
+            '/images/hip_pain.svg',
+            '/images/shol.svg',
+            '/images/shoul_pain.svg',
+            '/images/elb.svg',
+            '/images/elbow_pain.svg'
+        ];
+
+        // Preload all images
+        imagePaths.forEach(path => {
+            const img = new Image();
+            img.src = path;
+        });
+    }, []);
+
+    // Function to generate responsive background image styles
+    const getHeroBackgroundStyle = () => {
+        return {
+            backgroundImage: "url('/images/100_hero.webp')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+        };
+    };
+
     return (
         <div className="min-h-screen flex flex-col overflow-x-hidden">
             <Navbar />
 
             <main className="flex-grow">
-                {/* Hero Section - Updated for consistent text styling */}
+                {/* Hero Section - Optimized background image */}
                 <section
-                    className="relative mt-5 w-full h-[50vh] md:h-[100vh] bg-no-repeat bg-cover bg-center flex flex-col justify-center items-center text-center"
-                    style={{
-                        backgroundImage: "url('/images/100_hero.webp')",
-                    }}
+                    className="relative mt-5 w-full h-[50vh] md:h-[100vh] flex flex-col justify-center items-center text-center"
+                    style={getHeroBackgroundStyle()}
                 >
                     {/* Top Text */}
-                    <div
-                        className="absolute top-4 sm:top-6 md:top-8 lg:top-10 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
-                        <div
-                            className="text-[12px] sm:text-[16px] md:text-[24px]  mt-7 lg:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
+                    <div className="absolute top-4 sm:top-6 md:top-8 lg:top-10 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
+                        <div className="text-[12px] sm:text-[16px] md:text-[24px] mt-7 lg:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
                             Completed
                         </div>
                     </div>
 
                     {/* Bottom Text */}
-                    <div
-                        className="absolute bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
-                        <div
-                            className="text-[12px] sm:text-[16px] md:text-[24px] lg:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
+                    <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 left-1/2 transform -translate-x-1/2 text-white text-center px-4">
+                        <div className="text-[12px] sm:text-[16px] md:text-[24px] lg:text-4xl font-semibold md:font-bold uppercase tracking-[0.2em] leading-tight font-vietnam-pro">
                             TOTAL HIP REPLACEMENT
                         </div>
-                        <div
-                            className="text-[8px] sm:text-[10px] md:text-[16px] lg:text-2xl font-semibold mt-1 uppercase tracking-[0.25em] font-vietnam-pro">
+                        <div className="text-[8px] sm:text-[10px] md:text-[16px] lg:text-2xl font-semibold mt-1 uppercase tracking-[0.25em] font-vietnam-pro">
                             SURGERIES
                         </div>
                     </div>
                 </section>
-                {/* Cards Section - Unchanged */}
+
+                {/* Cards Section */}
                 <section className="text-center bg-[#F9F9F9] pt-4 md:pt-12 pb-12">
                     <h2 className="text-[28px] md:text-[52px] text-black font-abhaya-libre font-semibold tracking-[1%] leading-[100%] text-center px-4">
                         Specialized Joint Replacement Care
@@ -158,16 +209,16 @@ const JointReplacementPage = () => {
                     </div>
                 </section>
 
-                {/* CTA - Unchanged */}
+                {/* CTA */}
                 <section className="mt-12">
-                    <ServicesCTA addToContentRefs={addToContentRefs}/>
+                    <ServicesCTA addToContentRefs={addToContentRefs} />
                 </section>
             </main>
 
-            <Footer/>
+            <Footer />
 
-            {/* Appointment Modal - Unchanged */}
-            <AppointmentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}/>
+            {/* Appointment Modal */}
+            <AppointmentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
     );
 };

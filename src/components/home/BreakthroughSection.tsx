@@ -3,11 +3,14 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const BreakthroughSection = () => {
     const sectionRef = useRef(null);
-    const elements = useRef<HTMLDivElement[]>([]);
-    const [imagesLoaded, setImagesLoaded] = useState<boolean[]>(Array(5).fill(false));
-    const [bgLoaded, setBgLoaded] = useState(false);
+    const elementsRef = useRef<(HTMLDivElement | null)[]>([]);
+    const [backgroundLoaded, setBackgroundLoaded] = useState(false);
+
+    // Track whether component is mounted to prevent state updates after unmount
+    const isMounted = useRef(true);
 
     useEffect(() => {
+        // Animation observer setup
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -19,20 +22,30 @@ const BreakthroughSection = () => {
             { threshold: 0.1 }
         );
 
-        elements.current.forEach((el) => {
+        elementsRef.current.forEach((el) => {
             if (el) observer.observe(el);
         });
 
+        // Preload background image immediately
+        const bgImg = new Image();
+        bgImg.src = '/images/breat_bg.svg';
+        bgImg.onload = () => {
+            if (isMounted.current) {
+                setBackgroundLoaded(true);
+            }
+        };
+
         return () => {
-            elements.current.forEach((el) => {
+            isMounted.current = false;
+            elementsRef.current.forEach((el) => {
                 if (el) observer.unobserve(el);
             });
         };
     }, []);
 
-    const addToRefs = (el: HTMLDivElement) => {
-        if (el && !elements.current.includes(el)) {
-            elements.current.push(el);
+    const addToRefs = (el: HTMLDivElement | null) => {
+        if (el && !elementsRef.current.includes(el)) {
+            elementsRef.current.push(el);
         }
     };
 
@@ -44,57 +57,16 @@ const BreakthroughSection = () => {
         '/images/mul5.svg',
     ];
 
-    // Preload images
-    useEffect(() => {
-        // Lazy load background image
-        const bgImg = new Image();
-        bgImg.src = '/images/breat_bg.svg';
-        bgImg.onload = () => {
-            setBgLoaded(true);
-        };
-
-        // Lazy load content images when section comes into view
-        const sectionObserver = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting) {
-                    breakthroughImages.forEach((src, index) => {
-                        const img = new Image();
-                        img.src = src;
-                        img.onload = () => {
-                            setImagesLoaded(prev => {
-                                const newState = [...prev];
-                                newState[index] = true;
-                                return newState;
-                            });
-                        };
-                    });
-                    sectionObserver.unobserve(entries[0].target);
-                }
-            },
-            { threshold: 0.1 }
-        );
-
-        if (sectionRef.current) {
-            sectionObserver.observe(sectionRef.current);
-        }
-
-        return () => {
-            if (sectionRef.current) {
-                sectionObserver.unobserve(sectionRef.current);
-            }
-        };
-    }, []);
-
-    const imageLoadingPlaceholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E";
-
     return (
         <section
             ref={sectionRef}
-            className="relative bg-cover bg-center bg-no-repeat py-24 px-6 md:px-12 lg:px-24"
+            className="relative py-24 px-6 md:px-12 lg:px-24"
             style={{
-                backgroundImage: bgLoaded ? "url('/images/breat_bg.svg')" : "none",
-                backgroundColor: bgLoaded ? "transparent" : "#f5f5f5", // Fallback color before bg loads
-                transition: "background-image 0.3s ease-in-out"
+                backgroundImage: backgroundLoaded ? "url('/images/breat_bg.svg')" : 'none',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundColor: '#f5f5f5', // Fallback color
+                transition: 'background-image 0.3s ease'
             }}
         >
             <div className="container mx-auto">
@@ -132,66 +104,33 @@ const BreakthroughSection = () => {
                     </p>
                 </div>
 
-                {/* Desktop Images (No Gap) */}
+                {/* Desktop Images */}
                 <div className="hidden md:flex mb-12">
                     {breakthroughImages.map((image, index) => (
                         <div key={index} className="w-[260px] h-[390px] relative">
                             <img
-                                src={imageLoadingPlaceholder}
-                                data-src={image}
-                                alt={`Breakthrough Case ${index + 1}`}
-                                className="w-full h-full object-cover absolute top-0 left-0"
-                                style={{
-                                    opacity: 0,
-                                    transition: 'opacity 0.3s ease-in-out'
-                                }}
-                            />
-                            <img
                                 src={image}
                                 alt={`Breakthrough Case ${index + 1}`}
                                 className="w-full h-full object-cover"
-                                loading="lazy"
+                                loading={index < 2 ? "eager" : "lazy"}
+                                fetchPriority={index < 2 ? "high" : "auto"}
                                 decoding="async"
-                                style={{
-                                    opacity: imagesLoaded[index] ? 1 : 0,
-                                    transition: 'opacity 0.3s ease-in-out'
-                                }}
-                                onLoad={(e) => {
-                                    e.currentTarget.style.opacity = '1';
-                                }}
                             />
                         </div>
                     ))}
                 </div>
 
-                {/* Mobile Scrollable Images (No Gap) */}
+                {/* Mobile Scrollable Images */}
                 <div className="flex md:hidden overflow-x-auto mb-12 scrollbar-hide">
                     {breakthroughImages.map((image, index) => (
                         <div key={index} className="min-w-[240px] h-[340px] relative flex-shrink-0">
                             <img
-                                src={imageLoadingPlaceholder}
-                                data-src={image}
-                                alt={`Breakthrough Case ${index + 1}`}
-                                className="w-full h-full object-cover absolute top-0 left-0"
-                                style={{
-                                    opacity: 0,
-                                    transition: 'opacity 0.3s ease-in-out'
-                                }}
-                            />
-                            <img
                                 src={image}
                                 alt={`Breakthrough Case ${index + 1}`}
                                 className="w-full h-full object-cover"
-                                loading="lazy"
+                                loading={index === 0 ? "eager" : "lazy"}
+                                fetchPriority={index === 0 ? "high" : "auto"}
                                 decoding="async"
-                                style={{
-                                    opacity: imagesLoaded[index] ? 1 : 0,
-                                    transition: 'opacity 0.3s ease-in-out',
-                                    marginRight: 0
-                                }}
-                                onLoad={(e) => {
-                                    e.currentTarget.style.opacity = '1';
-                                }}
                             />
                         </div>
                     ))}

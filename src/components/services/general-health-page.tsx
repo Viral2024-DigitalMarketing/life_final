@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AppointmentModal from "@/components/shared/AppointmentModal";
@@ -22,12 +22,35 @@ const GeneralHealthPage = () => {
         "Cavities", "Gum Disease", "Tooth Extraction", "Root Canal", "Braces", "Teeth Whitening"
     ];
 
+    // Preload critical images
+    useEffect(() => {
+        const imagesToPreload = [
+            '/images/gen_heal.svg',
+            '/images/heart_v.svg',
+            '/images/heart_gre.svg',
+            '/images/heart_or.svg'
+        ];
+
+        imagesToPreload.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    }, []);
+
     const renderTag = (text: string, borderColor: string, textColor: string, iconPath: string) => (
         <div
             key={text}
             className={`px-2 sm:px-3 py-1 border ${borderColor} rounded flex items-center justify-center`}
         >
-            <img src={iconPath} alt="Icon" className="w-3 h-3 sm:w-4 sm:h-4 mr-1" loading="lazy" />
+            <img
+                src={iconPath}
+                alt="Icon"
+                className="w-3 h-3 sm:w-4 sm:h-4 mr-1"
+                width="16"
+                height="16"
+                loading="eager"
+                decoding="async"
+            />
             <span className={`text-xs sm:text-[14px] font-normal capitalize ${textColor}`}>{text}</span>
         </div>
     );
@@ -121,7 +144,18 @@ const GeneralHealthPage = () => {
                                 </div>
                             </div>
                             <div className="w-full lg:w-[614px] h-[220px] sm:h-[300px] md:h-[400px] lg:h-[510px] rounded-[12px] sm:rounded-[20px] overflow-hidden mt-3 sm:mt-0">
-                                <img src={section.imageSrc} alt={section.imageAlt} className="w-full h-full object-cover" loading="lazy" />
+                                <img
+                                    src={section.imageSrc}
+                                    alt={section.imageAlt}
+                                    className="w-full h-full object-cover"
+                                    loading={index === 0 ? "eager" : "lazy"}
+                                    decoding="async"
+                                    width="614"
+                                    height="510"
+                                    fetchPriority={index === 0 ? "high" : "auto"}
+                                    onLoad={(e) => e.currentTarget.style.opacity = "1"}
+                                    style={{ opacity: "0", transition: "opacity 0.3s ease" }}
+                                />
                             </div>
                         </div>
                     ))}

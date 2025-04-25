@@ -140,7 +140,7 @@ const HeroSection = () => {
                 {/* Text Container - Tablet & Desktop */}
                 <div className="relative z-10 container mx-auto h-full hidden sm:flex flex-col justify-center items-end px-4 sm:px-6 md:px-12 lg:px-24 xl:px-32 text-right">
                     <div className="max-w-xl sm:transform sm:-translate-x-6 md:-translate-x-12 lg:-translate-x-20 xl:-translate-x-24 sm:-translate-y-10 md:-translate-y-16 lg:-translate-y-20 xl:-translate-y-24">
-                        <h1 className="font-bold leading-tight font-['Be_Vietnam_Pro',_sans-serif] text-yellow-400">
+                        <h1 className="font-bold leading-tight font-['Be_Vietnam_Pro',_sans-serif] text-[#F0AD1C]">
                             <div className="flex items-start justify-end">
                                 <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-black mr-4 sm:mr-6 md:mr-8 lg:mr-10 -mt-2 sm:-mt-3 md:-mt-4 lg:-mt-5 -ml-7">Completed</span>
                                 <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[8.2rem] font-black leading-none -mt-8 sm:-mt-10 md:-mt-12 lg:-mt-16 -ml-2 sm:-ml-4 md:-ml-6 lg:-ml-8">100+</span>
@@ -154,7 +154,7 @@ const HeroSection = () => {
 
                 {/* Mobile Heading - Moved up by 8px */}
                 <div className="sm:hidden absolute top-1/4 -mt-8 inset-x-0 px-4 text-center z-20">
-                    <h1 className="text-yellow-400 font-black font-['Be_Vietnam_Pro',_sans-serif] text-2xl xs:text-3xl leading-tight">
+                    <h1 className="text-[#F0AD1C] font-black font-['Be_Vietnam_Pro',_sans-serif] text-2xl xs:text-3xl leading-tight">
                         Completed <br />
                         <span className="text-5xl xs:text-6xl">100+</span>
                         <br />

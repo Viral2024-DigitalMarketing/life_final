@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AppointmentModal from "@/components/shared/AppointmentModal";
@@ -49,6 +49,26 @@ const SpecializedServicesPage = () => {
         },
     ];
 
+    // Preload all critical images on component mount
+    useEffect(() => {
+        // Preload main section images
+        const mainImages = specializedServices.map(service => service.imageSrc);
+
+        // Preload icon images
+        const iconImages = [
+            ...new Set(specializedServices.map(service => service.tagIcon))
+        ];
+
+        // Combine all images to preload
+        const allImagesToPreload = [...mainImages, ...iconImages];
+
+        // Create image objects to preload
+        allImagesToPreload.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    }, []);
+
     const renderTag = (
         text: string,
         borderColor: string,
@@ -59,7 +79,15 @@ const SpecializedServicesPage = () => {
             key={text}
             className={`px-2 py-1 sm:px-3 border ${borderColor} rounded flex items-center justify-center`}
         >
-            <img src={icon} alt="Tag Icon" className="w-3 h-3 sm:w-4 sm:h-4 mr-1" loading="lazy" />
+            <img
+                src={icon}
+                alt="Tag Icon"
+                className="w-3 h-3 sm:w-4 sm:h-4 mr-1"
+                width="16"
+                height="16"
+                loading="eager"
+                decoding="async"
+            />
             <span className={`text-xs sm:text-[14px] font-normal capitalize ${textColor}`}>
                 {text}
             </span>
@@ -140,7 +168,18 @@ const SpecializedServicesPage = () => {
                                         src={section.imageSrc}
                                         alt={section.imageAlt}
                                         className="w-full h-full object-contain"
-                                        loading="lazy"
+                                        loading={index === 0 ? "eager" : "lazy"}
+                                        decoding="async"
+                                        width="614"
+                                        height="510"
+                                        fetchPriority={index === 0 ? "high" : "auto"}
+                                        onLoad={(e) => {
+                                            e.currentTarget.style.opacity = "1";
+                                        }}
+                                        style={{
+                                            opacity: "0",
+                                            transition: "opacity 0.3s ease",
+                                        }}
                                     />
                                 </div>
                             </div>

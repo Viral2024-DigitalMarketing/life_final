@@ -193,16 +193,16 @@ const Navbar: React.FC<NavbarProps> = () => {
               isScrolled || !isHeroVisible ? 'text-gray-800' : 'text-white'
           }`}>
             {/* Services Dropdown Hover Card */}
-            <HoverCard openDelay={200} closeDelay={100} placement="bottom-end" offset={40}>
+            <HoverCard openDelay={200} closeDelay={100} placement="bottom-end" offset={48}>
               <HoverCardTrigger asChild>
                 <Link to="/services" className={`${navLinkClass} ${location.pathname === '/services' || location.pathname.includes('/services/') ? navLinkActiveClass : ''} relative hover:text-hospital-blue transition-colors`}>
                   Services
                 </Link>
               </HoverCardTrigger>
-              <HoverCardContent className="shadow-md overflow-auto" style={hoverCardContentStyle}>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+              <HoverCardContent className="shadow-md overflow-auto ml-8" style={{...hoverCardContentStyle, marginLeft: '90px', marginTop: '25px'}}>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 pl-6">
                   {/* Left Column */}
-                  <div className="flex flex-col justify-start space-y-4 lg:space-y-6 lg:ml-[-60px] col-span-1">
+                  <div className="flex flex-col justify-start space-y-4 lg:space-y-6 col-span-1">
                     {/* Joint Replacement */}
                     <Link
                         to="/services/joint-replacement"
@@ -231,8 +231,8 @@ const Navbar: React.FC<NavbarProps> = () => {
                     </Link>
                   </div>
 
-                  {/* Right Column */}
-                  <div className="flex flex-col justify-start space-y-4 lg:space-y-6 lg:ml-[-100px] col-span-1">
+                  {/* Middle Column */}
+                  <div className="flex flex-col justify-start space-y-4 lg:space-y-6 col-span-1">
                     {/* Orthopedics & Muscle Care */}
                     <Link
                         to="/services/orthopedic"
@@ -266,57 +266,57 @@ const Navbar: React.FC<NavbarProps> = () => {
                       <img
                           src="/images/nav1.svg"
                           alt="Service Image 1"
-                          className="rounded-lg ml-[20px] w-[320px] h-[268px] object-cover shadow-none"
+                          className="rounded-lg ml-5 w-80 h-64 object-cover shadow-none"
                           style={{ borderRadius: '12px' }}
                       />
                     </div>
-                    <div className="mt-4">
+                    <div className="mt-4 flex items-center">
                       <img
                           src="/images/logos.svg"
                           alt="Service Image 2"
-                          className="rounded-lg object-cover ml-[30px] mt-5 w-[130px] h-[28px] shadow-none"
+                          className="rounded-lg object-cover ml-8 mt-5 w-32 h-8 shadow-none"
                           style={{ borderRadius: '12px' }}
                       />
+
+                      {/* Social Links - moved next to logo */}
+                      <div className="flex ml-20 mt-5 gap-4">
+                        <Link
+                            to="https://www.instagram.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-300 hover:text-hospital-blue transition-colors duration-300"
+                        >
+                          <Instagram size={24} />
+                        </Link>
+                        <Link
+                            to="https://www.linkedin.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-500 hover:text-hospital-blue transition-colors duration-300"
+                        >
+                          <Linkedin size={24} />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
-                {/* Social Links */}
-                <div className="mt-4 lg:mt-0 lg:absolute lg:bottom-6 flex justify-end lg:ml-[930px] gap-6">
-                  <Link
-                      to="https://www.instagram.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-500 hover:text-hospital-blue transition-colors duration-300"
-                  >
-                    <Instagram size={24} />
-                  </Link>
-                  <Link
-                      to="https://www.linkedin.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-500 hover:text-hospital-blue transition-colors duration-300"
-                  >
-                    <Linkedin size={24} />
-                  </Link>
-                </div>
               </HoverCardContent>
             </HoverCard>
-
             <Link to="/about" className={`${navLinkClass} ${location.pathname === '/about' ? navLinkActiveClass : ''} hover:text-hospital-blue transition-colors`}>
               About Us
             </Link>
 
             {/* Contact Us Link with Hover Card */}
-            <HoverCard openDelay={200} closeDelay={100} placement="bottom-end" offset={40}>
+            <HoverCard openDelay={200} closeDelay={100} placement="bottom" offset={40}>
               <HoverCardTrigger asChild>
                 <Link to="/contact" className={`${navLinkClass} ${location.pathname === '/contact' ? navLinkActiveClass : ''} relative hover:text-hospital-blue transition-colors`}>
                   Contact Us
                 </Link>
               </HoverCardTrigger>
-              <HoverCardContent className="shadow-md overflow-auto" style={hoverCardContentStyle}>
-                <div className="grid ml-40 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+              <HoverCardContent className="shadow-md overflow-auto mx-auto" style={{ ...hoverCardContentStyle, marginTop: '25px', marginLeft: '100px' }}>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                   {/* Left Column */}
-                  <div className="flex flex-col justify-start space-y-4 lg:space-y-6 lg:ml-[-60px] col-span-1">
+                  <div className="flex flex-col justify-start space-y-4 lg:space-y-6 col-span-1">
                     {/* General Enquiry */}
                     <div
                         className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100 cursor-default"
@@ -342,8 +342,8 @@ const Navbar: React.FC<NavbarProps> = () => {
                     </div>
                   </div>
 
-                  {/* Right Column */}
-                  <div className="flex flex-col justify-start space-y-4 lg:space-y-6 lg:ml-[-100px] col-span-1">
+                  {/* Middle Column */}
+                  <div className="flex flex-col justify-start space-y-4 lg:space-y-6 col-span-1">
                     {/* Emergency Services */}
                     <div
                         className="group relative rounded-md overflow-hidden transition-all duration-300 bg-gray-50 hover:bg-gray-100 cursor-default"
@@ -363,7 +363,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                       <img
                           src="/images/nav_con.svg"
                           alt="Service Image 1"
-                          className="rounded-lg ml-[20px] w-[320px] h-[268px] object-cover shadow-none"
+                          className="rounded-lg w-full max-w-xs h-auto object-cover shadow-none"
                           style={{ borderRadius: '12px' }}
                       />
                     </div>
@@ -371,14 +371,14 @@ const Navbar: React.FC<NavbarProps> = () => {
                       <img
                           src="/images/logos.svg"
                           alt="Service Image 2"
-                          className="rounded-lg object-cover ml-[30px] mt-5 w-[130px] h-[28px] shadow-none"
+                          className="rounded-lg object-cover mt-5 w-32 h-auto shadow-none"
                           style={{ borderRadius: '12px' }}
                       />
                     </div>
                   </div>
                 </div>
                 {/* Social Links */}
-                <div className="mt-4 lg:mt-0 lg:absolute lg:bottom-6 flex justify-end lg:ml-[930px] gap-6">
+                <div className="mt-6 flex justify-center lg:justify-end gap-6">
                   <Link
                       to="https://www.instagram.com/"
                       target="_blank"
