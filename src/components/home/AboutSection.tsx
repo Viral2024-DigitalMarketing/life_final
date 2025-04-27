@@ -124,6 +124,7 @@ const AboutSection = () => {
         }
 
         // Show the text content and floating cards after animation is complete
+        // Add onComplete callback to the timeline instead of ScrollTrigger
         tl.to(
             textContainerRef.current,
             {
@@ -132,9 +133,7 @@ const AboutSection = () => {
                 ease: "power2.out",
             },
             "-=0.3"
-        );
-
-        tl.to(
+        ).to(
             floatingCardsRef.current,
             {
                 opacity: 1,

@@ -7,8 +7,6 @@ interface Service {
     title: string;
     tagline: string;
     path: string;
-    titleStyle?: React.CSSProperties;
-    taglineStyle?: React.CSSProperties;
     cardBackground?: string;
 }
 
@@ -19,23 +17,7 @@ const servicesData: Service[] = [
         title: 'Orthopedic care',
         tagline: 'Bone, Joint, Muscle Health and Repair.',
         path: '/joint-replacement',
-        titleStyle: {
-            fontFamily: 'Be Vietnam Pro',
-            fontWeight: 700,
-            fontSize: '30px',
-            lineHeight: '100%',
-            letterSpacing: '-0.02em',
-            color: '#333374',
-        },
-        taglineStyle: {
-            marginTop: "12px",
-            fontFamily: 'Be Vietnam Pro',
-            fontWeight: 400,
-            fontSize: '16px',
-            lineHeight: '140%',
-            letterSpacing: '0.02em',
-            color: '#999999',
-        },
+        cardBackground: '#EDEDF6',
     },
     {
         id: 2,
@@ -43,24 +25,7 @@ const servicesData: Service[] = [
         title: 'Arthroscopy',
         tagline: 'Minimally Invasive Joint Diagnosis and Treatment.',
         path: '/orthopedic',
-        titleStyle: {
-            fontFamily: 'Be Vietnam Pro',
-            fontWeight: 700,
-            fontSize: '32px',
-            lineHeight: '100%',
-            letterSpacing: '-0.02em',
-            textTransform: 'capitalize',
-            color: '#333374',
-        },
-        taglineStyle: {
-            marginTop: "12px",
-            fontFamily: 'Be Vietnam Pro',
-            fontWeight: 400,
-            fontSize: '16px',
-            lineHeight: '140%',
-            letterSpacing: '0.02em',
-            color: '#999999',
-        },
+        cardBackground: '#EDEDF6',
     },
     {
         id: 3,
@@ -68,24 +33,7 @@ const servicesData: Service[] = [
         title: 'General Surgery',
         tagline: 'Broad Surgical Procedures for Abdominal and Related Areas.',
         path: '/general-health',
-        titleStyle: {
-            fontFamily: 'Be Vietnam Pro',
-            fontWeight: 700,
-            fontSize: '32px',
-            lineHeight: '100%',
-            letterSpacing: '-0.02em',
-            textTransform: 'capitalize',
-            color: '#333374',
-        },
-        taglineStyle: {
-            marginTop: "12px",
-            fontFamily: 'Be Vietnam Pro',
-            fontWeight: 400,
-            fontSize: '16px',
-            lineHeight: '140%',
-            letterSpacing: '0.02em',
-            color: '#999999',
-        },
+        cardBackground: '#EDEDF6',
     },
     {
         id: 4,
@@ -93,24 +41,7 @@ const servicesData: Service[] = [
         title: 'Plastic Surgery',
         tagline: 'Reconstructive and Cosmetic Surgical Enhancements.',
         path: '/specialized-services#plastic',
-        titleStyle: {
-            fontFamily: 'Be Vietnam Pro',
-            fontWeight: 700,
-            fontSize: '32px',
-            lineHeight: '100%',
-            letterSpacing: '-0.02em',
-            textTransform: 'capitalize',
-            color: '#333374',
-        },
-        taglineStyle: {
-            marginTop: "12px",
-            fontFamily: 'Be Vietnam Pro',
-            fontWeight: 400,
-            fontSize: '16px',
-            lineHeight: '140%',
-            letterSpacing: '0.02em',
-            color: '#999999',
-        },
+        cardBackground: '#EDEDF6',
     },
     {
         id: 5,
@@ -118,24 +49,7 @@ const servicesData: Service[] = [
         title: 'Dental Surgery',
         tagline: 'Oral Surgery, Implants and Extractions.',
         path: '/general-health',
-        titleStyle: {
-            fontFamily: 'Be Vietnam Pro',
-            fontWeight: 700,
-            fontSize: '32px',
-            lineHeight: '100%',
-            letterSpacing: '-0.02em',
-            textTransform: 'capitalize',
-            color: '#333374',
-        },
-        taglineStyle: {
-            marginTop: "12px",
-            fontFamily: 'Be Vietnam Pro',
-            fontWeight: 400,
-            fontSize: '16px',
-            lineHeight: '140%',
-            letterSpacing: '0.02em',
-            color: '#999999',
-        },
+        cardBackground: '#EDEDF6',
     },
     {
         id: 6,
@@ -143,24 +57,7 @@ const servicesData: Service[] = [
         title: 'ENT',
         tagline: 'Ear, Nose, Throat and Head Care.',
         path: '/specialized-services#ent',
-        titleStyle: {
-            fontFamily: 'Be Vietnam Pro',
-            fontWeight: 700,
-            fontSize: '32px',
-            lineHeight: '100%',
-            letterSpacing: '-0.02em',
-            textTransform: 'capitalize',
-            color: '#333374',
-        },
-        taglineStyle: {
-            marginTop: "12px",
-            fontFamily: 'Be Vietnam Pro',
-            fontWeight: 400,
-            fontSize: '16px',
-            lineHeight: '140%',
-            letterSpacing: '0.02em',
-            color: '#999999',
-        },
+        cardBackground: '#EDEDF6',
     },
 ];
 
@@ -185,10 +82,10 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
     };
 
     return (
-        <section className={`py-24 px-4 md:px-12 lg:px-24 bg-white ${className}`}>
+        <section className={`py-12 sm:py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 xl:px-24 bg-white ${className}`}>
             <div className="container mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
-                    {servicesData.map((service, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-16">
+                    {servicesData.map((service) => (
                         <div
                             key={service.id}
                             onClick={() => handleCardClick(service.title)}
@@ -196,9 +93,11 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
                         >
                             <div
                                 ref={addToContentRefs}
-                                className={`rounded-[32px] p accl-5 flex flex-col items-center justify-between transition-all duration-300 hover:shadow-lg hover:scale-[1.02]
-                                    md:w-full md:max-w-[540px] md:h-[317.33px] md:rounded-[40px] md:p-6 md:flex-row md:items-center
-                                    sm:w-full sm:min-h-[280px] sm:rounded-[24px] sm:flex-col sm:items-center relative`}
+                                className="rounded-xl sm:rounded-2xl md:rounded-3xl lg:rounded-4xl p-4 sm:p-5 md:p-6
+                                    flex flex-col sm:flex-row items-center
+                                    transition-all duration-300 hover:shadow-lg hover:scale-105
+                                    h-auto min-h-[220px] sm:min-h-[260px] md:min-h-[280px] lg:min-h-[317px]
+                                    relative"
                                 style={{
                                     background: service.cardBackground || '#EDEDF6',
                                 }}
@@ -206,60 +105,44 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({
                                 <img
                                     src={service.image}
                                     alt={service.title}
-                                    className="w-[100px] h-[100px] object-contain mb-4 sm:w-[120px] sm:h-[120px] sm:mb-4 md:w-[200px] md:h-[200px] md:mb-0"
+                                    className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48
+                                        object-contain mb-3 sm:mb-0"
                                     loading="lazy"
                                 />
-                                <div className="flex flex-col justify-start text-center w-full px-2 md:text-left md:max-w-[262px] md:ml-2 md:mt-[-80px] md:flex-grow md:px-0 sm:text-center sm:max-w-full sm:mt-0">
-                                    <h3
-                                        className="text-[22px] md:text-[30px]"
-                                        style={{
-                                            fontFamily: service.titleStyle?.fontFamily,
-                                            fontWeight: service.titleStyle?.fontWeight,
-                                            lineHeight: service.titleStyle?.lineHeight,
-                                            letterSpacing: service.titleStyle?.letterSpacing,
-                                            textTransform: service.titleStyle?.textTransform,
-                                            color: service.titleStyle?.color,
-                                        }}
-                                    >
+                                <div className="flex flex-col justify-start w-full text-center sm:text-left
+                                    sm:w-auto sm:ml-4 md:ml-6 lg:ml-8
+                                    sm:flex-grow">
+                                    <h3 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold
+                                        font-['Be_Vietnam_Pro'] text-[#333374] leading-tight">
                                         {service.title}
                                     </h3>
                                     {service.tagline && (
-                                        <p
-                                            className="mt-2 text-sm leading-tight md:text-base md:leading-relaxed"
-                                            style={{
-                                                fontFamily: service.taglineStyle?.fontFamily,
-                                                fontWeight: service.taglineStyle?.fontWeight,
-                                                fontSize: service.taglineStyle?.fontSize,
-                                                lineHeight: window.innerWidth >= 768 ? '150%' : '140%',
-                                                letterSpacing: window.innerWidth >= 768 ? '0.03em' : '0.02em',
-                                                textTransform: service.taglineStyle?.textTransform,
-                                                color: service.taglineStyle?.color,
-                                                marginTop: service.taglineStyle?.marginTop,
-                                            }}
-                                        >
+                                        <p className="mt-2 text-sm sm:text-sm md:text-base lg:text-lg
+                                            font-['Be_Vietnam_Pro'] text-[#999999] leading-snug sm:leading-normal">
                                             {service.tagline}
                                         </p>
                                     )}
-                                    <div className="flex justify-center mt-5 md:mt-8 sm:mt-6">
-                                        <div className="w-[32px] h-[32px] bg-[#28285A] rounded-full flex items-center justify-center md:w-[36px] md:h-[36px] md:absolute md:bottom-6 md:right-6 sm:w-[32px] sm:h-[32px]">
-                                            <svg
-                                                width="12"
-                                                height="8"
-                                                viewBox="0 0 14 10"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="md:w-[14px] md:h-[10px] sm:w-[12px] sm:h-[8px]"
-                                            >
-                                                <path
-                                                    d="M1 5H13M13 5L9 1M13 5L9 9"
-                                                    stroke="white"
-                                                    strokeWidth="2"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                />
-                                            </svg>
-                                        </div>
-                                    </div>
+                                </div>
+                                <div className="w-8 h-8 bg-[#28285A] rounded-full
+                                    flex items-center justify-center
+                                    mt-4 sm:mt-0
+                                    sm:absolute sm:bottom-5 sm:right-5 md:bottom-6 md:right-6">
+                                    <svg
+                                        width="12"
+                                        height="8"
+                                        viewBox="0 0 14 10"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-3 h-2 sm:w-3.5 sm:h-2.5 md:w-4 md:h-3"
+                                    >
+                                        <path
+                                            d="M1 5H13M13 5L9 1M13 5L9 9"
+                                            stroke="white"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
                                 </div>
                             </div>
                         </div>
