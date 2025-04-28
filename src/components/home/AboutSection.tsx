@@ -400,7 +400,7 @@ const AboutSection = () => {
                           fontFamily: "Plus Jakarta Sans",
                           position: "relative",
                           marginTop: isMobile ? "-450px" : isTablet ? "-300px" : "0px",
-                          left: isMobile ? "150px" : isTablet ? "0px" : "200px", // Added 20px margin from left for mobile
+                          left: isMobile ? "136px" : isTablet ? "0px" : "200px", // Added 20px margin from left for mobile
                           transform: isMobile ? "translateX(-50%)" : "none", // Keep the transform for centering mobile
                       }}
                   >
