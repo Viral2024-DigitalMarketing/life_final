@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 import Navbar from '@/components/layout/Navbar.tsx';
 import Footer from '@/components/layout/Footer.tsx';
@@ -7,13 +8,21 @@ import { MapPin, Phone, Mail, Clock, Send, Check } from 'lucide-react';
 const Contact = () => {
     const sectionRefs = useRef<HTMLDivElement[]>([]);
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
-        subject: '',
+        reason: '',
         message: ''
     });
+
+    // Initialize EmailJS with Public Key
+    useEffect(() => {
+        emailjs.init("MikydQenH8f_SH65S"); // EmailJS Public Key
+    }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -49,10 +58,74 @@ const Contact = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    // Basic form validation
+    const validateForm = () => {
+        if (!formData.name.trim()) {
+            setError("Please enter your full name.");
+            return false;
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            setError("Please enter a valid email address.");
+            return false;
+        }
+        const phoneRegex = /^\+?[\d\s-]{10,}$/;
+        if (!phoneRegex.test(formData.phone)) {
+            setError("Please enter a valid phone number.");
+            return false;
+        }
+        if (!formData.reason) {
+            setError("Please select a reason.");
+            return false;
+        }
+        return true;
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Form submitted with data:", formData);
-        setFormSubmitted(true);
+        setError(null);
+        setSuccess(null);
+
+        if (!validateForm()) {
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            // Send email using EmailJS
+            const response = await emailjs.send(
+                "service_7ee1bih", // EmailJS Service ID
+                "template_6odi0nn", // EmailJS Template ID
+                {
+                    name: formData.name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    specialization: formData.reason,
+                }
+            );
+
+            console.log("Email sent successfully:", response);
+            setSuccess("Appointment request sent successfully!");
+            setFormSubmitted(true);
+
+            // Reset form fields
+            setFormData({
+                name: '',
+                email: '',
+                phone: '',
+                reason: '',
+                message: ''
+            });
+
+        } catch (err: any) {
+            console.error("Failed to send email:", err);
+            setError(
+                err.text || "Failed to send appointment request. Please try again."
+            );
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -96,56 +169,103 @@ const Contact = () => {
 
                             {/* Right side form */}
                             <div className="flex-1 mt-2">
-                                <form className="space-y-4 sm:space-y-6">
-                                    <div>
-                                        <label htmlFor="fullName" className="block text-black mb-2">Full Name</label>
-                                        <input
-                                            type="text"
-                                            id="fullName"
-                                            placeholder="Enter Your Full Name"
-                                            className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="mobileNumber" className="block text-black mb-2">Mobile Number</label>
-                                        <input
-                                            type="tel"
-                                            id="mobileNumber"
-                                            placeholder="Enter Your Mobile Number"
-                                            className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-black mb-2">Email</label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            placeholder="Enter Your Email"
-                                            className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="reason" className="block text-black mb-2">Choose Reason</label>
-                                        <select
-                                            id="reason"
-                                            className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                                        >
-                                            <option value="">Choose Reason</option>
-                                            <option value="consultation">Consultation</option>
-                                            <option value="checkup">Check-up</option>
-                                            <option value="emergency">Emergency</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                    <div>
+                                {formSubmitted ? (
+                                    <div className="flex flex-col items-center justify-center h-full p-8 text-center">
+                                        <div className="bg-green-100 rounded-full p-3 mb-4">
+                                            <Check className="h-8 w-8 text-green-600" />
+                                        </div>
+                                        <h3 className="text-xl font-bold text-black mb-2">Thank You!</h3>
+                                        <p className="text-gray-700">Your appointment request has been successfully submitted. We'll contact you shortly.</p>
                                         <button
-                                            type="submit"
-                                            className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition-colors duration-200"
+                                            onClick={() => setFormSubmitted(false)}
+                                            className="mt-6 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200"
                                         >
-                                            Submit
+                                            Submit Another Request
                                         </button>
                                     </div>
-                                </form>
+                                ) : (
+                                    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                                        <div>
+                                            <label htmlFor="name" className="block text-black mb-2">Full Name</label>
+                                            <input
+                                                type="text"
+                                                id="name"
+                                                name="name"
+                                                value={formData.name}
+                                                onChange={handleInputChange}
+                                                placeholder="Enter Your Full Name"
+                                                className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label htmlFor="phone" className="block text-black mb-2">Mobile Number</label>
+                                            <input
+                                                type="tel"
+                                                id="phone"
+                                                name="phone"
+                                                value={formData.phone}
+                                                onChange={handleInputChange}
+                                                placeholder="Enter Your Mobile Number"
+                                                className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label htmlFor="email" className="block text-black mb-2">Email</label>
+                                            <input
+                                                type="email"
+                                                id="email"
+                                                name="email"
+                                                value={formData.email}
+                                                onChange={handleInputChange}
+                                                placeholder="Enter Your Email"
+                                                className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label htmlFor="reason" className="block text-black mb-2">Choose Reason</label>
+                                            <select
+                                                id="reason"
+                                                name="reason"
+                                                value={formData.reason}
+                                                onChange={handleInputChange}
+                                                className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                                            >
+                                                <option value="">Choose Reason</option>
+                                                <option value="orthopedics">Orthopedics</option>
+                                                <option value="general-medicine">General Medicine</option>
+                                                <option value="dental">Dental</option>
+                                                <option value="ent">ENT</option>
+                                                <option value="plastic-surgery">Plastic Surgery</option>
+                                            </select>
+                                        </div>
+
+                                        {/* Success Message */}
+                                        {success && (
+                                            <p className="text-green-500 text-sm text-center">{success}</p>
+                                        )}
+
+                                        {/* Error Message */}
+                                        {error && (
+                                            <p className="text-red-500 text-sm text-center">{error}</p>
+                                        )}
+
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center"
+                                                disabled={isSubmitting}
+                                            >
+                                                {isSubmitting ? (
+                                                    <span>Submitting...</span>
+                                                ) : (
+                                                    <span className="flex items-center">
+                                                        Submit <Send className="ml-2 h-4 w-4" />
+                                                    </span>
+                                                )}
+                                            </button>
+                                        </div>
+                                    </form>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -203,7 +323,6 @@ const Contact = () => {
                                     </a>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </section>

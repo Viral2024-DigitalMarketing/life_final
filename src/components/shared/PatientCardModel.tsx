@@ -18,17 +18,14 @@ interface PatientCareModalProps {
 
 const PatientCardModal: React.FC<PatientCareModalProps> = ({ isOpen, onClose }) => {
     const contactDetails = [
-        {
-            title: "General Enquiry",
-            numbers: ["+91 8592859585", "+91 8592859585"],
-        },
+
         {
             title: "Appointment Booking",
-            numbers: ["+91 8597002535", "+91 8597002535"],
+            numbers: ["+91 7893521061"],
         },
         {
             title: "Emergency Services",
-            numbers: ["+91 7002585724", "+91 7002585724"],
+            numbers: ["+91 9030339116"],
         },
     ];
 

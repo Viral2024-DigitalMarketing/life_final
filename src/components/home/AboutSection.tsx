@@ -16,6 +16,8 @@ const AboutSection = () => {
     const floatingCardsRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [screenType, setScreenType] = useState('desktop'); // 'mobile', 'tablet', 'desktop', 'large', 'xlarge'
+    const [screenWidth, setScreenWidth] = useState(0); // Track actual screen width
+    const [screenHeight, setScreenHeight] = useState(0); // Track actual screen height
 
     // Data for floating cards - multiple cards per row
     const cardsData = [
@@ -53,6 +55,10 @@ const AboutSection = () => {
         // Check screen type based on width
         const checkScreenSize = () => {
             const width = window.innerWidth;
+            const height = window.innerHeight;
+            setScreenWidth(width); // Store actual width
+            setScreenHeight(height); // Store actual height
+
             if (width < 640) {
                 setScreenType('mobile');
             } else if (width >= 640 && width < 1024) {
@@ -324,13 +330,23 @@ const AboutSection = () => {
     const isDesktop = screenType === 'desktop';
     const isLarge = screenType === 'large';
     const isXLarge = screenType === 'xlarge';
-    const isLargeOrAbove = isLarge || isXLarge;
-    const isDesktopOrAbove = isDesktop || isLarge || isXLarge;
+    const isSpecificSize = screenWidth >= 1230 && screenWidth <= 1250 && screenHeight >= 1300 && screenHeight <= 1310;
+
+    // Calculate floating cards top position - move them down for specific screen size
+    const getFloatingCardsTopPosition = () => {
+        if (isSpecificSize) {
+            return '180px'; // Move down for 1237x1306 screen size
+        }
+        return '130px'; // Default position
+    };
 
     // Calculate consistent text distance from number across all screen sizes
     const getTextDistanceFromNumber = () => {
-        if (isMobile) {
-            return '215px'; // Adjusted for mobile (moved up 5px)
+        // Special case for the specific screen size 1237x1306
+        if (isSpecificSize) {
+            return '420px'; // Move text further down for the specific case
+        } else if (isMobile) {
+            return '215px'; // Adjusted for mobile
         } else if (isTablet) {
             return '240px'; // Consistent distance for tablet
         } else {
@@ -340,7 +356,10 @@ const AboutSection = () => {
 
     // Calculate the vertical margin for cards to prevent overlap - reduced for mobile
     const getCardsMarginTop = () => {
-        if (isMobile) {
+        // Special case for the specific screen size 1237x1306
+        if (isSpecificSize) {
+            return '10px'; // Very small margin to position cards just below the text
+        } else if (isMobile) {
             return '35vh'; // Reduced margin to move cards up on mobile
         } else if (isTablet) {
             return '45vh'; // Margin for tablet
@@ -381,7 +400,8 @@ const AboutSection = () => {
                           fontFamily: "Plus Jakarta Sans",
                           position: "relative",
                           marginTop: isMobile ? "-450px" : isTablet ? "-300px" : "0px",
-                          left: isMobile ? "0px" : isTablet ? "0px" : "200px", // Center for ALL mobile screens and tablet, 200px left for desktop+
+                          left: isMobile ? "150px" : isTablet ? "0px" : "200px", // Added 20px margin from left for mobile
+                          transform: isMobile ? "translateX(-50%)" : "none", // Keep the transform for centering mobile
                       }}
                   >
                     9
@@ -430,8 +450,9 @@ const AboutSection = () => {
             {!isMobile && (
                 <div
                     ref={floatingCardsRef}
-                    className="absolute left-0 right-0 top-[130px] w-full flex flex-col gap-6 pointer-events-none"
+                    className="absolute left-0 right-0 w-full flex flex-col gap-6 pointer-events-none"
                     style={{
+                        top: getFloatingCardsTopPosition(), // Dynamic top position for 1237x1306 screen size
                         maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0) 100%)',
                         WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0) 100%)',
                     }}
@@ -512,7 +533,9 @@ const AboutSection = () => {
                         ? 'top-[10vh] text-center'
                         : isTablet
                             ? 'top-[15vh] text-left'
-                            : 'text-left' // Desktop alignment 
+                            : isSpecificSize
+                                ? 'top-[40vh] text-left' // Special position for specific screen size
+                                : 'text-left' // Desktop alignment 
                 }`}
                 style={{
                     fontFamily: 'Be Vietnam Pro',
@@ -536,7 +559,7 @@ const AboutSection = () => {
             <div
                 className={`grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 md:gap-12 relative z-40 max-w-[1200px] mx-auto`} // Higher z-index to ensure cards appear above everything
                 style={{
-                    marginTop: getCardsMarginTop() // Dynamic margin based on screen size to prevent overlap
+                    marginTop: isSpecificSize ? (getTextDistanceFromNumber() + 60) + 'px' : getCardsMarginTop() // For 1237x1306: Position cards directly under text with 10px gap
                 }}
             >
                 {[1, 2].map((_, idx) => (

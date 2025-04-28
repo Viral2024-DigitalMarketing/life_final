@@ -324,8 +324,8 @@ const Navbar: React.FC<NavbarProps> = () => {
                     >
                       <h3 style={serviceHeadingStyle}>General Enquiry</h3>
                       <div className="mt-2 space-y-1">
-                        <p style={subHeadingStyle}>+91 8592859585</p>
-                        <p style={subHeadingStyle}>+91 8592859585</p>
+
+                        <p style={subHeadingStyle}>+91 7893521061</p>
                       </div>
                     </div>
 
@@ -336,8 +336,8 @@ const Navbar: React.FC<NavbarProps> = () => {
                     >
                       <h3 style={serviceHeadingStyle}>Appointment Booking</h3>
                       <div className="mt-2 space-y-1">
-                        <p style={subHeadingStyle}>+91 8597002535</p>
-                        <p style={subHeadingStyle}>+91 8597002535</p>
+                        <p style={subHeadingStyle}>+91 7893521061</p>
+
                       </div>
                     </div>
                   </div>
@@ -351,8 +351,8 @@ const Navbar: React.FC<NavbarProps> = () => {
                     >
                       <h3 style={serviceHeadingStyle} className="text-red-600">Emergency Services</h3>
                       <div className="mt-2 space-y-1">
-                        <p style={subHeadingStyle}>+91 7002585724</p>
-                        <p style={subHeadingStyle}>+91 7002585724</p>
+                        <p style={subHeadingStyle}>+91 9030339116</p>
+
                       </div>
                     </div>
                   </div>
@@ -413,7 +413,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   }`}
               >
                 <Headset size={18} />
-                <span className="font-medium text-sm mr-4 xl:mr-[70px]">+91 7002585724</span>
+                <span className="font-medium text-sm mr-4 xl:mr-[70px]">+91 7893521061</span>
               </a>
               <div className="flex items-center gap-4 xl:gap-6 mt-2">
                 <Button
@@ -521,7 +521,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                     <div className="mb-3">
                       <h3 className="font-medium text-sm sm:text-base text-red-600">Emergency Services</h3>
                       <div className="mt-1">
-                        <a href="tel:+917002585724" className="block text-xs sm:text-sm text-gray-700 hover:text-red-600 transition-colors">+91 7002585724</a>
+                        <a href="tel:+917002585724" className="block text-xs sm:text-sm text-gray-700 hover:text-red-600 transition-colors">+91 9030339116</a>
                       </div>
                     </div>
 
@@ -529,7 +529,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                     <div>
                       <h3 className="font-medium text-sm sm:text-base text-gray-900">Appointment Booking</h3>
                       <div className="mt-1">
-                        <a href="tel:+918597002535" className="block text-xs sm:text-sm text-gray-700 hover:text-hospital-blue transition-colors">+91 8597002535</a>
+                        <a href="tel:+918597002535" className="block text-xs sm:text-sm text-gray-700 hover:text-hospital-blue transition-colors">+91 7893521061</a>
                       </div>
                     </div>
                   </div>
@@ -542,7 +542,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                 <div className="flex items-center justify-center gap-2">
                   <Phone size={16} className="text-hospital-blue" />
                   <a href="tel:+917002585724" className="text-sm hover:text-hospital-blue transition-colors">
-                    +91 7002585724
+                    +91 7893521061
                   </a>
                 </div>
 
