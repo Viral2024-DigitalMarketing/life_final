@@ -49,13 +49,13 @@ const FaqSection = () => {
       id: 2,
       question: 'How can I find a specific doctor or specialist at Life Hospital?',
       answer:
-          'You can find a specific doctor or specialist at Life Hospital through multiple channels. Visit our website\'s physician directory where you can search by name, specialty, or health condition. Our patient care helpline at +91 7763545463 can also help match you with an appropriate specialist based on your needs. Additionally, you can visit our front desk in person where our staff will guide you to the right healthcare professional. For specialized referrals, your primary care physician can directly connect you with the appropriate specialist within our network.',
+          'You can find a specific doctor or specialist at Life Hospital through multiple channels. Visit our website\'s physician directory where you can search by name, specialty, or health condition. Our patient care helpline at +91 9030339116 can also help match you with an appropriate specialist based on your needs. Additionally, you can visit our front desk in person where our staff will guide you to the right healthcare professional. For specialized referrals, your primary care physician can directly connect you with the appropriate specialist within our network.',
     },
     {
       id: 3,
       question: 'What insurance plans does Life Hospital accept and how do I know if my plan is covered?',
       answer:
-          'Life Hospital accepts most major insurance plans including leading national and regional providers. To verify if your specific insurance is accepted, you can: 1) Contact our billing department at +91 7763545463 with your policy details for immediate verification, 2) Check our website\'s insurance information page where we maintain an updated list of accepted providers, 3) Call your insurance provider directly and ask if Life Hospital is in-network, or 4) Visit our administrative office with your insurance card for in-person verification. We also offer financial counseling services to help navigate coverage questions and payment options.',
+          'Life Hospital accepts most major insurance plans including leading national and regional providers. To verify if your specific insurance is accepted, you can: 1) Contact our billing department at +91 9030339116 with your policy details for immediate verification, 2) Check our website\'s insurance information page where we maintain an updated list of accepted providers, 3) Call your insurance provider directly and ask if Life Hospital is in-network, or 4) Visit our administrative office with your insurance card for in-person verification. We also offer financial counseling services to help navigate coverage questions and payment options.',
     },
     {
       id: 4,
