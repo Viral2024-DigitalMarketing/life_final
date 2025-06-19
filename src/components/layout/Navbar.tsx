@@ -325,7 +325,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                       <h3 style={serviceHeadingStyle}>General Enquiry</h3>
                       <div className="mt-2 space-y-1">
 
-                        <p style={subHeadingStyle}>+91 7893521061</p>
+                        <p style={subHeadingStyle}>+91 9030339116</p>
                       </div>
                     </div>
 
