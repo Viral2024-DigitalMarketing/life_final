@@ -53,10 +53,10 @@ const AppointmentModal = ({ isOpen, onClose }) => {
             >
                 <div className="text-center mb-5 sm:mb-8 mt-2 sm:mt-0 w-full max-w-[400px]">
                     <h1 className="font-merriweather font-bold text-[20px] sm:text-[32px] leading-[26px] sm:leading-[40px] text-[#111827]">
-                        Book your appointment now
+                        Book your appointment now at 50% off. 
                     </h1>
                     <p className="font-product-sans mt-1 sm:mt-2 text-[13px] sm:text-[16px] leading-[18px] sm:leading-[22px] text-[#111827]">
-                        So our team can reach out to you on time
+                        Only valid for Total Knee Replacement - from June 24th to July 24th
                     </p>
                 </div>
                 <form
