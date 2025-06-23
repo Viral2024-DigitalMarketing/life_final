@@ -165,7 +165,7 @@ const WhyChooseSection = () => {
         rootMargin: '50px 0px'
     });
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(true);
     const animationStarted = useRef(false);
     const section1Animated = useRef(false);
     const section2Animated = useRef(false);
