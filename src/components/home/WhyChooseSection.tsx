@@ -130,6 +130,8 @@ const AppointmentModal = ({ isOpen, onClose }) => {
                                 <SelectItem value="dental">Dental</SelectItem>
                                 <SelectItem value="ent">ENT</SelectItem>
                                 <SelectItem value="plastic-surgery">Plastic Surgery</SelectItem>
+                                <SelectItem value="total-knee-replacement">Total Knee Replacement(TKR)</SelectItem>
+                                <SelectItem value="total-hip-replacement">Total Hip Replacement (THR) </SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
